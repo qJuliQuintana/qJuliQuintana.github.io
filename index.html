@@ -99,6 +99,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .tr{justify-self:end;display:flex;gap:20px;align-items:center}
 .tr a{color:var(--ash)}.tr a:hover{color:var(--ink)}
 .here{display:none}
+/* language switch: the current language in ink, the other one waiting in ash */
+.lang{display:inline-flex;align-items:center;gap:.5em;min-height:32px}
+.lang span{color:var(--ash);transition:color .3s}
+.lang i{font-style:normal;color:var(--rule)}
+.lang:hover span,.lang span.on{color:var(--ink)}
+.lang span.on{box-shadow:inset 0 -2px var(--accent)}
+/* while the words change the page dims for a moment; the ink keeps moving underneath */
+.lang-fade body>:not(#ink){transition:opacity .28s ease}
+.lang-out body>:not(#ink){opacity:0}
 .menuBtn{display:none}
 .bar{position:absolute;left:0;bottom:6px;height:1px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--ink);opacity:0;transition:opacity .4s}
 .in-doc .bar{opacity:.5}
@@ -507,7 +516,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   <button class="logo" type="button" data-hero aria-label="Rem Design, inicio"><svg class="mark" viewBox="16 64 352 336" aria-hidden="true"><mask id="mink"><rect x="0" y="0" width="400" height="400" fill="#fff"/><circle cx="312" cy="116" r="62" fill="#000"/><g class="eye"><path d="M150,214 Q200,175 250,214 Q200,253 150,214 Z" fill="#000"/><circle class="pupil" cx="200" cy="214" r="17" fill="#fff"/></g></mask><g fill="currentColor"><path mask="url(#mink)" d="M200,318 C268,318 326,280 326,214 C326,150 272,104 202,104 C140,104 100,146 104,200 C72,210 58,240 66,268 C74,298 100,318 132,318 Z"/><circle cx="322" cy="104" r="17"/><circle cx="72" cy="344" r="16"/><circle cx="42" cy="372" r="9"/></g></svg><b>Rem</b> <span>Design</span></button>
   <nav class="nav micro" aria-label="Secciones"></nav>
   <span class="here micro" aria-live="polite"></span>
-  <div class="tr micro"><a class="cv" href="JulianaQuintanaCV.pdf" target="_blank" rel="noopener">Descargar CV ↓</a><button class="menuBtn" type="button" aria-expanded="false">Menú</button></div>
+  <div class="tr micro"><button class="lang" type="button"><span lang="es">ES</span><i aria-hidden="true">/</i><span lang="en">EN</span></button><a class="cv" href="JulianaQuintanaCV.pdf" target="_blank" rel="noopener">Descargar CV ↓</a><button class="menuBtn" type="button" aria-expanded="false">Menú</button></div>
   <i class="bar" aria-hidden="true"></i>
 </header>
 <div class="menu" aria-hidden="true"></div>
@@ -765,6 +774,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   </div>
 </div>
 
+<script src="en.js"></script>
 <script>
 (()=>{
 const root=document.documentElement;
@@ -775,11 +785,13 @@ const now=()=>performance.now()/1000;
 const hero=document.querySelector('.hero'), doc=document.querySelector('.doc');
 const secs=[...document.querySelectorAll('.sec')];
 
-/* ---------- letter-spaced titles ---------- */
-document.querySelectorAll('.spread').forEach(h=>{
-  h.setAttribute('aria-label',h.textContent.trim());
+/* ---------- letter-spaced titles (rebuilt when the language changes) ---------- */
+function spread(h){
+  if(h._lines===h.dataset.lines) return; h._lines=h.dataset.lines;
+  h.setAttribute('aria-label',h.dataset.lines.replace(/\|/g,' '));
   h.innerHTML=h.dataset.lines.split('|').map(l=>'<span class="ln" aria-hidden="true">'+[...l].map(c=>c===' '?'<span>&nbsp;</span>':'<span>'+c+'</span>').join('')+'</span>').join('');
-});
+}
+document.querySelectorAll('.spread').forEach(spread);
 
 /* ---------- navigation: header links, mobile menu, current section ---------- */
 const nav=document.querySelector('.nav'), menu=document.querySelector('.menu'), here=document.querySelector('.here'), bar=document.querySelector('.bar'), menuBtn=document.querySelector('.menuBtn');
@@ -789,7 +801,7 @@ function moveInd(){ const b=navBtns[curSec]; if(!b) return; ind.style.width=b.of
 menu.innerHTML='<div class="mhead"><i class="grab"></i><button class="mclose" type="button">Cerrar ✕</button></div>'+secs.map((s,i)=>`<button type="button" data-to="${s.id}"><span>0${i+1}</span>${s.dataset.name}</button>`).join('')+`<button type="button" data-hero><span>00</span>Inicio</button><a class="mcv micro" href="JulianaQuintanaCV.pdf" target="_blank" rel="noopener">Descargar CV ↓</a>`;
 const navBtns=[...nav.querySelectorAll('button')];
 const scrim=document.createElement('div'); scrim.className='scrim'; menu.before(scrim);
-function setMenu(o){ menu.classList.toggle('open',o); scrim.classList.toggle('open',o); menu.style.transform=''; menu.setAttribute('aria-hidden',!o); menuBtn.setAttribute('aria-expanded',o); menuBtn.textContent=o?'Cerrar':'Menú'; }
+function setMenu(o){ menu.classList.toggle('open',o); scrim.classList.toggle('open',o); menu.style.transform=''; menu.setAttribute('aria-hidden',!o); menuBtn.setAttribute('aria-expanded',o); menuBtn.textContent=say(o?'Cerrar':'Menú'); }
 menuBtn.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
 scrim.addEventListener('click',()=>setMenu(false));
 menu.querySelector('.mclose').addEventListener('click',()=>setMenu(false));
@@ -800,6 +812,47 @@ addEventListener('keydown',e=>{ if(e.key==='Escape'&&menu.classList.contains('op
   hd.addEventListener('pointermove',e=>{ if(y0===null) return; dy=Math.max(0,e.clientY-y0); menu.style.transform=`translateY(${dy}px)`; });
   const end=()=>{ if(y0===null) return; y0=null; menu.classList.remove('drag'); if(dy>70) setMenu(false); else menu.style.transform=''; };
   hd.addEventListener('pointerup',end); hd.addEventListener('pointercancel',end); }
+
+/* ---------- language: the page is written in Spanish; English comes from REM_EN and is swapped in place ---------- */
+const EN=window.REM_EN||{}, norm=s=>s.replace(/\s+/g,' ').trim(), LATTR=['aria-label','alt','data-name','data-lines'];
+const asked=new URLSearchParams(location.search).get('lang');
+let lang=['es','en'].includes(asked)?asked:(()=>{ try{ return localStorage.getItem('lang'); }catch(e){ return null; } })()
+  ||(/^es\b/i.test(navigator.language||'es')||/bot|crawl|spider|lighthouse/i.test(navigator.userAgent)?'es':'en');   // crawlers keep the Spanish page
+const say=s=>lang==='en'&&EN[norm(s)]||s;
+const words=[];   // [node, attribute or null, Spanish], kept so either language can be put back
+function adopt(el){
+  const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,{acceptNode:n=>!n.parentElement.closest('script,style,svg')&&EN[norm(n.nodeValue)]?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT});
+  for(let n;(n=w.nextNode());) words.push([n,null,n.nodeValue]);
+  [el,...el.querySelectorAll('['+LATTR.join('],[')+']')].forEach(x=>LATTR.forEach(a=>{ const v=x.getAttribute&&x.getAttribute(a); if(v&&EN[norm(v)]) words.push([x,a,v]); }));
+}
+const TITLE=document.title, metaD=document.querySelector('meta[name="description"]'), DESC=metaD.content, langBtn=document.querySelector('.lang');
+function put(){
+  words.forEach(([n,a,es])=>{ const v=lang==='en'?es.match(/^\s*/)[0]+EN[norm(es)]+es.match(/\s*$/)[0]:es; if(a) n.setAttribute(a,lang==='en'?EN[norm(es)]:es); else n.nodeValue=v; });
+  root.lang=lang==='en'?'en':'es-CO'; document.title=say(TITLE); metaD.content=say(DESC);
+  document.querySelectorAll('.spread').forEach(spread);
+  langBtn.querySelectorAll('[lang]').forEach(s=>s.classList.toggle('on',s.lang===lang));
+  langBtn.setAttribute('aria-label',lang==='en'?'Ver en español':'View in English');
+}
+adopt(document.body); put();
+langBtn.addEventListener('click',()=>{
+  lang=lang==='en'?'es':'en';
+  try{ localStorage.setItem('lang',lang); }catch(e){}
+  const url=new URL(location.href); url.searchParams.set('lang',lang); history.replaceState(null,'',url);
+  root.classList.add('lang-fade','lang-out');
+  if(gl&&!reduce&&loaded){ T.start=now(); T.kind='lang'; }   // a turn of the ink carries the change
+  setTimeout(()=>{ put(); relabel(); root.classList.remove('lang-out'); setTimeout(()=>root.classList.remove('lang-fade'),300); },reduce?0:280);
+});
+// the words the script writes itself
+function relabel(){
+  curP=-1; layout();
+  strips.forEach((a,i)=>a.setAttribute('aria-label',PROJ[i].soon?say('Próximamente'):say('Ver caso')+' '+PROJ[i].name));
+  if(openIdx>=0) renderCover(openIdx);
+  menuBtn.textContent=say(menu.classList.contains('open')?'Cerrar':'Menú');
+  document.querySelectorAll('.xp').forEach(d=>d.querySelector('.tog').textContent=say(d.classList.contains('open')?'Logros −':'Logros +'));
+  document.querySelectorAll('[data-copy]').forEach(b=>b.textContent=say('Copiar'));
+  if(mode==='doc'){ curSec=-1; spy(); }
+}
+
 let curSec=-1;
 function spy(){
   const y=doc.scrollTop, H=innerHeight; let k=0;
@@ -816,12 +869,12 @@ function clearSpy(){ curSec=-1; navBtns.forEach(b=>b.classList.remove('on')); in
 /* ---------- copy email ---------- */
 document.querySelectorAll('.xp').forEach(d=>{
   const btn=d.querySelector('.sum'), tog=d.querySelector('.tog');
-  btn.addEventListener('click',()=>{ const o=d.classList.toggle('open'); btn.setAttribute('aria-expanded',o); tog.textContent=o?'Logros −':'Logros +'; });
+  btn.addEventListener('click',()=>{ const o=d.classList.toggle('open'); btn.setAttribute('aria-expanded',o); tog.textContent=say(o?'Logros −':'Logros +'); });
 });
 document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{
-  try{ await navigator.clipboard.writeText(b.dataset.copy); b.textContent='Copiado'; }
-  catch(e){ const r=document.createRange(); r.selectNodeContents(b.previousElementSibling); const s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selecciónalo y copia'; }
-  setTimeout(()=>b.textContent='Copiar',2200);
+  try{ await navigator.clipboard.writeText(b.dataset.copy); b.textContent=say('Copiado'); }
+  catch(e){ const r=document.createRange(); r.selectNodeContents(b.previousElementSibling); const s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent=say('Selecciónalo y copia'); }
+  setTimeout(()=>b.textContent=say('Copiar'),2200);
 }));
 
 /* ---------- opening ⇄ page ---------- */
@@ -872,7 +925,8 @@ const NP=PROJ.filter(p=>!p.soon).length, caseIds=PROJ.filter(p=>!p.soon).map(p=>
 const pin=document.querySelector('.pin'), rail=pin.querySelector('.rail'), track=rail.querySelector('.track'), hcap=rail.querySelector('.hcap');
 const hT=hcap.querySelector('b'), hS=hcap.querySelector('.hs');
 const strips=PROJ.map(p=>{ const a=document.createElement('button'); a.type='button'; a.className='strip '+p.cls; a.tabIndex=-1;
-  a.setAttribute('aria-label',p.soon?'Próximamente':'Ver caso '+p.name); a.innerHTML='<span class="strip__img"><span class="strip__in">'+p.mock+'</span></span>'; track.appendChild(a); return a; });
+  a.setAttribute('aria-label',p.soon?say('Próximamente'):say('Ver caso')+' '+p.name); a.innerHTML='<span class="strip__img"><span class="strip__in">'+p.mock+'</span></span>'; track.appendChild(a); return a; });
+adopt(track); put();
 const N=strips.length;
 // target: where the page scroll puts the ribbon (in strips); u eases toward it; a lagging copy gives the speed that swells the band
 let target=0, u=0, lagU=0, lat=0, bulge=0, rraf=0, curP=-1, touching=false;
@@ -921,8 +975,8 @@ function layout(){
   hcap.style.top=`calc(50% + ${Math.round(s.h*(1+s.amp*.5)/2+30)}px)`;
   const idx=Math.round(clampU(u)); strips[idx].tabIndex=0; rPrev.disabled=target<=0; rNext.disabled=target>=N-1;
   if(idx!==curP){ curP=idx; const p=PROJ[idx];
-    hT.textContent=p.name; hT.style.color=p.pc||'';
-    hS.textContent=`0${idx+1} / 0${N} · ${p.sub}`; }
+    hT.textContent=say(p.name); hT.style.color=p.pc||'';
+    hS.textContent=`0${idx+1} / 0${N} · ${say(p.sub)}`; }
 }
 let settleT=0;
 const settle=ms=>{ clearTimeout(settleT); settleT=setTimeout(()=>go(Math.round(target)),ms); };
@@ -957,14 +1011,14 @@ const wrap=i=>(i+NP)%NP;
 function renderCover(i){
   const p=PROJ[i], l=PROJ[wrap(i-1)], r=PROJ[wrap(i+1)];
   cover.className='cover '+p.id;
-  covC.className='cov cov--c '+p.cls; covC.innerHTML=p.mock; covC.setAttribute('aria-label','Explorar '+p.name);
+  covC.className='cov cov--c '+p.cls; covC.innerHTML=p.mock; covC.setAttribute('aria-label',say('Explorar')+' '+p.name);
   covL.className='cov cov--l '+l.cls; covL.innerHTML=l.mock; covL.setAttribute('aria-label',l.name);
   covR.className='cov cov--r '+r.cls; covR.innerHTML=r.mock; covR.setAttribute('aria-label',r.name);
   let k=0; letters.innerHTML=p.words.map(w=>'<span class="w" aria-hidden="true">'+[...w].map(c=>`<i style="--i:${k++}">${c}</i>`).join('')+'</span>').join('<i class="sp" aria-hidden="true"></i>');
   letters.setAttribute('aria-label',p.name); letters.style.color=p.pc; letters.style.setProperty('--n',Math.max(5,...p.words.map(w=>w.length))); cover.style.setProperty('--n',p.words.join('').length+p.words.length-1);
-  cover.querySelector('.m-y').textContent=p.year; cover.querySelector('.m-t').textContent=p.type; cover.querySelector('.m-r').textContent=p.role; cover.querySelector('.m-c').textContent=p.client;
-  cover.querySelector('.cdesc').textContent=p.desc;
-  vno.textContent=`Caso 0${i+1} / 0${NP} · ${p.name}`;
+  cover.querySelector('.m-y').textContent=p.year; cover.querySelector('.m-t').textContent=say(p.type); cover.querySelector('.m-r').textContent=say(p.role); cover.querySelector('.m-c').textContent=p.client;
+  cover.querySelector('.cdesc').textContent=say(p.desc);
+  vno.textContent=`${say('Caso')} 0${i+1} / 0${NP} · ${p.name}`;
   cases.forEach((c,n)=>{ c.classList.toggle('on',n===i); c.querySelectorAll('.rv').forEach(el=>el.classList.toggle('vis',n===i)); });
 }
 function enter(){ cover.classList.remove('entering'); void cover.offsetWidth; cover.classList.add('entering'); clearTimeout(enter._t); enter._t=setTimeout(()=>cover.classList.remove('entering'),1700); }
