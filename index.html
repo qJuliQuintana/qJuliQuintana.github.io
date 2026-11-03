@@ -366,6 +366,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .case .body{grid-column:6/13;display:grid;gap:36px;align-content:start}
 .case .blk{display:grid;gap:10px}
 .case .blk p{max-width:34em}
+.case.jausme .id dl{grid-template-columns:max-content minmax(0,1fr)}
+.case.jausme .id dt{white-space:nowrap}
+.case.jausme .strengths{grid-template-columns:repeat(2,minmax(0,1fr))}
+.case .jausme-mobile-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 /* screenshots: put the file in the img src and remove hidden; until then the frame shows its label */
 .shot{margin:0;position:relative;display:grid;place-items:center;border:1px dashed var(--rule);background:rgba(23,18,29,.03);overflow:hidden}
 .shot--desk{aspect-ratio:16/10;width:100%}.shot--mob{aspect-ratio:9/19.5;width:min(100%,260px);justify-self:center}
@@ -424,7 +428,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .trio .str{grid-column:1/7}.trio .tools{grid-column:7/10}.trio .int{grid-column:10/13}
 .trio h3{padding-bottom:12px;border-bottom:1px solid var(--ink);margin-bottom:6px}
 .strengths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px;padding-top:10px}
-.strengths li{display:grid;gap:4px}
+.strengths li{display:grid;gap:4px;align-content:start}
 .plain{display:grid;gap:4px;padding-top:10px}
 .plain.two{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:column;grid-template-rows:repeat(4,auto);column-gap:16px}
 .int .plain.two{grid-template-rows:repeat(3,auto)}
@@ -495,12 +499,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .steps{grid-template-columns:minmax(0,1fr);gap:18px}
   .path .exp,.path .edu,.trio .str,.trio .tools,.trio .int{grid-column:1/-1}
   .strengths{grid-template-columns:minmax(0,1fr)}
+  .case.jausme .strengths{grid-template-columns:minmax(0,1fr)}
   .row{grid-template-columns:86px minmax(0,1fr)}
   .xp .sum{grid-template-columns:86px minmax(0,1fr);gap:4px 16px}
   .xp .tog{grid-column:2}
   .xp .ach{padding-left:102px}
   .contact .links{grid-template-columns:minmax(0,1fr)}
 }
+@media (max-width:600px){.case .jausme-mobile-row{grid-template-columns:minmax(0,1fr)}}
 /* phones: blur transitions on big text and on the whole page re-render every frame and make the ink stutter, so they only fade */
 @media (max-width:900px),(pointer:coarse){
   .hero .spread,.hero.leaving .spread,.hero.leaving .sup,.hero.leaving .head,.hero.leaving .foot,.doc,.in-doc .doc,.rail.is-opening .strip{filter:none!important}
@@ -568,7 +574,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="path">
       <div class="col exp rv"><h3 class="micro">Experiencia</h3>
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2024 — 2026</time><div><b>JG Signs</b><span class="small">Product designer · UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Audité el sistema anterior y reorganicé su arquitectura de 11 a 13 módulos, con sus flujos y subflujos.</li><li>Rediseñé seis flujos completos (estimados, servicios, proyectos, inventario, vehículos y finanzas) partiendo del rol administrador, con diseño responsive para desktop, tablet y mobile.</li><li>Simplifiqué las fases de un proyecto de siete a cuatro, validando cada flujo con el cliente en prototipos de Figma.</li><li>Construí un design system de más de 100 componentes con Atomic Design, tokens y variables, compartido con desarrollo.</li><li>Definí los estados de cada registro y mensajes del sistema que explican qué pasó y qué hacer.</li><li>Diseñé nuevas funcionalidades: tablero de tareas, chat por proyecto y gestión de fases y documentos.</li></ul></div></div></div>
-        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2023 — 2024</time><div><b>Jausme</b><span class="small">Diseñadora UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Definí y diseñé un aplicativo web y móvil para administrar conjuntos residenciales; una primera versión, con el flujo básico de administración, se publicó en tienda.</li><li>Definí y prototipé experiencias diferenciadas para residentes, administradores y guardas de seguridad.</li><li>Diseñé los flujos de comunicación, reservas, visitantes y parqueaderos.</li><li>Identifiqué las fricciones principales (comunicación, pagos y visitas) y las resolví en el diseño.</li><li>Diseñé la experiencia multiplataforma (web y móvil) con consistencia entre dispositivos.</li></ul></div></div></div>
+        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2023 — 2024</time><div><b>Jausme</b><span class="small">Diseñadora UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Definí la experiencia web y móvil de una aplicación para administrar conjuntos residenciales.</li><li>Definí y prototipé experiencias diferenciadas para residentes, administradores y guardas de seguridad.</li><li>Diseñé los flujos de comunicación, reservas, visitantes y parqueaderos.</li><li>Identifiqué las fricciones principales (comunicación, pagos y visitas) y las resolví en el diseño.</li><li>Diseñé la experiencia multiplataforma (web y móvil) con consistencia entre dispositivos.</li></ul></div></div></div>
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2022 — 2023</time><div><b>Leo Burnett</b><span class="small">Diseñadora web · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Prototipé y optimicé interfaces en alta fidelidad con principios de diseño centrado en el usuario.</li><li>Mejoré la arquitectura de la información con flujos y jerarquías claras para la navegación.</li><li>Colaboré con desarrollo para asegurar la correcta implementación en el producto final.</li><li>Diseñé piezas digitales: redes sociales, PDFs, infografías, presentaciones y correos HTML.</li></ul></div></div></div>
         <div class="row"><time>2026</time><div><b>Jersson Dev</b><span class="small">Freelance · Web profesional</span></div></div>
       </div>
@@ -739,20 +745,106 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
        <div class="id rv">
          <span class="no micro">Caso 02</span>
          <p class="what">Administración de conjuntos residenciales</p>
-         <dl><dt>Rol</dt><dd>Diseñadora UX/UI</dd><dt>Usuarios</dt><dd>Residentes, administradores y guardas de seguridad</dd><dt>Plataformas</dt><dd>Web y móvil</dd><dt>Herramientas</dt><dd>Figma, FigJam, Illustrator</dd><dt>Estado</dt><dd>Primera versión publicada en tienda, sin terminar</dd></dl>
+         <dl><dt>Rol</dt><dd>Diseñadora UX/UI y de producto</dd><dt>Usuarios</dt><dd>Residentes, vigilantes y administradores</dd><dt>Plataformas</dt><dd>Responsive: móvil, tablet y escritorio</dd><dt>Herramientas</dt><dd>Figma, FigJam, Claude AI</dd><dt>Estado</dt><dd>Producto nuevo · diseño desde cero · prototipo de alta fidelidad · sin desarrollo · 2026</dd></dl>
        </div>
        <div class="body">
-         <div class="blk rv"><span class="micro kicker">Qué es</span><p>Una app web y móvil para la vida diaria de un conjunto residencial: comunicación entre administración, seguridad y residentes, reservas, visitantes y parqueaderos.</p></div>
-         <div class="blk rv"><span class="micro kicker">El reto</span><p class="reto">Convertir procesos administrativos complejos en una sola app que sirviera a tres tipos de usuario con necesidades distintas.</p></div>
-         <div class="blk rv"><span class="micro kicker">Lo que hice</span><ul class="did">
-           <li>Definí y prototipé experiencias diferenciadas para residentes, administración y seguridad.</li>
-           <li>Diseñé los flujos de comunicación, reservas, visitantes y parqueaderos.</li>
-           <li>Identifiqué las fricciones principales, comunicación, pagos y visitas, y las resolví en el diseño.</li>
-           <li>Diseñé la experiencia multiplataforma (web y móvil) con consistencia entre dispositivos.</li></ul></div>
-         <div class="blk rv"><span class="micro kicker">Qué cambió</span><ul class="out">
-           <li><b>3 roles, 1 app</b><span class="small">Cada usuario encuentra lo suyo en el mismo producto.</span></li>
-           <li><b>Del diseño a producción</b><span class="small">Una primera versión, con el flujo básico de administración, se publicó en tienda.</span></li>
-           <li><b>Multiplataforma</b><span class="small">La misma experiencia en web y en el celular.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Contexto</span><p>Jausme es un producto digital nuevo, concebido desde cero para administrar conjuntos residenciales en Colombia. La propuesta reúne en una sola plataforma web y móvil tareas que suelen resolverse por separado: el residente gestiona pagos, visitas y paquetes; el vigilante controla el acceso y registra lo que llega a portería; y la administración recauda, comunica y responde solicitudes. En el día a día, esa coordinación depende de grupos de chat, citofonía, cuadernos de portería y consignaciones con soportes en papel. El diseño parte de ese contexto operativo y define una experiencia compartida, con herramientas específicas para cada rol.</p></div>
+         <div class="blk rv"><span class="micro kicker">El reto</span><p class="reto">Crear la estructura del producto y conectar sus tareas principales de punta a punta. Cada flujo debía indicar quién lo inicia, quién debe actuar después, qué información necesita y cómo se comunica el resultado: desde que un residente registra una visita hasta que vigilancia valida su acceso; desde la creación de un PQR hasta la respuesta de administración; y desde una solicitud de reserva hasta su aprobación. También debía funcionar para personas con distintos niveles de familiaridad digital y para un vigilante que trabaja con interrupciones durante su turno.</p></div>
+         <div class="blk rv"><span class="micro kicker">Metodología</span><p>Diseñé el producto mediante investigación de escritorio, definición funcional y prototipado. No realicé entrevistas ni pruebas de usabilidad; las proto-personas son hipótesis pendientes de validar.</p><ol class="dec">
+           <li><b>Entendimiento del dominio.</b><span>Documenté las tareas residenciales y los canales de coordinación entre residentes, vigilancia y administración para delimitar el alcance del producto.</span></li>
+           <li><b>Especificación con el dueño del producto.</b><span>Diez preguntas concretaron reglas de negocio: cómo validar visitas, qué estados tiene un PQR, quién aprueba reservas, cómo confirmar entregas y a quién llega cada notificación.</span></li>
+           <li><b>Arquitectura de roles y flujos.</b><span>Definí las responsabilidades de cada rol y conecté sus acciones en ocho flujos completos, incluyendo estados, datos requeridos y traspasos entre personas.</span></li>
+           <li><b>Evaluación heurística.</b><span>Revisé los flujos y las pantallas con las heurísticas de Nielsen y las leyes de UX (Hick, Fitts, Jakob y carga cognitiva), con atención a formularios, opciones y decisiones de varios pasos.</span></li>
+           <li><b>Benchmark visual.</b><span>Tomé una app bancaria como referencia para las cifras grandes, los paneles claros y las acciones en pastilla, porque los pagos son una tarea sensible para el residente.</span></li>
+           <li><b>Iteración por rondas de crítica.</b><span>Cuestioné y argumenté cada ajuste antes de incorporarlo, comprobando su efecto en los tres roles y en los distintos tamaños.</span></li></ol></div>
+         <div class="blk rv"><span class="micro kicker">Necesidades de producto</span><ul class="did">
+           <li><span><b>Coordinación entre roles.</b> Visitas, PQR, reservas, comunicados, pagos, paquetería, parqueaderos y notificaciones requieren que residentes, vigilancia y administración actúen sobre la misma información.</span></li>
+           <li><span><b>Acceso controlado.</b> La visita necesita un código que el residente pueda compartir y que vigilancia pueda validar, con vigencia, nombre y apartamento.</span></li>
+           <li><span><b>Solicitudes con seguimiento.</b> Los PQR requieren estados visibles y un canal para que administración responda; las reservas necesitan decisión y notificación.</span></li>
+           <li><span><b>Pagos comprensibles.</b> Pagar dentro de la app y reportar un pago externo son acciones distintas; el soporte debe quedar pendiente hasta la confirmación administrativa.</span></li>
+           <li><span><b>Registro en portería.</b> La recepción, entrega o devolución de paquetes y la ocupación de parqueaderos deben quedar documentadas.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Usuarios y proto-personas</span><p>El producto articula tres perspectivas: la del residente desde su apartamento, la del vigilante desde la portería y la de la administración sobre el conjunto completo. Dentro del residente se distingue a quien necesita el modo sencillo. Las siguientes proto-personas son hipótesis basadas en la especificación y el conocimiento del dominio; están pendientes de validación con usuarios reales.</p>
+           <ul class="strengths">
+             <li><b>Laura Camargo</b><span class="small">Residente</span><p>Propietaria en Torre 1 · Apto 101 y arrendataria en otros dos apartamentos; usa el celular y a ratos el computador.</p><p><b>Objetivo:</b> pagar a tiempo y saber quién entra a su casa.</p><p><b>Frustraciones:</b> pagos sin confirmación, avisos perdidos en grupos de chat y datos de sus apartamentos mezclados.</p><p><b>Qué necesita:</b> un saldo claro, un código de visita para compartir y avisos de portería.</p></li>
+             <li><b>Carlos Ruiz</b><span class="small">Vigilante, turno de día</span><p>Trabaja en la portería principal con tablet o celular.</p><p><b>Objetivo:</b> dejar entrar solo a quien está autorizado y registrar todo lo que llega.</p><p><b>Frustraciones:</b> visitas sin registro previo, paquetes sin dueño claro e interrupciones constantes.</p><p><b>Qué necesita:</b> validar un código en segundos y registrar paquetes en pocos pasos.</p></li>
+             <li><b>Marta Rojas</b><span class="small">Administradora</span><p>Administra un conjunto de 3 torres y 180 apartamentos, en escritorio y celular.</p><p><b>Objetivo:</b> tener la cartera al día, responder a tiempo y comunicar sin ruido.</p><p><b>Frustraciones:</b> PQR por canales informales, soportes de pago sin revisar y mora difícil de seguir.</p><p><b>Qué necesita:</b> una bandeja de PQR, aprobar soportes y ver la mora por torre.</p></li>
+             <li><b>Mario Duarte</b><span class="small">Residente, modo sencillo</span><p>Adulto mayor que vive solo en Torre 1 · Apto 102 y usa el celular con letra grande.</p><p><b>Objetivo:</b> pagar, autorizar una visita y recoger un paquete sin pedir ayuda.</p><p><b>Frustraciones:</b> pantallas con demasiadas opciones y textos pequeños.</p><p><b>Qué necesita:</b> pasos grandes, uno por pantalla, y siempre la misma ruta.</p></li>
+           </ul>
+           <p>De aquí salen dos decisiones de base. Cada rol tiene su propia navegación, con cuatro destinos en el celular, y el residente puede activar un <b>modo sencillo</b> con los mismos datos y permisos, pero con letra de 18 px, botones de 60 px y un paso por pantalla.</p></div>
+         <div class="blk rv"><span class="micro kicker">Hallazgos críticos</span><p>La definición del producto mostró tres puntos que debían resolverse desde la arquitectura y los flujos, no solo desde la interfaz.</p><ul class="out">
+           <li><b>Comunicación</b><span class="small">Avisos, PQR y notificaciones no tenían un emisor ni un receptor claros.</span></li>
+           <li><b>Pagos</b><span class="small">Mover dinero y reportar un soporte convivían en la misma tarjeta, y nadie confirmaba el soporte.</span></li>
+           <li><b>Portería</b><span class="small">No había cómo validar un código ni dejar constancia de una entrega.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Principios de diseño</span><ol class="dec">
+           <li><b>Flujos completos.</b><span>Cada flujo se cierra en los tres roles: lo que crea uno lo recibe, responde o confirma otro.</span></li>
+           <li><b>Un contexto a la vez.</b><span>Todo se gestiona sobre el apartamento activo.</span></li>
+           <li><b>Orden físico.</b><span>Primero la torre, luego el apartamento, en el orden en que el conjunto existe físicamente.</span></li>
+           <li><b>Una acción principal.</b><span>Una acción principal por pantalla o por paso. Las decisiones de dos botones usan botones del mismo tamaño, a todo el ancho.</span></li>
+           <li><b>Acciones breves.</b><span>Las tareas de hasta tres pasos se abren en una hoja inferior en el celular o en un modal en tablet y escritorio.</span></li>
+           <li><b>Estado explícito.</b><span>El estado se dice una vez.</span></li>
+           <li><b>Datos, no selecciones.</b><span>Lo que ya está registrado se muestra como dato de solo lectura.</span></li>
+           <li><b>Contenido consistente.</b><span>El mismo contenido en todos los tamaños: cambia el acomodo, nunca la información.</span></li></ol></div>
+         <div class="blk rv"><span class="micro kicker">Decisiones de diseño</span><h3>Residente</h3><ol class="dec">
+           <li><b>Pagar en la app y reportar un pago hecho por fuera, en tarjetas separadas.</b><span>Son dos modelos mentales distintos: uno mueve dinero y el otro entrega un soporte.</span></li>
+           <li><b>El residente nunca escribe un valor.</b><span>La administración fija la cuota, las multas y la renta de zonas comunes, y cada concepto muestra su valor.</span></li>
+           <li><b>El soporte queda En revisión.</b><span>Se mantiene así hasta que la administración lo aprueba, para que nadie dé por pagado algo sin confirmar.</span></li>
+           <li><b>Un apartamento a la vez.</b><span>Quien tiene varios elige uno en Inicio y todo Mis pagos trabaja sobre ese. Es un paso más, pero evita pagar o reportar en el apartamento equivocado.</span></li>
+           <li><b>Código de visita de cuatro dígitos en lugar de QR.</b><span>Se dicta por citofonía o se comparte por chat, y el vigilante lo valida sin escanear.</span></li></ol>
+           <h3>Vigilante</h3><ol class="dec">
+           <li><b>Navegación de cuatro destinos: Inicio, Paquetes, Parqueo y Más.</b><span>Paquetes y parqueo quedan a un toque porque se usan todo el turno.</span></li>
+           <li><b>Inicio muestra los avisos de la administración.</b><span>Incluye avisos generales y por torre, en lugar de repetir accesos que ya están en la navegación.</span></li>
+           <li><b>Validar una visita deja una sola acción principal.</b><span>El resultado muestra nombre, documento, torre, apartamento y vehículo como datos, porque el vigilante confirma, no edita.</span></li>
+           <li><b>Recibir un paquete en tres pasos.</b><span>Para quién (torre, apartamento y residente), hora y foto, y confirmación. No se registran la empresa de envío ni el tamaño, porque no sirven para entregar.</span></li>
+           <li><b>Entregar y devolver dejan constancia.</b><span>Se registra con foto y con la persona que recibe. Los domicilios se recogen en portería.</span></li>
+           <li><b>El vigilante no gestiona PQR.</b><span>Esa relación es entre el residente y la administración.</span></li></ol>
+           <h3>Administración</h3><ol class="dec">
+           <li><b>Bandeja de PQR con estados propios.</b><span>Por abrir, Abierto y Resuelto; el residente ve Pendiente, En proceso y Resuelto.</span></li>
+           <li><b>Cartera por apartamento.</b><span>Incluye aprobación de soportes, registro de multas con su valor y la opción de cobrar el parqueadero aparte.</span></li>
+           <li><b>Torres y apartamentos.</b><span>La administración crea torres en tres pasos y solo las elimina después de escribir su nombre, porque borrar una torre borra sus apartamentos y registros.</span></li>
+           <li><b>Avisos dirigidos a Todos, a una torre o a Vigilancia.</b><span>Se usa la misma etiqueta que ven el residente y el vigilante.</span></li></ol></div>
+         <div class="blk rv"><span class="micro kicker">Design system y responsive</span><p>Partí de la identidad de Jausme (morado #6021C3 y #3B0C88, tipografía Poppins) y la ordené en un design system con tokens y componentes compartidos por los tres roles y los tres tamaños.</p><ul class="did">
+           <li><span><b>Lenguaje visual.</b> Fondo con degradado suave, paneles translúcidos que agrupan tarjetas blancas, botones y filtros en pastilla y cifras grandes donde importa el dinero.</span></li>
+           <li><span><b>Componentes.</b> Botón en cinco variantes (principal, contorno, sin borde, advertencia y destructivo), campo de texto, etiqueta de estado con seis tonos, aviso emergente, modal de confirmación, tarjeta de aviso, accesos rápidos, barra superior con campana, navegación inferior flotante y código de acceso.</span></li>
+           <li><span><b>Estados con significado fijo.</b> El mismo tono significa lo mismo en toda la app; por ejemplo, una visita Vigente es éxito y una Vencida es error.</span></li>
+           <li><span><b>Accesibilidad.</b> Texto de 12 px como mínimo, áreas táctiles de 44 px, montos, fechas y etiquetas que nunca se parten en dos líneas, y la campana visible en todas las pantallas.</span></li>
+           <li><span><b>Tres tamaños.</b> Móvil (390 px) con barra inferior de cuatro destinos, para el residente y el vigilante en movimiento; tablet (1180 px) con menú lateral, para el vigilante en la portería; escritorio (1440 px) con menú lateral, para la administración.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Validación e iteración</span><p>No hubo pruebas con usuarios. Validé el diseño con un prototipo navegable en móvil, tablet y escritorio, y avancé en rondas de revisión de producto. Antes de aplicar cada ajuste revisaba si afectaba a los otros roles; en ese caso, lo ajustaba en los tres. Las iteraciones más significativas fueron separar el pago en la app del soporte de un pago hecho por fuera, restringir los pagos al apartamento activo y simplificar la recepción de paquetes quitando datos que el vigilante no necesitaba.</p></div>
+         <div class="blk rv"><span class="micro kicker">Resultados</span><p>Diseñé desde cero un producto nuevo con ocho flujos de punta a punta, documentados en un prototipo de alta fidelidad de 45 pantallas y tres tamaños. El producto no está desarrollado. No hay métricas de uso; el resultado es cualitativo.</p><ul class="out">
+           <li><b>Tres roles conectados</b><span class="small">Lo que crea uno lo recibe, responde o confirma otro.</span></li>
+           <li><b>Un design system</b><span class="small">Una base compartida para los tres roles y los tres tamaños.</span></li>
+           <li><b>Modo sencillo</b><span class="small">Los mismos datos para residentes que necesitan menos opciones y letra más grande.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Aprendizajes</span><p>Un producto con varios roles se diseña por flujos completos y no por pantallas sueltas: cada pantalla nueva obliga a preguntar quién la recibe del otro lado. Quitar elementos también es diseño: eliminar la empresa de envío, el tamaño del paquete y los PQR del vigilante simplificó más que cualquier ajuste visual. Argumentar cada cambio antes de aplicarlo mantuvo la coherencia del producto a lo largo de muchas rondas.</p></div>
+         <div class="blk rv"><span class="micro kicker">Próximos pasos</span><ul class="did">
+           <li>Validar las proto-personas con entrevistas a residentes, vigilantes y administradores.</li>
+           <li>Hacer pruebas de usabilidad de pagos, validación de visitas y recepción de paquetes.</li>
+           <li>Llevar el design system a Figma con sus componentes enlazados.</li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Pantallas</span><p>Capturas del prototipo de alta fidelidad. Los datos son ficticios.</p></div>
+         <div class="blk rv"><span class="micro kicker">Residente · móvil</span><div class="jausme-mobile-row">
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-inicio-m.jpg" alt="Inicio del residente: saldo del apartamento activo, accesos rápidos y novedades de portería" loading="lazy"><figcaption class="micro">Inicio · saldo, accesos rápidos y novedades de portería</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-pagos-m.jpg" alt="Mis pagos del residente: pago en la app y reporte de pago hecho por fuera en tarjetas separadas" loading="lazy"><figcaption class="micro">Mis pagos · pago en la app y reporte por fuera</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-pagar-sheet-m.jpg" alt="Pagar, paso 1 de 3: cada concepto muestra el valor fijado por la administración" loading="lazy"><figcaption class="micro">Pagar, paso 1 de 3 · valores fijados por administración</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-codigo-m.jpg" alt="Código de acceso del residente: estado de la visita y registro de portería" loading="lazy"><figcaption class="micro">Código de acceso · estado de visita y registro</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-configuracion-m.jpg" alt="Configuración del residente: apartamentos organizados por conjunto y un solo guardado" loading="lazy"><figcaption class="micro">Configuración · apartamentos por conjunto</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-sencillo-m.jpg" alt="Modo sencillo del residente: mismos datos con letra y botones grandes" loading="lazy"><figcaption class="micro">Modo sencillo · letra y botones grandes</figcaption></figure>
+         </div></div>
+         <div class="blk rv"><span class="micro kicker">Vigilante · móvil</span><div class="jausme-mobile-row">
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/vig-inicio-m.jpg" alt="Inicio del vigilante: avisos, parqueaderos y paquetes por entregar" loading="lazy"><figcaption class="micro">Inicio · avisos, parqueaderos y paquetes</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/vig-visitas-m.jpg" alt="Visitas para el vigilante: resultado de validar un código y una acción principal" loading="lazy"><figcaption class="micro">Visitas · validación del código</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/vig-paquetes-m.jpg" alt="Paquetes del vigilante: recibir un paquete y consultar su estado" loading="lazy"><figcaption class="micro">Paquetes · recepción y estado</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/vig-recibir-sheet-m.jpg" alt="Recibir paquete, paso 1 de 3: tipo, torre, apartamento y residente" loading="lazy"><figcaption class="micro">Recibir paquete, paso 1 de 3 · asignación</figcaption></figure>
+         </div></div>
+         <div class="blk rv"><span class="micro kicker">Tablet</span><div class="srow">
+           <figure class="shot" style="--ar:1.4401"><img src="assets/jausme/res-inicio-t.jpg" alt="Inicio del residente en tablet: contenido del celular reorganizado con menú lateral" loading="lazy"><figcaption class="micro">Residente · mismo contenido del celular con menú lateral</figcaption></figure>
+           <figure class="shot" style="--ar:1.4401"><img src="assets/jausme/vig-visitas-t.jpg" alt="Visitas del vigilante en tablet: validación y visitas del día en una pantalla" loading="lazy"><figcaption class="micro">Vigilante · validación y visitas del día</figcaption></figure>
+         </div></div>
+         <div class="blk rv"><span class="micro kicker">Administración · escritorio</span><div class="srow">
+           <figure class="shot" style="--ar:1.4401"><img src="assets/jausme/adm-inicio-d.jpg" alt="Inicio de administración: recaudo del mes, PQR por abrir, reservas por aprobar y últimos avisos" loading="lazy"><figcaption class="micro">Inicio · cartera, PQR, reservas y avisos</figcaption></figure>
+           <figure class="shot" style="--ar:1.4401"><img src="assets/jausme/adm-pqr-d.jpg" alt="PQR de administración: bandeja por estado, detalle del caso y respuesta al residente" loading="lazy"><figcaption class="micro">PQR · bandeja y respuesta al residente</figcaption></figure>
+         </div></div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:.6689"><img src="assets/jausme/adm-cartera-d.jpg" alt="Pagos y cartera: estado por apartamento, soportes y multas" loading="lazy"><figcaption class="micro">Pagos y cartera · estado, soportes y multas</figcaption></figure>
+           <figure class="shot" style="--ar:1.1057"><img src="assets/jausme/adm-torres-d.jpg" alt="Torres y apartamentos: creación de torres y apartamentos organizados por piso" loading="lazy"><figcaption class="micro">Torres y apartamentos · organización por piso</figcaption></figure>
+         </div>
        </div>
      </article>
 
@@ -914,8 +1006,8 @@ const MOCK={
 const PROJ=[
   {id:'jg',name:'El Capitan',words:['El','Capitan'],cls:'p1',mock:MOCK.photoJG,pc:'var(--ink)',sub:'Plataforma de gestión de servicios',year:'2024 — 2026',type:'Aplicativo interno y design system',role:'Product designer · UX/UI',client:'JG Signs',
    desc:'Reestructuración del aplicativo interno de una empresa de señalización comercial: de registros sin trazabilidad y coordinación por mensajes a 13 módulos, un modelo de estados y un design system de más de 100 componentes.'},
-  {id:'jausme',name:'Jausme',words:['Jausme'],cls:'p2',mock:MOCK.phones,pc:'var(--jausme)',sub:'Administración de conjuntos residenciales',year:'2023 — 2024',type:'App web y móvil',role:'Diseñadora UX/UI',client:'Jausme',
-   desc:'Definición e implementación de un aplicativo para administrar conjuntos residenciales, con una experiencia distinta para residentes, administración y seguridad.'},
+  {id:'jausme',name:'Jausme',words:['Jausme'],cls:'p2',mock:MOCK.phones,pc:'var(--jausme)',sub:'Producto nuevo · diseño desde cero',year:'2026',type:'App responsive · móvil, tablet y escritorio',role:'Diseñadora UX/UI y de producto',client:'Proyecto personal · Jausme',
+  desc:'Diseño de producto para conjuntos residenciales: ocho flujos completos para residentes, vigilantes y administración, prototipados en alta fidelidad y sin desarrollo.'},
   {id:'jdev',name:'Jersson Dev',words:['Jersson','Dev'],cls:'p4',mock:MOCK.code,pc:'var(--jdev)',sub:'Web profesional · freelance',year:'2026',type:'Sitio web profesional',role:'Freelance',client:'Jersson Dev',
    desc:'La web profesional de Jersson, desarrollador de software senior: su hoja de vida, experiencia y habilidades en un solo lugar.'},
   {id:'soon1',name:'Próximamente',cls:'p5',mock:MOCK.soon,soon:true,sub:'Nuevo proyecto en camino'},
@@ -1016,7 +1108,7 @@ function renderCover(i){
   covR.className='cov cov--r '+r.cls; covR.innerHTML=r.mock; covR.setAttribute('aria-label',r.name);
   let k=0; letters.innerHTML=p.words.map(w=>'<span class="w" aria-hidden="true">'+[...w].map(c=>`<i style="--i:${k++}">${c}</i>`).join('')+'</span>').join('<i class="sp" aria-hidden="true"></i>');
   letters.setAttribute('aria-label',p.name); letters.style.color=p.pc; letters.style.setProperty('--n',Math.max(5,...p.words.map(w=>w.length))); cover.style.setProperty('--n',p.words.join('').length+p.words.length-1);
-  cover.querySelector('.m-y').textContent=p.year; cover.querySelector('.m-t').textContent=say(p.type); cover.querySelector('.m-r').textContent=say(p.role); cover.querySelector('.m-c').textContent=p.client;
+  cover.querySelector('.m-y').textContent=p.year; cover.querySelector('.m-t').textContent=say(p.type); cover.querySelector('.m-r').textContent=say(p.role); cover.querySelector('.m-c').textContent=say(p.client);
   cover.querySelector('.cdesc').textContent=say(p.desc);
   vno.textContent=`${say('Caso')} 0${i+1} / 0${NP} · ${p.name}`;
   cases.forEach((c,n)=>{ c.classList.toggle('on',n===i); c.querySelectorAll('.rv').forEach(el=>el.classList.toggle('vis',n===i)); });
