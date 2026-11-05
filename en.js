@@ -671,5 +671,19 @@ window.REM_EN={
 "Versión final publicada · validada con el cliente · 2026": "Final version published · validated with the client · 2026",
 "Claude AI y Claude Design": "Claude AI and Claude Design",
 "Validar la experiencia con reclutadores y líderes técnicos, en escritorio y en móvil.": "Validate the experience with recruiters and tech leads, on desktop and mobile.",
-"Medir con analítica cómo recorren el portafolio quienes lo visitan.": "Measure with analytics how visitors move through the portfolio."
+"Medir con analítica cómo recorren el portafolio quienes lo visitan.": "Measure with analytics how visitors move through the portfolio.",
+"Versión final publicada · validada con el cliente y con 4 usuarios · 2026": "Final version published · validated with the client and 4 users · 2026",
+"Validé cada iteración con Jersson como usuario y cliente, en escritorio y en móvil, y lo complementé con una revisión heurística. Con la versión final hice pruebas de usabilidad con cuatro usuarios. Entregables: validación con el cliente, pruebas de usabilidad y ajustes priorizados.": "I validated each iteration with Jersson as user and client, on desktop and mobile, and complemented it with a heuristic review. With the final version, I ran usability tests with four users. Deliverables: client validation, usability tests and prioritized adjustments.",
+"Validación con el cliente": "Client validation",
+"Pruebas con usuarios": "User testing",
+"Con la versión final hice pruebas de usabilidad con cuatro usuarios, que resolvieron tareas básicas de la web.": "With the final version, I ran usability tests with four users, who completed basic tasks on the site.",
+"Buscar información.": "Find information.",
+"Encontrar datos concretos dentro de las secciones.": "Locate specific details within the sections.",
+"Descargar la hoja de vida.": "Download the résumé.",
+"Ubicar y usar el acceso al CV.": "Find and use the CV link.",
+"Conocer el perfil.": "Get to know the profile.",
+"Entender quién es Jersson y qué hace a partir del recorrido.": "Understand who Jersson is and what he does from browsing the site.",
+"Los cuatro completaron todas las tareas sin dificultades de navegación, y valoraron de forma positiva el diseño. El hallazgo principal es que la navegación por partículas se entiende sin explicación previa, aunque la muestra es pequeña y cualitativa.": "All four completed every task with no navigation problems and rated the design positively. The main finding is that particle-based navigation is understood without prior explanation, although the sample is small and qualitative.",
+"El portafolio pasó de una web estática a una escena interactiva en la que la navegación forma parte de la animación. La propuesta del núcleo, validada con el cliente, reemplazó a todas las versiones anteriores. En las pruebas, los cuatro usuarios completaron todas las tareas sin dificultades de navegación.": "The portfolio went from a static website to an interactive scene where navigation is part of the animation. The nucleus proposal, validated with the client, replaced all previous versions. In testing, all four users completed every task with no navigation problems.",
+"Ampliar las pruebas a más reclutadores y líderes técnicos, con tareas medidas por tiempo y éxito.": "Extend testing to more recruiters and tech leads, with tasks measured by time and success."
 };
