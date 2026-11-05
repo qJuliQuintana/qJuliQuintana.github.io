@@ -232,7 +232,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .strip.hov .strip__img,.strip:focus-visible .strip__img{filter:none}
 .strip__in{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden}
 .strip .mock,.zoom__in .mock,.cov .mock{position:absolute;inset:0}
-.m-photo{background:#2a2f3a;overflow:hidden}.m-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block}
+.m-photo{background:#2a2f3a;overflow:hidden}.m-vid{background:#08080C}.m-vid img,.m-vid video{object-fit:contain!important;object-position:50% 50%!important}.m-photo img,.m-photo video{width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block}
 .p1{--s-bg:#7A35D6}.p2{--s-bg:#EEEBE3}.p3{--s-bg:#E04A3B}.p4{--s-bg:#141316}.p5{--s-bg:#1E1C21}
 .m-soon{display:grid;place-items:center;background:repeating-linear-gradient(135deg,#1E1C21 0 14px,#26232B 14px 28px)}
 .m-soon b{font-family:var(--text);font-weight:500;font-size:17px;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:#CFC9D6;border:1px solid #4A4652;padding:12px 18px}
@@ -375,6 +375,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .shot--desk{aspect-ratio:16/10;width:100%}.shot--mob{aspect-ratio:9/19.5;width:min(100%,260px);justify-self:center}
 .case .blk.srow{display:flex;gap:16px;align-items:flex-start}.case .srow .shot{flex:var(--ar) 1 0;min-width:0;aspect-ratio:var(--ar)}.srow .shot img{width:100%;height:100%;object-fit:cover}
 .case .conf{color:var(--ash)}
+.case .srow.mood{max-width:560px}
 .shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .shot video+figcaption{display:none}
 .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -855,28 +856,28 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
        <div class="id rv">
          <span class="no micro">Caso 03</span>
          <p class="what">Portafolio interactivo de un ingeniero de software</p>
-         <dl><dt>Rol</dt><dd>Diseñadora UX/UI y dirección visual</dd><dt>Cliente</dt><dd>Jersson Morales, ingeniero de software full-stack</dd><dt>Usuarios</dt><dd>Reclutadores, líderes técnicos y clientes que evalúan su perfil</dd><dt>Plataformas</dt><dd>Web responsive: escritorio y móvil</dd><dt>Herramientas</dt><dd>Claude AI, Claude Code, Three.js, shaders GLSL, HTML, CSS y JavaScript</dd><dt>Estado</dt><dd>Propuesta publicada · validada con el cliente · en evaluación · 2026</dd></dl>
+         <dl><dt>Rol</dt><dd>Diseñadora UX/UI y dirección visual</dd><dt>Cliente</dt><dd>Jersson Morales, ingeniero de software full-stack</dd><dt>Usuarios</dt><dd>Reclutadores, líderes técnicos y clientes que evalúan su perfil</dd><dt>Plataformas</dt><dd>Web responsive: escritorio y móvil</dd><dt>Herramientas</dt><dd>Claude AI y Claude Design</dd><dt>Estado</dt><dd>Versión final publicada · validada con el cliente · 2026</dd></dl>
        </div>
        <div class="body">
          <div class="blk rv"><span class="micro kicker">Contexto</span><p>Jersson Morales es ingeniero de software full-stack, con más de siete años de experiencia. Partía de un portafolio estático, funcional pero convencional, que mostraba la información sin transmitir su criterio técnico. El encargo fue diseñar una experiencia que lo diferenciara frente a reclutadores y equipos técnicos, con un tono profesional y una estética minimalista, moderna y creativa.</p></div>
          <div class="blk rv"><span class="micro kicker">El reto</span><p class="reto">Crear una experiencia memorable sobre desarrollo de software sin que la decoración compitiera con la información, y sin perder legibilidad, navegación ni accesibilidad.</p></div>
          <div class="blk rv"><span class="micro kicker">Concepto creativo</span><p>El concepto es el núcleo: el punto donde todo converge. En el desarrollo de software, muchas piezas (commits, decisiones y tecnologías) terminan integradas en un sistema que funciona. Traduje esa idea a un átomo: el perfil de Jersson es el núcleo y sus cuatro secciones son partículas en órbita. La metáfora organiza la interfaz en lugar de decorarla, porque navegar consiste en acercar una partícula al núcleo.</p></div>
          <div class="blk rv"><span class="micro kicker">Proceso creativo</span><ol class="dec">
-           <li><b>Referencias.</b><span>Partí de un video con un fuego central y pilares radiales, y de cuatro referencias gráficas con grano, gradiente térmico y vocabulario cósmico.</span></li>
-           <li><b>Análisis crítico.</b><span>Separé lo que aportaba cada referencia, como la dinámica de convergencia y la textura granulada, de lo que no correspondía al contexto, como la lectura musical o el fotorrealismo.</span></li>
+           <li><b>Referencias.</b><span>Partí de un video con un fuego central y pilares radiales, de cuatro referencias gráficas con grano, gradiente térmico y vocabulario cósmico, y del logo de React como símbolo de su stack.</span></li>
+           <li><b>Análisis crítico.</b><span>Separé lo que aportaba cada referencia, como la dinámica de convergencia y la textura granulada, de lo que no comunicaba desarrollo de software, como una escena demasiado literal o un acabado fotorrealista.</span></li>
            <li><b>Exploración divergente.</b><span>Desarrollé cinco conceptos: navegación espacial con un avatar 3D, el compilador, un átomo con moléculas, un procesador sobre una oblea de silicio y una esfera de luz.</span></li>
            <li><b>Convergencia.</b><span>Elegí el núcleo porque conectaba la metáfora con el contenido, permitía integrar la navegación en la escena y admitía un lenguaje gráfico propio, lejos de los recursos genéricos de los productos tecnológicos.</span></li>
-           <li><b>Diferenciación.</b><span>El átomo de referencia se parecía a un emblema conocido del desarrollo web. Lo rediseñé con órbitas de distinto tamaño, ángulos irregulares y un grosor que cambia con la profundidad, para que se lea como un átomo en 3D y no como una marca ajena.</span></li></ol></div>
-         <div class="blk rv srow"><figure class="shot" style="--ar:2.39"><img src="assets/jdev/moodboard.jpg" alt="Moodboard: cuatro ilustraciones de referencia con grano, gradiente térmico y elementos cósmicos" loading="lazy"><figcaption class="micro">Moodboard · referencias visuales externas usadas como inspiración</figcaption></figure></div>
+           <li><b>Diferenciación.</b><span>El átomo hace un guiño al logo de React, la tecnología central del perfil de Jersson. Esa asociación une en una sola imagen su especialidad técnica y la dimensión creativa del portafolio. Para que fuera un símbolo propio y no una copia del logo, lo reinterpreté con órbitas de distinto tamaño, ángulos irregulares y un grosor que cambia con la profundidad.</span></li></ol></div>
+         <div class="blk rv srow mood"><figure class="shot" style="--ar:3.0365"><img src="assets/jdev/moodboard.jpg" alt="Moodboard: cuatro ilustraciones de referencia con grano, gradiente térmico y elementos cósmicos, y el logo de React" loading="lazy"><figcaption class="micro">Moodboard · referencias visuales externas usadas como inspiración</figcaption></figure></div>
          <div class="blk rv"><span class="micro kicker">Metodología</span><p>Apliqué mi proceso de diseño en cinco etapas, en ciclos cortos sobre la web real.</p><ol class="dec">
            <li><b>Entender.</b><span>Revisé el encargo, la hoja de vida vigente y el portafolio estático, y analicé las referencias visuales. El contenido era sólido, pero la experiencia no diferenciaba el perfil. Entregables: brief, auditoría de contenido y análisis de referencias.</span></li>
-           <li><b>Definir.</b><span>Convertí el encargo en requisitos y en una jerarquía de contenido: logros y métricas primero, empresas en segundo plano y sin fechas, y un perfil técnico, no de liderazgo. Organicé el contenido en cuatro secciones. Entregables: requisitos y arquitectura de información.</span></li>
-           <li><b>Idear.</b><span>Exploré los cinco conceptos como prototipos navegables en código, con contenido real, para comparar recorridos y no solo imágenes. Entregables: conceptos y flujos de navegación.</span></li>
-           <li><b>Prototipar.</b><span>Construí en alta fidelidad la propuesta del núcleo, con escena en Three.js, shaders propios, interfaz responsive y todos los estados de interacción. Entregables: sistema visual y prototipo funcional publicado.</span></li>
-           <li><b>Validar.</b><span>Validé cada iteración con Jersson como usuario y cliente, en escritorio y en móvil, y lo complementé con una revisión heurística y pruebas de rendimiento. Entregables: validación con el usuario, ajustes priorizados y medición de rendimiento.</span></li></ol></div>
+           <li><b>Definir.</b><span>Convertí el encargo en requisitos y en una jerarquía de contenido: logros y métricas primero, y empresas en segundo plano y sin fechas. Organicé el contenido en cuatro secciones. Entregables: requisitos y arquitectura de información.</span></li>
+           <li><b>Idear.</b><span>Exploré los cinco conceptos como prototipos navegables con contenido real, para comparar recorridos y no solo imágenes. Entregables: conceptos y flujos de navegación.</span></li>
+           <li><b>Prototipar.</b><span>Llevé la propuesta del núcleo a alta fidelidad con Claude Design y Claude AI: escena, interfaz responsive y todos los estados de interacción. Entregables: sistema visual y prototipo funcional publicado.</span></li>
+           <li><b>Validar.</b><span>Validé cada iteración con Jersson como usuario y cliente, en escritorio y en móvil, y lo complementé con una revisión heurística. Entregables: validación con el usuario y ajustes priorizados.</span></li></ol></div>
          <div class="blk rv"><span class="micro kicker">Herramientas y métodos</span><ul class="did">
            <li><span><b>Claude AI.</b> Investigación, análisis crítico de cada concepto frente a las referencias y redacción del contenido a partir de la hoja de vida.</span></li>
-           <li><span><b>Claude Code.</b> Prototipado en código sobre la web real: escena, shaders, navegación y responsive, con iteraciones rápidas.</span></li>
+           <li><span><b>Claude Design.</b> Prototipado en alta fidelidad sobre la web real: escena, navegación y responsive, con iteraciones rápidas.</span></li>
            <li><span><b>Heurísticas de Nielsen.</b> Visibilidad del estado, porque la partícula responde al señalarla; control y libertad, porque la carga se puede saltar; y consistencia entre la escena y la barra superior.</span></li>
            <li><span><b>Leyes de UX.</b> Ley de Hick para limitar la navegación a cuatro secciones, efecto Von Restorff para dejar un solo protagonista visual por sección y umbral de Doherty para responder de inmediato a cada interacción.</span></li>
            <li><span><b>Jerarquía y escaneabilidad.</b> Síntesis de una o dos frases por experiencia y cada métrica una sola vez.</span></li>
@@ -894,27 +895,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
            <li><span><b>Siluetas nítidas.</b> Núcleo y partículas con borde definido y sombreado granulado.</span></li>
            <li><span><b>Vocabulario cósmico.</b> Destellos de cuatro puntas, confeti de puntos y haces finos.</span></li>
            <li><span><b>Casi negro con textura.</b> Un fondo #08080C que se tiñe de índigo hacia el centro.</span></li></ul></div>
-         <div class="blk rv"><span class="micro kicker">Arquitectura técnica</span><p>Elegí una base simple para poder iterar rápido.</p><ul class="did">
-           <li><span><b>Sin procesos de compilación.</b> HTML, CSS y JavaScript planos, con Three.js.</span></li>
-           <li><span><b>Escena e interfaz separadas.</b> La misma web admite distintas escenas, lo que permitió comparar conceptos sin tocar la versión publicada.</span></li>
-           <li><span><b>Contenido centralizado.</b> Todos los textos viven en un solo archivo, independiente de la escena.</span></li>
-           <li><span><b>Shaders propios.</b> Generan el grano, el gradiente térmico, las órbitas y las partículas.</span></li>
-           <li><span><b>Navegación en HTML real.</b> Las etiquetas son botones proyectados sobre la escena, no parte de la imagen.</span></li></ul></div>
          <div class="blk rv"><span class="micro kicker">Validación con el usuario</span><p>Jersson fue el usuario de referencia. Revisó cada iteración navegando la web publicada en escritorio y en móvil, y entregó sus observaciones como listas numeradas de ajustes. Cada revisión definió la siguiente decisión.</p><ol class="dec">
-           <li><b>El concepto hablaba de otra cosa.</b><span>La primera escena se parecía demasiado a su referencia y evocaba música. Mantuve la convergencia hacia un centro, pero le di el significado de compilar código.</span></li>
+           <li><b>El concepto hablaba de otra cosa.</b><span>La primera escena se parecía demasiado a su referencia y no comunicaba desarrollo de software. Mantuve la convergencia hacia un centro, pero le di el significado de compilar código.</span></li>
            <li><b>La decoración competía con el contenido.</b><span>Había demasiados commits en pantalla. Limité las etiquetas a tres a la vez y dejé un solo protagonista visual por sección.</span></li>
            <li><b>La propuesta podía ser genérica.</b><span>Una esfera brillante sobre negro es un recurso común. La conecté con su trabajo, llevé la navegación a la escena y la convertí en un átomo propio.</span></li>
            <li><b>El estilo no correspondía a las referencias.</b><span>La luz parecía fotorrealista y la esfera recordaba a una luna. Reconstruí el estilo con grano y gradiente térmico, y limité el brillo a las órbitas.</span></li>
-           <li><b>El contenido debía ser fiel.</b><span>Los textos apuntaban a liderazgo y no coincidían con la hoja de vida vigente. Los reescribí hacia stack, decisiones técnicas y resultados.</span></li></ol><p>En las pruebas técnicas, la partícula señalada se mantiene activa hasta que el cursor se aleja de verdad, y cada fotograma costó alrededor de 2 ms en un computador de escritorio.</p></div>
-         <div class="blk rv"><span class="micro kicker">Resultados</span><p>El portafolio pasó de una web estática a una escena interactiva en la que la navegación forma parte de la animación. La propuesta del núcleo está publicada, validada con el cliente y en evaluación para reemplazar a la versión anterior. El resultado es cualitativo: no hay métricas de uso.</p><ul class="out">
+           <li><b>El contenido debía ser fiel.</b><span>Algunos textos no coincidían con la hoja de vida vigente. La tomé como única fuente de verdad y los reescribí hacia decisiones y resultados.</span></li></ol></div>
+         <div class="blk rv"><span class="micro kicker">Resultados</span><p>El portafolio pasó de una web estática a una escena interactiva en la que la navegación forma parte de la animación. La propuesta del núcleo, validada con el cliente, reemplazó a todas las versiones anteriores. El resultado es cualitativo: no hay métricas de uso.</p><ul class="out">
            <li><b>Navegación en la escena</b><span class="small">Cada sección es una partícula que se acerca al señalarla y nace del núcleo al abrirse.</span></li>
            <li><b>Animación con significado</b><span class="small">Cada luz que llega al núcleo muestra una actividad real de la hoja de vida.</span></li>
            <li><b>Un átomo propio</b><span class="small">Una identidad de grano y gradiente térmico, distinta de su referencia.</span></li></ul></div>
          <div class="blk rv"><span class="micro kicker">Aprendizajes</span><p>Prototipar sobre la web real revela problemas que una imagen aislada no muestra. Una referencia inspira, pero no define: hay que traducirla al contexto. Iterar también es descartar, y una animación resulta propia cuando se conecta con el contenido. La calma se diseña: depende del ritmo, de la jerarquía y de lo que decides quitar.</p></div>
          <div class="blk rv"><span class="micro kicker">Próximos pasos</span><ul class="did">
-           <li>Decidir si la propuesta del núcleo reemplaza a la versión anterior.</li>
-           <li>Validar la experiencia con más usuarios y en teléfonos reales.</li>
-           <li>Mostrar la carga completa solo una vez por sesión.</li></ul></div>
+                      <li>Validar la experiencia con reclutadores y líderes técnicos, en escritorio y en móvil.</li>
+           <li>Medir con analítica cómo recorren el portafolio quienes lo visitan.</li></ul></div>
          <div class="blk rv"><span class="micro kicker">Pantallas</span><p>Vídeos y capturas de la propuesta publicada.</p></div>
          <div class="blk rv"><span class="micro kicker">En movimiento</span></div>
          <div class="blk rv srow">
@@ -1074,6 +1068,7 @@ const MOCK={
   dash:'<span class="mock m-dash"><span class="side"><i class="bar-x a"></i><i class="bar-x"></i><i class="bar-x"></i><i class="bar-x"></i><i class="bar-x"></i></span><span class="main"><span class="kpis"><span class="kpi"><b>128</b><i class="bar-x"></i></span><span class="kpi"><b>36</b><i class="bar-x"></i></span><span class="kpi"><b>94%</b><i class="bar-x"></i></span></span>'+'<span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge g"></i></span><span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge y"></i></span><span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge b"></i></span><span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge g"></i></span></span></span>',
   phones:'<span class="mock m-phones"><span class="phone"><i class="av"></i><i class="pc a"></i><i class="pc"></i><span class="tab"><i></i><i></i><i></i></span></span><span class="phone"><i class="pc"></i><i class="pc a"></i><i class="pc"></i><span class="tab"><i></i><i></i><i></i></span></span><span class="phone"><i class="av"></i><i class="pc"></i><i class="pc"></i><span class="tab"><i></i><i></i><i></i></span></span></span>',
   web:'<span class="mock m-web"><span class="page"><span class="dots"><i></i><i></i><i></i></span><i class="heroimg"></i><span class="cols"><i></i><i></i><i></i></span></span><span class="pieces"><span class="post">Aa</span><span class="post b">24</span></span></span>',
+  jdev:reduce?'<span class="mock m-photo m-vid"><img src="assets/jdev/portada.jpg" alt=""></span>':'<span class="mock m-photo m-vid"><video src="assets/jdev/portada.mp4" poster="assets/jdev/portada.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video></span>',
   soon:'<span class="mock m-soon"><b>Próximamente</b></span>',
   code:'<span class="mock m-code"><span class="m-code__bar"><i></i><i></i><i></i></span><i style="width:42%"></i><i class="a" style="width:64%;margin-left:8%"></i><i style="width:52%;margin-left:8%"></i><i class="b" style="width:36%;margin-left:16%"></i><i style="width:58%;margin-left:8%"></i><i class="a" style="width:30%"></i><i style="width:48%"></i></span>'
 };
@@ -1082,7 +1077,7 @@ const PROJ=[
    desc:'Reestructuración del aplicativo interno de una empresa de señalización comercial: de registros sin trazabilidad y coordinación por mensajes a 13 módulos, un modelo de estados y un design system de más de 100 componentes.'},
   {id:'jausme',name:'Jausme',words:['Jausme'],cls:'p2',mock:MOCK.phones,pc:'var(--jausme)',sub:'Producto nuevo · diseño desde cero',year:'2026',type:'App responsive · móvil, tablet y escritorio',role:'Diseñadora UX/UI y de producto',client:'Proyecto personal · Jausme',
   desc:'Diseño de producto para conjuntos residenciales: ocho flujos completos para residentes, vigilantes y administración, prototipados en alta fidelidad y sin desarrollo.'},
-  {id:'jdev',name:'Jersson Dev',words:['Jersson','Dev'],cls:'p4',mock:MOCK.code,pc:'var(--jdev)',sub:'Portafolio interactivo · freelance',year:'2026',type:'Portafolio con escena 3D interactiva',role:'Diseñadora UX/UI y dirección visual',client:'Jersson Morales',
+  {id:'jdev',name:'Jersson Dev',words:['Jersson','Dev'],cls:'p4',mock:MOCK.jdev,pc:'var(--jdev)',sub:'Portafolio interactivo · freelance',year:'2026',type:'Portafolio con escena 3D interactiva',role:'Diseñadora UX/UI y dirección visual',client:'Jersson Morales',
    desc:'Portafolio para un ingeniero de software: una escena interactiva con un átomo propio, en la que la navegación forma parte de la animación.'},
   {id:'soon1',name:'Próximamente',cls:'p5',mock:MOCK.soon,soon:true,sub:'Nuevo proyecto en camino'},
   {id:'soon2',name:'Próximamente',cls:'p5',mock:MOCK.soon,soon:true,sub:'Nuevo proyecto en camino'}
