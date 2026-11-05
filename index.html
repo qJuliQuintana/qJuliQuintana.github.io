@@ -375,6 +375,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .shot--desk{aspect-ratio:16/10;width:100%}.shot--mob{aspect-ratio:9/19.5;width:min(100%,260px);justify-self:center}
 .case .blk.srow{display:flex;gap:16px;align-items:flex-start}.case .srow .shot{flex:var(--ar) 1 0;min-width:0;aspect-ratio:var(--ar)}.srow .shot img{width:100%;height:100%;object-fit:cover}
 .case .conf{color:var(--ash)}
+.shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.shot video+figcaption{display:none}
 .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .shot img:not([hidden])+figcaption{display:none}
 .shot figcaption{color:var(--ash);text-align:center;padding:8px}
@@ -913,7 +915,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
            <li>Decidir si la propuesta del núcleo reemplaza a la versión anterior.</li>
            <li>Validar la experiencia con más usuarios y en teléfonos reales.</li>
            <li>Mostrar la carga completa solo una vez por sesión.</li></ul></div>
-         <div class="blk rv"><span class="micro kicker">Pantallas</span><p>Capturas de la propuesta publicada.</p></div>
+         <div class="blk rv"><span class="micro kicker">Pantallas</span><p>Vídeos y capturas de la propuesta publicada.</p></div>
+         <div class="blk rv"><span class="micro kicker">En movimiento</span></div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:2.0915"><video src="assets/jdev/escritorio.mp4" poster="assets/jdev/escritorio-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Recorrido en escritorio: carga del núcleo, navegación por la escena y apertura de las secciones"></video><figcaption class="micro">Recorrido en escritorio</figcaption></figure>
+           <figure class="shot" style="--ar:.592"><video src="assets/jdev/movil.mp4" poster="assets/jdev/movil-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Recorrido en móvil: carga del núcleo, menú y cambio de idioma"></video><figcaption class="micro">Recorrido en móvil</figcaption></figure>
+         </div>
          <div class="blk rv"><span class="micro kicker">El núcleo · escritorio</span></div>
          <div class="blk rv srow">
            <figure class="shot" style="--ar:1.7778"><img src="assets/jdev/inicio.jpg" alt="Inicio: el átomo en el centro y las cuatro secciones como partículas en órbita" loading="lazy"><figcaption class="micro">Inicio · el núcleo y sus cuatro secciones</figcaption></figure>
@@ -937,6 +944,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 (()=>{
 const root=document.documentElement;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce)document.querySelectorAll('.shot video').forEach(v=>{v.removeAttribute('autoplay');v.pause();v.controls=true;});
 const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
 const small=innerWidth<900;
 const now=()=>performance.now()/1000;

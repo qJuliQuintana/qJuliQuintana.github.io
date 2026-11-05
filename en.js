@@ -646,5 +646,11 @@ window.REM_EN={
 "Validé cada iteración con Jersson como usuario y cliente, en escritorio y en móvil, y lo complementé con una revisión heurística y pruebas de rendimiento. Entregables: validación con el usuario, ajustes priorizados y medición de rendimiento.": "I validated each iteration with Jersson as user and client, on desktop and mobile, and complemented it with a heuristic review and performance tests. Deliverables: user validation, prioritized adjustments and performance measurement.",
 "Jersson fue el usuario de referencia. Revisó cada iteración navegando la web publicada en escritorio y en móvil, y entregó sus observaciones como listas numeradas de ajustes. Cada revisión definió la siguiente decisión.": "Jersson was the reference user. He reviewed each iteration by browsing the published website on desktop and mobile, and delivered his feedback as numbered lists of adjustments. Each review defined the next decision.",
 "Moodboard: cuatro ilustraciones de referencia con grano, gradiente térmico y elementos cósmicos": "Moodboard: four reference illustrations with grain, a thermal gradient and cosmic elements",
-"Moodboard · referencias visuales externas usadas como inspiración": "Moodboard · external visual references used as inspiration"
+"Moodboard · referencias visuales externas usadas como inspiración": "Moodboard · external visual references used as inspiration",
+"En movimiento": "In motion",
+"Recorrido en escritorio: carga del núcleo, navegación por la escena y apertura de las secciones": "Desktop walkthrough: nucleus intro, navigation through the scene and opening the sections",
+"Recorrido en escritorio": "Desktop walkthrough",
+"Recorrido en móvil: carga del núcleo, menú y cambio de idioma": "Mobile walkthrough: nucleus intro, menu and language switch",
+"Recorrido en móvil": "Mobile walkthrough",
+"Vídeos y capturas de la propuesta publicada.": "Videos and screenshots of the published proposal."
 };
