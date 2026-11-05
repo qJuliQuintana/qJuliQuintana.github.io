@@ -366,8 +366,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .case .body{grid-column:6/13;display:grid;gap:36px;align-content:start}
 .case .blk{display:grid;gap:10px}
 .case .blk p{max-width:34em}
-.case.jausme .id dl{grid-template-columns:max-content minmax(0,1fr)}
-.case.jausme .id dt{white-space:nowrap}
+.case.jausme .id dl,.case.jdev .id dl{grid-template-columns:max-content minmax(0,1fr)}
+.case.jausme .id dt,.case.jdev .id dt{white-space:nowrap}
 .case.jausme .strengths{grid-template-columns:repeat(2,minmax(0,1fr))}
 .case .jausme-mobile-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 /* screenshots: put the file in the img src and remove hidden; until then the frame shows its label */
@@ -576,7 +576,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2024 — 2026</time><div><b>JG Signs</b><span class="small">Product designer · UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Audité el sistema anterior y reorganicé su arquitectura de 11 a 13 módulos, con sus flujos y subflujos.</li><li>Rediseñé seis flujos completos (estimados, servicios, proyectos, inventario, vehículos y finanzas) partiendo del rol administrador, con diseño responsive para desktop, tablet y mobile.</li><li>Simplifiqué las fases de un proyecto de siete a cuatro, validando cada flujo con el cliente en prototipos de Figma.</li><li>Construí un design system de más de 100 componentes con Atomic Design, tokens y variables, compartido con desarrollo.</li><li>Definí los estados de cada registro y mensajes del sistema que explican qué pasó y qué hacer.</li><li>Diseñé nuevas funcionalidades: tablero de tareas, chat por proyecto y gestión de fases y documentos.</li></ul></div></div></div>
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2023 — 2024</time><div><b>Jausme</b><span class="small">Diseñadora UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Definí la experiencia web y móvil de una aplicación para administrar conjuntos residenciales.</li><li>Definí y prototipé experiencias diferenciadas para residentes, administradores y guardas de seguridad.</li><li>Diseñé los flujos de comunicación, reservas, visitantes y parqueaderos.</li><li>Identifiqué las fricciones principales (comunicación, pagos y visitas) y las resolví en el diseño.</li><li>Diseñé la experiencia multiplataforma (web y móvil) con consistencia entre dispositivos.</li></ul></div></div></div>
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2022 — 2023</time><div><b>Leo Burnett</b><span class="small">Diseñadora web · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Prototipé y optimicé interfaces en alta fidelidad con principios de diseño centrado en el usuario.</li><li>Mejoré la arquitectura de la información con flujos y jerarquías claras para la navegación.</li><li>Colaboré con desarrollo para asegurar la correcta implementación en el producto final.</li><li>Diseñé piezas digitales: redes sociales, PDFs, infografías, presentaciones y correos HTML.</li></ul></div></div></div>
-        <div class="row"><time>2026</time><div><b>Jersson Dev</b><span class="small">Freelance · Web profesional</span></div></div>
+        <div class="row"><time>2026</time><div><b>Jersson Dev</b><span class="small">Freelance · Portafolio interactivo</span></div></div>
       </div>
       <div class="col edu rv" style="--i:1"><h3 class="micro">Formación</h3>
         <div class="row"><time>2017 — 2024</time><div><b>Publicidad y Mercadeo</b><span class="small">Pregrado · Fundación Universitaria Los Libertadores</span></div></div>
@@ -852,15 +852,85 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <article class="case jdev" id="jdev">
        <div class="id rv">
          <span class="no micro">Caso 03</span>
-         <p class="what">Web profesional de un desarrollador senior</p>
-         <dl><dt>Rol</dt><dd>Proyecto freelance</dd><dt>Plataformas</dt><dd>Web</dd><dt>Herramientas</dt><dd>Claude AI, Claude Design AI</dd><dt>Estado</dt><dd>En curso · 2026</dd></dl>
+         <p class="what">Portafolio interactivo de un ingeniero de software</p>
+         <dl><dt>Rol</dt><dd>Diseñadora UX/UI y dirección visual</dd><dt>Cliente</dt><dd>Jersson Morales, ingeniero de software full-stack</dd><dt>Plataformas</dt><dd>Web responsive: escritorio y móvil, en español e inglés</dd><dt>Herramientas</dt><dd>Claude Code, Three.js, HTML, CSS y JavaScript</dd><dt>Estado</dt><dd>Propuesta publicada · en evaluación · sin pruebas con usuarios · 2026</dd></dl>
        </div>
        <div class="body">
-         <div class="blk rv"><span class="micro kicker">Qué es</span><p>La web profesional de Jersson, desarrollador de software senior: un resumen de su hoja de vida, su experiencia y sus habilidades en un solo lugar.</p></div>
-         <div class="blk rv"><span class="micro kicker">El reto</span><p class="reto">Mostrar un perfil técnico senior de forma clara para quien contrata, sin perder la profundidad de su experiencia.</p></div>
-         <div class="blk rv"><span class="micro kicker">Lo que hice</span><ul class="did">
-           <li>Organicé el contenido en tres partes: resumen de hoja de vida, experiencia y habilidades.</li>
-           <li>Diseñé y construí el sitio de principio a fin como proyecto freelance, con Claude AI y Claude Design AI.</li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Contexto</span><p>Jersson Morales es ingeniero de software full-stack, con más de siete años de experiencia en TypeScript, React, Next.js, React Native, Node.js y NestJS. Necesitaba un portafolio a la altura de su perfil: bilingüe, responsive y con un tono profesional y técnico, de estética minimalista, moderna y creativa. El encargo pedía poner por delante los logros, las métricas y la experiencia; dejar las empresas en segundo plano y sin rangos de fechas; mantener el contenido fiel a su hoja de vida, con enlaces a LinkedIn y a cada empresa; y presentarlo en un rol técnico, no de liderazgo.</p></div>
+         <div class="blk rv"><span class="micro kicker">El reto</span><p class="reto">Crear una experiencia memorable sobre desarrollo de software sin que la decoración compitiera con la información, y sin perder legibilidad, navegación ni accesibilidad.</p></div>
+         <div class="blk rv"><span class="micro kicker">Metodología</span><p>Trabajé en iteraciones cortas, con listas numeradas de ajustes, y prototipé en código sobre la web real con Claude Code como asistente de desarrollo. Cada etapa respondió a lo que la anterior dejó claro.</p><ol class="dec">
+           <li><b>Versión clásica: resolver lo esencial.</b><span>Una web estática bilingüe con acento morado de consola, títulos monoespaciados y barra superior fija. Quité lo que no aportaba (modo día, grid de fondo, pantalla de consola y aviso de disponibilidad) y reemplacé la sección de proyectos por especialidades.</span></li>
+           <li><b>Navegación espacial: explorar otra forma de recorrer.</b><span>Un prototipo con un avatar 3D que sigue el cursor y secciones que se abren dentro de un mismo espacio. Sirvió para probar la idea y no se publicó.</span></li>
+           <li><b>El compilador: dar una metáfora.</b><span>A partir de un video con un fuego central y pilares radiales, el primer resultado quedó demasiado literal y evocaba música. Lo replanteé hacia el desarrollo: el fuego es el compilador, los cubos llevan commits y los pilares son las secciones. Experiencia muestra un grafo de Git con una release por empleo.</span></li>
+           <li><b>Exploración de conceptos sobre la web real.</b><span>Prototipé dos alternativas, un átomo con moléculas y un procesador sobre una oblea de silicio, con contenido, navegación y responsive reales en lugar de maquetas aisladas.</span></li>
+           <li><b>El núcleo: llegar a la calma.</b><span>Partió de una esfera azul hielo en el espacio profundo, con luces que convergen en el centro. Tras analizarla de forma crítica, evolucionó hacia un átomo propio: protones y neutrones convergen en él y cuatro partículas son las secciones.</span></li></ol></div>
+         <div class="blk rv"><span class="micro kicker">Necesidades del encargo</span><ul class="did">
+           <li><span><b>Perfil técnico.</b> Stack, decisiones técnicas y resultados, sin un mensaje orientado al liderazgo.</span></li>
+           <li><span><b>Logros primero.</b> Métricas y experiencia por delante; las empresas en segundo plano y sin rangos de fechas.</span></li>
+           <li><span><b>Contenido fiel.</b> La hoja de vida vigente como única fuente de verdad, sin datos inventados.</span></li>
+           <li><span><b>Bilingüe y responsive.</b> Español e inglés, en escritorio y en móvil.</span></li>
+           <li><span><b>Navegable y accesible.</b> La escena no podía dificultar la lectura ni el recorrido por las secciones.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Problemas clave</span><p>Cada iteración dejó un problema concreto que definió la siguiente decisión.</p><ol class="dec">
+           <li><b>El concepto hablaba de otra cosa.</b><span>La primera escena se parecía demasiado a su referencia y evocaba música. Mantuve la dinámica de todo hacia un centro, pero cambié su significado por el de compilar código, y la escena pasó a hablar de desarrollo.</span></li>
+           <li><b>La decoración competía con el contenido.</b><span>Había demasiados commits en pantalla y una tabla que se desplegaba al abrir cada sección. Limité las etiquetas a tres a la vez, hice más sutiles las experiencias y dejé un solo protagonista visual por sección.</span></li>
+           <li><b>La propuesta atractiva podía ser genérica.</b><span>Una esfera brillante sobre negro es un recurso común en productos tecnológicos. La conecté con el trabajo de Jersson, llevé la navegación a la escena y la convertí en un átomo propio.</span></li>
+           <li><b>El estilo no correspondía a las referencias.</b><span>La luz suave parecía fotorrealista, la esfera recordaba a una luna y el primer grano se veía pixelado. Reconstruí el estilo con grano y gradiente térmico, definí la silueta y limité el brillo a las órbitas.</span></li>
+           <li><b>El contenido debía ser fiel y seguro.</b><span>La hoja de vida anterior y los textos nuevos se contradecían, el mensaje apuntaba a liderazgo y el PDF exponía datos de contacto privados. Tomé la hoja de vida vigente como fuente de verdad, reescribí los textos hacia stack, decisiones técnicas y resultados, y dejé el PDF fuera de las versiones publicadas.</span></li></ol></div>
+         <div class="blk rv"><span class="micro kicker">Decisiones de diseño</span><ol class="dec">
+           <li><b>Una animación con significado.</b><span>Cada luz de trabajo que llega al núcleo cambia el texto inferior por una actividad real de la hoja de vida.</span></li>
+           <li><b>La navegación dentro de la escena.</b><span>Al señalar una sección en la barra superior o en la escena, su partícula se acerca y envía destellos. Al abrirla, el núcleo la absorbe y de ahí nace el panel.</span></li>
+           <li><b>Elegir con calma.</b><span>La órbita se detiene al señalar una sección, y el scroll invierte el giro con un impulso visible.</span></li>
+           <li><b>Los textos mandan.</b><span>Las luces se atenúan cuando pasan sobre el texto.</span></li>
+           <li><b>Una carga con intención.</b><span>Primero oscuridad, luego surge el núcleo, los electrones trazan sus órbitas y una onda de luz da paso a la interfaz. Se salta con un clic o una tecla, y no aparece al entrar por un enlace directo a una sección.</span></li>
+           <li><b>Responsive sin cambios innecesarios.</b><span>En móvil, la barra superior pasa a un menú y el texto conserva la estructura de escritorio.</span></li>
+           <li><b>Contenido escaneable.</b><span>Cada experiencia es una síntesis técnica de una o dos frases, y cada métrica aparece una sola vez.</span></li></ol></div>
+         <div class="blk rv"><span class="micro kicker">Sistema visual</span><p>Extraje una línea gráfica común de cuatro referencias y la traduje a la escena.</p><ul class="did">
+           <li><span><b>Grano como material.</b> El color se disuelve en punteado, sin degradados lisos.</span></li>
+           <li><span><b>Gradiente térmico.</b> Hielo que pasa a azul y violeta, con un filo cálido mínimo.</span></li>
+           <li><span><b>Siluetas nítidas.</b> Núcleo y partículas con borde definido y sombreado granulado.</span></li>
+           <li><span><b>Vocabulario cósmico.</b> Destellos de cuatro puntas, confeti de puntos y haces finos.</span></li>
+           <li><span><b>Casi negro con textura.</b> Un fondo #08080C que se tiñe de índigo hacia el centro.</span></li>
+           <li><span><b>Un átomo propio.</b> La referencia era casi idéntica a un emblema conocido del desarrollo web. Mantuve el guiño, pero lo diferencié con órbitas de distinto tamaño, ángulos irregulares y un grosor que cambia con la profundidad, para que se lea como un átomo en 3D y no como una marca ajena.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Arquitectura de la interfaz</span><p>Elegí una base simple para poder iterar rápido.</p><ul class="did">
+           <li><span><b>Sin procesos de compilación.</b> HTML, CSS y JavaScript planos, con Three.js.</span></li>
+           <li><span><b>Escena e interfaz separadas.</b> La misma web admite distintas escenas, lo que permitió comparar conceptos sin tocar la versión publicada.</span></li>
+           <li><span><b>Un solo archivo de textos.</b> Español e inglés viven en el mismo lugar.</span></li>
+           <li><span><b>Shaders propios.</b> Generan el grano, el gradiente térmico, las órbitas y las partículas.</span></li>
+           <li><span><b>Navegación en HTML real.</b> Las etiquetas son botones proyectados sobre la escena, no parte de la imagen.</span></li>
+           <li><span><b>Accesibilidad.</b> Atajos de teclado, enlaces directos a cada sección y soporte para quien prefiere reducir el movimiento.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Validación e iteración</span><p>No hubo pruebas con usuarios ni analítica. Validé la propuesta con revisiones de diseño, capturas y pruebas técnicas sobre la web real. Dos problemas técnicos también marcaron decisiones: la partícula se movía al señalarla y el cursor podía perderla, así que el estado señalado se mantiene hasta que el cursor se aleja de verdad; y unas lecturas de 2 a 3 fps resultaron ser un límite del navegador en pestañas en segundo plano. En una medición controlada, cada fotograma costó alrededor de 2 ms en un computador de escritorio; falta probarlo en teléfonos reales.</p></div>
+         <div class="blk rv"><span class="micro kicker">Resultados</span><p>El portafolio evolucionó de una web clásica a una escena interactiva en la que la navegación forma parte de la animación. La propuesta del núcleo está publicada y en evaluación para reemplazar a la versión anterior. No hay métricas de uso; el resultado es cualitativo.</p><ul class="out">
+           <li><b>Navegación en la escena</b><span class="small">Cada sección es una partícula que se acerca al señalarla y nace del núcleo al abrirse.</span></li>
+           <li><b>Animación con significado</b><span class="small">Cada luz que llega al núcleo muestra una actividad real de la hoja de vida.</span></li>
+           <li><b>Un átomo propio</b><span class="small">Una identidad de grano y gradiente térmico, distinta de su referencia.</span></li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Aprendizajes</span><p>Prototipar sobre la web real revela problemas que una imagen aislada no muestra. Una referencia inspira, pero no define: hay que traducirla al contexto, tanto con el video inicial como con el emblema del átomo. Iterar también es descartar, y una animación resulta propia cuando se conecta con el contenido. La calma se diseña: depende del ritmo, de la jerarquía y de lo que decides quitar.</p></div>
+         <div class="blk rv"><span class="micro kicker">Próximos pasos</span><ul class="did">
+           <li>Decidir si la propuesta del núcleo reemplaza a la versión anterior.</li>
+           <li>Probar la experiencia en teléfonos reales y con usuarios.</li>
+           <li>Mostrar la carga completa solo una vez por sesión.</li></ul></div>
+         <div class="blk rv"><span class="micro kicker">Pantallas</span><p>Capturas de la propuesta publicada y de los conceptos explorados.</p></div>
+         <div class="blk rv"><span class="micro kicker">El núcleo · escritorio</span></div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:1.7778"><img src="assets/jdev/inicio.jpg" alt="Inicio: el átomo en el centro y las cuatro secciones como partículas en órbita" loading="lazy"><figcaption class="micro">Inicio · el núcleo y sus cuatro secciones</figcaption></figure>
+           <figure class="shot" style="--ar:1.7778"><img src="assets/jdev/load.jpg" alt="Carga: los electrones trazan las órbitas alrededor del núcleo" loading="lazy"><figcaption class="micro">Carga · los electrones trazan las órbitas</figcaption></figure>
+         </div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:1.6"><img src="assets/jdev/sobre-mi.jpg" alt="Sección Sobre mí abierta junto al núcleo, con cifras y forma de trabajo" loading="lazy"><figcaption class="micro">Sobre mí</figcaption></figure>
+           <figure class="shot" style="--ar:1.6"><img src="assets/jdev/experiencia.jpg" alt="Sección Experiencia abierta: síntesis técnica de cada empleo" loading="lazy"><figcaption class="micro">Experiencia</figcaption></figure>
+         </div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:1.6"><img src="assets/jdev/habilidades.jpg" alt="Sección Mis habilidades abierta: áreas técnicas agrupadas en tarjetas" loading="lazy"><figcaption class="micro">Mis habilidades</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jdev/movil.jpg" alt="Versión móvil: el átomo con las secciones y el menú" loading="lazy"><figcaption class="micro">Móvil</figcaption></figure>
+         </div>
+         <div class="blk rv"><span class="micro kicker">Evolución del concepto</span></div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:1.7778"><img src="assets/jdev/v-compilador.jpg" alt="Concepto El compilador: fuego central con pilares que envían commits" loading="lazy"><figcaption class="micro">El compilador</figcaption></figure>
+           <figure class="shot" style="--ar:1.7778"><img src="assets/jdev/c-esfera.jpg" alt="Primera versión del núcleo: una esfera azul hielo antes del átomo" loading="lazy"><figcaption class="micro">Esfera previa al átomo</figcaption></figure>
+         </div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:1.7778"><img src="assets/jdev/c-atomo.jpg" alt="Concepto explorado: un átomo con moléculas" loading="lazy"><figcaption class="micro">Concepto explorado · átomo con moléculas</figcaption></figure>
+           <figure class="shot" style="--ar:1.7778"><img src="assets/jdev/c-procesador.jpg" alt="Concepto explorado: un procesador sobre una oblea de silicio" loading="lazy"><figcaption class="micro">Concepto explorado · procesador</figcaption></figure>
+         </div>
        </div>
      </article>
   </div>
@@ -1008,8 +1078,8 @@ const PROJ=[
    desc:'Reestructuración del aplicativo interno de una empresa de señalización comercial: de registros sin trazabilidad y coordinación por mensajes a 13 módulos, un modelo de estados y un design system de más de 100 componentes.'},
   {id:'jausme',name:'Jausme',words:['Jausme'],cls:'p2',mock:MOCK.phones,pc:'var(--jausme)',sub:'Producto nuevo · diseño desde cero',year:'2026',type:'App responsive · móvil, tablet y escritorio',role:'Diseñadora UX/UI y de producto',client:'Proyecto personal · Jausme',
   desc:'Diseño de producto para conjuntos residenciales: ocho flujos completos para residentes, vigilantes y administración, prototipados en alta fidelidad y sin desarrollo.'},
-  {id:'jdev',name:'Jersson Dev',words:['Jersson','Dev'],cls:'p4',mock:MOCK.code,pc:'var(--jdev)',sub:'Web profesional · freelance',year:'2026',type:'Sitio web profesional',role:'Freelance',client:'Jersson Dev',
-   desc:'La web profesional de Jersson, desarrollador de software senior: su hoja de vida, experiencia y habilidades en un solo lugar.'},
+  {id:'jdev',name:'Jersson Dev',words:['Jersson','Dev'],cls:'p4',mock:MOCK.code,pc:'var(--jdev)',sub:'Portafolio interactivo · freelance',year:'2026',type:'Web bilingüe con escena 3D',role:'Diseñadora UX/UI y dirección visual',client:'Jersson Morales',
+   desc:'Portafolio bilingüe para un ingeniero de software: de una web clásica a una escena interactiva con un átomo propio, en la que la navegación forma parte de la animación.'},
   {id:'soon1',name:'Próximamente',cls:'p5',mock:MOCK.soon,soon:true,sub:'Nuevo proyecto en camino'},
   {id:'soon2',name:'Próximamente',cls:'p5',mock:MOCK.soon,soon:true,sub:'Nuevo proyecto en camino'}
 ];
