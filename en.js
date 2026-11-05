@@ -642,5 +642,9 @@ window.REM_EN={
 "Validar la experiencia con más usuarios y en teléfonos reales.": "Validate the experience with more users and on real phones.",
 "Capturas de la propuesta publicada.": "Screenshots of the published proposal.",
 "Portafolio con escena 3D interactiva": "Portfolio with an interactive 3D scene",
-"Portafolio para un ingeniero de software: una escena interactiva con un átomo propio, en la que la navegación forma parte de la animación.": "A portfolio for a software engineer: an interactive scene built around an original atom, where navigation is part of the animation."
+"Portafolio para un ingeniero de software: una escena interactiva con un átomo propio, en la que la navegación forma parte de la animación.": "A portfolio for a software engineer: an interactive scene built around an original atom, where navigation is part of the animation.",
+"Validé cada iteración con Jersson como usuario y cliente, en escritorio y en móvil, y lo complementé con una revisión heurística y pruebas de rendimiento. Entregables: validación con el usuario, ajustes priorizados y medición de rendimiento.": "I validated each iteration with Jersson as user and client, on desktop and mobile, and complemented it with a heuristic review and performance tests. Deliverables: user validation, prioritized adjustments and performance measurement.",
+"Jersson fue el usuario de referencia. Revisó cada iteración navegando la web publicada en escritorio y en móvil, y entregó sus observaciones como listas numeradas de ajustes. Cada revisión definió la siguiente decisión.": "Jersson was the reference user. He reviewed each iteration by browsing the published website on desktop and mobile, and delivered his feedback as numbered lists of adjustments. Each review defined the next decision.",
+"Moodboard: cuatro ilustraciones de referencia con grano, gradiente térmico y elementos cósmicos": "Moodboard: four reference illustrations with grain, a thermal gradient and cosmic elements",
+"Moodboard · referencias visuales externas usadas como inspiración": "Moodboard · external visual references used as inspiration"
 };
