@@ -232,7 +232,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .strip.hov .strip__img,.strip:focus-visible .strip__img{filter:none}
 .strip__in{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden}
 .strip .mock,.zoom__in .mock,.cov .mock{position:absolute;inset:0}
-.m-photo{background:#2a2f3a;overflow:hidden}.m-vid{background:#08080C}.m-vid img,.m-vid video{object-fit:contain!important;object-position:50% 50%!important}.m-photo img,.m-photo video{width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block}
+.m-photo{background:#2a2f3a;overflow:hidden}.m-photo img,.m-photo video{width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block}
 .p1{--s-bg:#7A35D6}.p2{--s-bg:#EEEBE3}.p3{--s-bg:#E04A3B}.p4{--s-bg:#141316}.p5{--s-bg:#1E1C21}
 .m-soon{display:grid;place-items:center;background:repeating-linear-gradient(135deg,#1E1C21 0 14px,#26232B 14px 28px)}
 .m-soon b{font-family:var(--text);font-weight:500;font-size:17px;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:#CFC9D6;border:1px solid #4A4652;padding:12px 18px}
@@ -370,6 +370,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .case.jausme .id dt,.case.jdev .id dt{white-space:nowrap}
 .case.jausme .strengths{grid-template-columns:repeat(2,minmax(0,1fr))}
 .case .jausme-mobile-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.case .jausme-mobile-row .shot{aspect-ratio:var(--ar);min-width:0}
 /* screenshots: put the file in the img src and remove hidden; until then the frame shows its label */
 .shot{margin:0;position:relative;display:grid;place-items:center;border:1px dashed var(--rule);background:rgba(23,18,29,.03);overflow:hidden}
 .shot--desk{aspect-ratio:16/10;width:100%}.shot--mob{aspect-ratio:9/19.5;width:min(100%,260px);justify-self:center}
@@ -822,6 +823,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
            <li>Hacer pruebas de usabilidad de pagos, validación de visitas y recepción de paquetes.</li>
            <li>Llevar el design system a Figma con sus componentes enlazados.</li></ul></div>
          <div class="blk rv"><span class="micro kicker">Pantallas</span><p>Capturas del prototipo de alta fidelidad. Los datos son ficticios.</p></div>
+         <div class="blk rv"><span class="micro kicker">Acceso · carga e inicio de sesión</span><div class="jausme-mobile-row">
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/acc-carga-m.jpg" alt="Pantalla de carga: logo de Jausme y barra de progreso sobre el fondo degradado" loading="lazy"><figcaption class="micro">Carga</figcaption></figure>
+           <figure class="shot" style="--ar:.4621"><img src="assets/jausme/acc-ingreso-m.jpg" alt="Inicio de sesión en móvil: correo, contraseña, recordarme y activar cuenta con el código de la administración" loading="lazy"><figcaption class="micro">Inicio de sesión · móvil</figcaption></figure>
+         </div></div>
+         <div class="blk rv srow">
+           <figure class="shot" style="--ar:1.4388"><img src="assets/jausme/acc-ingreso-t.jpg" alt="Inicio de sesión en tablet: panel de marca con los tres roles y formulario de ingreso" loading="lazy"><figcaption class="micro">Inicio de sesión · tablet</figcaption></figure>
+           <figure class="shot" style="--ar:1.6"><img src="assets/jausme/acc-ingreso-d.jpg" alt="Inicio de sesión en escritorio: panel de marca con los tres roles y formulario de ingreso" loading="lazy"><figcaption class="micro">Inicio de sesión · escritorio</figcaption></figure>
+         </div>
          <div class="blk rv"><span class="micro kicker">Residente · móvil</span><div class="jausme-mobile-row">
            <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-inicio-m.jpg" alt="Inicio del residente: saldo del apartamento activo, accesos rápidos y novedades de portería" loading="lazy"><figcaption class="micro">Inicio · saldo, accesos rápidos y novedades de portería</figcaption></figure>
            <figure class="shot" style="--ar:.4621"><img src="assets/jausme/res-pagos-m.jpg" alt="Mis pagos del residente: pago en la app y reporte de pago hecho por fuera en tarjetas separadas" loading="lazy"><figcaption class="micro">Mis pagos · pago en la app y reporte por fuera</figcaption></figure>
@@ -1072,14 +1081,15 @@ const MOCK={
   dash:'<span class="mock m-dash"><span class="side"><i class="bar-x a"></i><i class="bar-x"></i><i class="bar-x"></i><i class="bar-x"></i><i class="bar-x"></i></span><span class="main"><span class="kpis"><span class="kpi"><b>128</b><i class="bar-x"></i></span><span class="kpi"><b>36</b><i class="bar-x"></i></span><span class="kpi"><b>94%</b><i class="bar-x"></i></span></span>'+'<span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge g"></i></span><span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge y"></i></span><span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge b"></i></span><span class="mrow"><i class="bar-x"></i><i class="bar-x"></i><i class="badge g"></i></span></span></span>',
   phones:'<span class="mock m-phones"><span class="phone"><i class="av"></i><i class="pc a"></i><i class="pc"></i><span class="tab"><i></i><i></i><i></i></span></span><span class="phone"><i class="pc"></i><i class="pc a"></i><i class="pc"></i><span class="tab"><i></i><i></i><i></i></span></span><span class="phone"><i class="av"></i><i class="pc"></i><i class="pc"></i><span class="tab"><i></i><i></i><i></i></span></span></span>',
   web:'<span class="mock m-web"><span class="page"><span class="dots"><i></i><i></i><i></i></span><i class="heroimg"></i><span class="cols"><i></i><i></i><i></i></span></span><span class="pieces"><span class="post">Aa</span><span class="post b">24</span></span></span>',
-  jdev:reduce?'<span class="mock m-photo m-vid"><img src="assets/jdev/portada.jpg" alt=""></span>':'<span class="mock m-photo m-vid"><video src="assets/jdev/portada.mp4" poster="assets/jdev/portada.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video></span>',
+  jdev:'<span class="mock m-photo"><img src="assets/jdev/portada.jpg" alt=""></span>',
+  jausme:'<span class="mock m-photo"><img src="assets/jausme/portada.jpg" alt=""></span>',
   soon:'<span class="mock m-soon"><b>Próximamente</b></span>',
   code:'<span class="mock m-code"><span class="m-code__bar"><i></i><i></i><i></i></span><i style="width:42%"></i><i class="a" style="width:64%;margin-left:8%"></i><i style="width:52%;margin-left:8%"></i><i class="b" style="width:36%;margin-left:16%"></i><i style="width:58%;margin-left:8%"></i><i class="a" style="width:30%"></i><i style="width:48%"></i></span>'
 };
 const PROJ=[
   {id:'jg',name:'El Capitan',words:['El','Capitan'],cls:'p1',mock:MOCK.photoJG,pc:'var(--ink)',sub:'Plataforma de gestión de servicios',year:'2024 — 2026',type:'Aplicativo interno y design system',role:'Product designer · UX/UI',client:'JG Signs',
    desc:'Reestructuración del aplicativo interno de una empresa de señalización comercial: de registros sin trazabilidad y coordinación por mensajes a 13 módulos, un modelo de estados y un design system de más de 100 componentes.'},
-  {id:'jausme',name:'Jausme',words:['Jausme'],cls:'p2',mock:MOCK.phones,pc:'var(--jausme)',sub:'Producto nuevo · diseño desde cero',year:'2026',type:'App responsive · móvil, tablet y escritorio',role:'Diseñadora UX/UI y de producto',client:'Proyecto personal · Jausme',
+  {id:'jausme',name:'Jausme',words:['Jausme'],cls:'p2',mock:MOCK.jausme,pc:'var(--jausme)',sub:'Producto nuevo · diseño desde cero',year:'2026',type:'App responsive · móvil, tablet y escritorio',role:'Diseñadora UX/UI y de producto',client:'Proyecto personal · Jausme',
   desc:'Diseño de producto para conjuntos residenciales: ocho flujos completos para residentes, vigilantes y administración, prototipados en alta fidelidad y sin desarrollo.'},
   {id:'jdev',name:'Jersson Dev',words:['Jersson','Dev'],cls:'p4',mock:MOCK.jdev,pc:'var(--jdev)',sub:'Portafolio interactivo · freelance',year:'2026',type:'Portafolio con escena 3D interactiva',role:'Diseñadora UX/UI y dirección visual',client:'Jersson Morales',
    desc:'Portafolio para un ingeniero de software: una escena interactiva con un átomo propio, en la que la navegación forma parte de la animación.'},

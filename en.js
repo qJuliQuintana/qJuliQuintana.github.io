@@ -685,5 +685,14 @@ window.REM_EN={
 "Entender quién es Jersson y qué hace a partir del recorrido.": "Understand who Jersson is and what he does from browsing the site.",
 "Los cuatro completaron todas las tareas sin dificultades de navegación, y valoraron de forma positiva el diseño. El hallazgo principal es que la navegación por partículas se entiende sin explicación previa, aunque la muestra es pequeña y cualitativa.": "All four completed every task with no navigation problems and rated the design positively. The main finding is that particle-based navigation is understood without prior explanation, although the sample is small and qualitative.",
 "El portafolio pasó de una web estática a una escena interactiva en la que la navegación forma parte de la animación. La propuesta del núcleo, validada con el cliente, reemplazó a todas las versiones anteriores. En las pruebas, los cuatro usuarios completaron todas las tareas sin dificultades de navegación.": "The portfolio went from a static website to an interactive scene where navigation is part of the animation. The nucleus proposal, validated with the client, replaced all previous versions. In testing, all four users completed every task with no navigation problems.",
-"Ampliar las pruebas a más reclutadores y líderes técnicos, con tareas medidas por tiempo y éxito.": "Extend testing to more recruiters and tech leads, with tasks measured by time and success."
+"Ampliar las pruebas a más reclutadores y líderes técnicos, con tareas medidas por tiempo y éxito.": "Extend testing to more recruiters and tech leads, with tasks measured by time and success.",
+"Acceso · carga e inicio de sesión": "Access · loading and sign-in",
+"Pantalla de carga: logo de Jausme y barra de progreso sobre el fondo degradado": "Loading screen: Jausme logo and progress bar on the gradient background",
+"Carga": "Loading",
+"Inicio de sesión en móvil: correo, contraseña, recordarme y activar cuenta con el código de la administración": "Mobile sign-in: email, password, remember me and account activation with the code from the administration",
+"Inicio de sesión · móvil": "Sign-in · mobile",
+"Inicio de sesión en tablet: panel de marca con los tres roles y formulario de ingreso": "Tablet sign-in: brand panel with the three roles and the sign-in form",
+"Inicio de sesión · tablet": "Sign-in · tablet",
+"Inicio de sesión en escritorio: panel de marca con los tres roles y formulario de ingreso": "Desktop sign-in: brand panel with the three roles and the sign-in form",
+"Inicio de sesión · escritorio": "Sign-in · desktop"
 };
