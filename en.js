@@ -1,6 +1,6 @@
 /* English for the Rem Design portfolio: each key is the Spanish text exactly as it appears on the page. */
 window.REM_EN={
-  "Diseñé el portafolio interactivo de un ingeniero de software full-stack, del concepto creativo a la versión publicada.": "I designed the interactive portfolio of a full-stack software engineer, from the creative concept to the published version.",
+  "Proyecto freelance para Jersson Morales, ingeniero de software full-stack. Diseñé su portafolio web de principio a fin: el concepto visual, la arquitectura de información y la experiencia en escritorio y móvil, hasta la versión publicada.": "Freelance project for Jersson Morales, a full-stack software engineer. I designed his portfolio site end to end: the visual concept, the information architecture and the desktop and mobile experience, through to the published version.",
   "Convertí su perfil en un concepto visual propio: un átomo en el que la navegación forma parte de la animación.": "I turned his profile into a visual concept of its own: an atom where navigation is part of the animation.",
   "Definí la arquitectura de información y la jerarquía de contenido para reclutadores, líderes técnicos y clientes.": "I defined the information architecture and content hierarchy for recruiters, tech leads and clients.",
   "Diseñé la experiencia responsive para escritorio y móvil, con criterios de accesibilidad y heurísticas de usabilidad.": "I designed the responsive experience for desktop and mobile, following accessibility criteria and usability heuristics.",
