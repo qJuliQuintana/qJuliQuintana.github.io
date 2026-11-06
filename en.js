@@ -1,11 +1,12 @@
 /* English for the Rem Design portfolio: each key is the Spanish text exactly as it appears on the page. */
 window.REM_EN={
-  "Proyecto freelance para Jersson Morales, ingeniero de software full-stack. Diseñé su portafolio web de principio a fin: el concepto visual, la arquitectura de información y la experiencia en escritorio y móvil, hasta la versión publicada.": "Freelance project for Jersson Morales, a full-stack software engineer. I designed his portfolio site end to end: the visual concept, the information architecture and the desktop and mobile experience, through to the published version.",
+  "Diseño de producto y dirección creativa · Remoto, Bogotá": "Product design and creative direction · Remote, Bogotá",
+  "Proyecto freelance y remoto para Jersson Morales, ingeniero de software full-stack. Lideré su portafolio web de principio a fin: dirección creativa, diseño de producto, UX y UI, hasta la versión publicada. La implementación en código se hizo con Claude a partir de mis diseños.": "Remote freelance project for Jersson Morales, a full-stack software engineer. I led his portfolio site end to end: creative direction, product design, UX and UI, through to the published version. The code was implemented with Claude from my designs.",
+  "Diseño de producto y dirección creativa": "Product design and creative direction",
   "Convertí su perfil en un concepto visual propio: un átomo en el que la navegación forma parte de la animación.": "I turned his profile into a visual concept of its own: an atom where navigation is part of the animation.",
   "Definí la arquitectura de información y la jerarquía de contenido para reclutadores, líderes técnicos y clientes.": "I defined the information architecture and content hierarchy for recruiters, tech leads and clients.",
   "Diseñé la experiencia responsive para escritorio y móvil, con criterios de accesibilidad y heurísticas de usabilidad.": "I designed the responsive experience for desktop and mobile, following accessibility criteria and usability heuristics.",
   "Validé la propuesta con el cliente y con cuatro usuarios, que completaron las tareas principales sin inconvenientes.": "I validated the proposal with the client and with four users, who completed the main tasks without issues.",
-  "Diseñadora UX/UI freelance · Bogotá": "Freelance UX/UI designer · Bogotá",
   "Listado de estimados: proyecto, empresa, cliente, responsable, estado y fecha": "Estimates list: project, company, client, owner, status and date",
   "Estimados · listado con estados": "Estimates · list with statuses",
   "Detalle de un estimado: alcance del trabajo, documentos, ubicación en mapa y galería": "Estimate detail: scope of work, documents, map location and gallery",
