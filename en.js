@@ -1,5 +1,15 @@
 /* English for the Rem Design portfolio: each key is the Spanish text exactly as it appears on the page. */
 window.REM_EN={
+  "Listado de estimados: proyecto, empresa, cliente, responsable, estado y fecha": "Estimates list: project, company, client, owner, status and date",
+  "Estimados · listado con estados": "Estimates · list with statuses",
+  "Detalle de un estimado: alcance del trabajo, documentos, ubicación en mapa y galería": "Estimate detail: scope of work, documents, map location and gallery",
+  "Estimado · alcance, documentos y ubicación": "Estimate · scope, documents and location",
+  "Detalle de proyecto: fases, alcance del trabajo y chat del equipo": "Project detail: phases, scope of work and team chat",
+  "Proyecto · fases y chat del equipo": "Project · phases and team chat",
+  "Nuevo estimado: información del estimado, del cliente y direcciones": "New estimate: estimate details, client information and addresses",
+  "Nuevo estimado · formulario por pasos": "New estimate · step-by-step form",
+  "Confirmación antes de salir con cambios sin guardar": "Confirmation before leaving with unsaved changes",
+  "Confirmación · cambios sin guardar": "Confirmation · unsaved changes",
 "Rem Design, inicio": "Rem Design, home",
 "Secciones": "Sections",
 "Descargar CV ↓": "Download CV ↓",
