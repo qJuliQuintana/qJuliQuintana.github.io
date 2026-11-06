@@ -1,5 +1,11 @@
 /* English for the Rem Design portfolio: each key is the Spanish text exactly as it appears on the page. */
 window.REM_EN={
+  "Diseñé el portafolio interactivo de un ingeniero de software full-stack, del concepto creativo a la versión publicada.": "I designed the interactive portfolio of a full-stack software engineer, from the creative concept to the published version.",
+  "Convertí su perfil en un concepto visual propio: un átomo en el que la navegación forma parte de la animación.": "I turned his profile into a visual concept of its own: an atom where navigation is part of the animation.",
+  "Definí la arquitectura de información y la jerarquía de contenido para reclutadores, líderes técnicos y clientes.": "I defined the information architecture and content hierarchy for recruiters, tech leads and clients.",
+  "Diseñé la experiencia responsive para escritorio y móvil, con criterios de accesibilidad y heurísticas de usabilidad.": "I designed the responsive experience for desktop and mobile, following accessibility criteria and usability heuristics.",
+  "Validé la propuesta con el cliente y con cuatro usuarios, que completaron las tareas principales sin inconvenientes.": "I validated the proposal with the client and with four users, who completed the main tasks without issues.",
+  "Diseñadora UX/UI freelance · Bogotá": "Freelance UX/UI designer · Bogotá",
   "Listado de estimados: proyecto, empresa, cliente, responsable, estado y fecha": "Estimates list: project, company, client, owner, status and date",
   "Estimados · listado con estados": "Estimates · list with statuses",
   "Detalle de un estimado: alcance del trabajo, documentos, ubicación en mapa y galería": "Estimate detail: scope of work, documents, map location and gallery",
