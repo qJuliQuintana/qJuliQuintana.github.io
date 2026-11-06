@@ -578,6 +578,7 @@ window.REM_EN={
 "Carga · los electrones trazan las órbitas": "Loading · the electrons trace the orbits",
 "Mis habilidades": "My skills",
 "Móvil": "Mobile",
+  "Escritorio": "Desktop",
 "Evolución del concepto": "Concept evolution",
 "El compilador": "The compiler",
 "Esfera previa al átomo": "Sphere before the atom",
