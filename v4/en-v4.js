@@ -9,6 +9,7 @@ Object.assign(window.REM_EN=window.REM_EN||{},{
   "Más proyectos": "More projects",
   "Ver caso →": "View case →",
   "Abrir": "Open",
+  "03 · Proyectos": "03 · Projects",
   "Abrir sección": "Open section",
   "Sección": "Section"
 });

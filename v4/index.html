@@ -47,8 +47,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 @keyframes look{0%,8%{transform:none}22%,36%{transform:translateX(24px)}50%,64%{transform:translateX(-24px)}76%,100%{transform:none}}
 @keyframes blink{0%,80%{transform:none}86%{transform:scaleY(.06)}92%,100%{transform:none}}
 .logo b+span{margin-left:-.28em}.logo b{font-weight:700}.logo span{font-weight:300;color:#5B2FC9}
-.logo,.tr,.meta>span,.here:not(:empty){background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:999px;box-shadow:0 6px 20px -10px rgba(23,18,29,.35)}
-.logo{padding:7px 16px 7px 12px}.tr{padding:4px 18px}.meta>span{padding:6px 14px}.here:not(:empty){padding:8px 16px}
+.logo,.tr,.meta>span,.talkBtn,.here:not(:empty){background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:999px;box-shadow:0 6px 20px -10px rgba(23,18,29,.35)}
+.logo{padding:7px 16px 7px 12px}.tr{padding:4px 18px}.meta>span{padding:6px 14px}.talkBtn{padding:10px 18px;pointer-events:auto;font-size:12px;transition:transform .3s,background .3s}.talkBtn:hover{transform:translateY(-2px);background:#fff}.here:not(:empty){padding:8px 16px}
 .here{color:var(--ink);transition:opacity .3s,transform .3s}
 .here.swap{opacity:0;transform:translateY(-6px)}
 .tr{justify-self:end;display:flex;gap:20px;align-items:center}
@@ -62,15 +62,34 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .lang-out .stage,.lang-out .meta,.lang-out .viewer,.lang-out .module{opacity:0}
 
 /* ---------- stage: the sphere, the section titles running top to bottom behind it, the content held in front ---------- */
-#orb{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none}
+#orb{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none}
 
-.stage{position:fixed;inset:0;z-index:1;overflow:hidden;touch-action:none}
-.orbHit{z-index:3}
+.stage{position:fixed;inset:0;z-index:2;overflow:hidden;touch-action:none}
+.orbHit{z-index:1}
+/* the titles run over the sphere, in a band that holds whole rows only */
+.tband{position:absolute;left:0;right:0;top:var(--bt,64px);height:var(--bh,780px);overflow:hidden;z-index:2;pointer-events:none}
+.tband .titles{pointer-events:none}.tband .titles button{pointer-events:auto;width:max-content;max-width:100%}
+.fhead.sub{padding-top:28px;border-top:1px solid var(--ink)}
+.fhead.sub h3{font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:clamp(34px,8cqw,64px);line-height:.95}
+/* hablemos: a glass card over the page */
+.talk{position:fixed;inset:0;z-index:28;display:grid;place-items:center;padding:16px;visibility:hidden;transition:visibility 0s .5s}
+.talk.open{visibility:visible;transition:none}
+.tscrim{position:absolute;inset:0;background:rgba(23,18,29,.12);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity .45s}
+.talk.open .tscrim{opacity:1}
+.tcard{position:relative;width:min(600px,100%);max-height:calc(100svh - 32px);overflow-y:auto;display:grid;gap:22px;padding:clamp(24px,5vw,44px);border-radius:32px;container-type:inline-size;
+  background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.28));-webkit-backdrop-filter:blur(28px) saturate(1.5);backdrop-filter:blur(28px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.7);box-shadow:0 40px 100px -30px rgba(23,18,29,.45),inset 0 1px 0 rgba(255,255,255,.8);
+  opacity:0;transform:translateY(24px) scale(.96);transform-origin:0 100%;transition:opacity .4s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.talk.open .tcard{opacity:1;transform:none}
+.tcard .links li{border-color:rgba(23,18,29,.14)}
+.tclose{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.7);display:grid;place-items:center;font-size:14px}
+.tclose:hover{background:#fff}
+.tfoot{color:var(--ash)}
 .titles{position:absolute;left:0;top:0;right:0;font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:var(--tfs,120px);line-height:1;letter-spacing:.005em;will-change:transform}
-.titles button{display:flex;align-items:flex-start;gap:.12em;height:var(--trow,120px);padding-left:var(--gut);white-space:nowrap;color:transparent;-webkit-text-stroke:1.3px var(--ink);transition:color .6s ease}
+.titles button{display:flex;align-items:center;gap:.12em;height:var(--trow,120px);padding-left:var(--gut);white-space:nowrap;color:transparent;-webkit-text-stroke:1.3px rgba(23,18,29,.42);transition:color .6s ease,-webkit-text-stroke-color .6s}
 .titles button i{font-family:var(--text);font-style:normal;font-size:var(--micro);font-weight:500;letter-spacing:.14em;color:var(--ink);opacity:.6;-webkit-text-stroke:0;padding-top:1.4em;width:2.6em;flex:none}
 .titles button:hover{color:rgba(23,18,29,.14)}
-.titles button.on{color:var(--ink)}
+.titles button.on{color:var(--ink);-webkit-text-stroke-color:var(--ink)}
 .titles button.on i{opacity:1}
 .orbHit{position:absolute;left:var(--ox,60%);top:var(--oy,50%);width:var(--od,600px);height:var(--od,600px);transform:translate(-50%,-50%);border-radius:50%;cursor:pointer;z-index:2}
 .no-gl .orbHit{background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.5) 45%,rgba(106,63,224,.35))}
@@ -330,13 +349,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 <canvas id="orb" aria-hidden="true"></canvas>
 <main class="stage">
+  <div class="tband">
   <nav class="titles" aria-label="Secciones">
     <button type="button" data-face="0"><i>01</i><span>Sobre mí</span></button>
     <button type="button" data-face="1"><i>02</i><span>Trayectoria</span></button>
-    <button type="button" data-face="2"><i>03</i><span>Cómo trabajo</span></button>
-    <button type="button" data-face="3"><i>04</i><span>Proyectos</span></button>
-    <button type="button" data-face="4"><i>05</i><span>Hablemos</span></button>
+    <button type="button" data-face="2"><i>03</i><span>Proyectos</span></button>
   </nav>
+  </div>
   <button class="orbHit" type="button" aria-label="Abrir sección"></button>
 </main>
 
@@ -356,39 +375,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       <li style="--i:2"><b>7</b><span class="small">roles de usuario mapeados en flujos</span></li>
       <li style="--i:3"><b>3</b><span class="small">tamaños de pantalla: mobile, tablet y desktop</span></li>
     </ul>
-      </div></section>
-
-      <section class="face f2" aria-label="Trayectoria"><div class="fbody">
-        <header class="fhead"><p class="eyebrow micro"><span>02 · Trayectoria</span><span>Experiencia y formación</span></p><h2>Trayectoria</h2></header>
-      <p class="intro">Vengo de la publicidad: sé contar una marca. El diseño UX me enseñó a hacerla útil.</p>
-    </header>
-    <div class="path">
-      <div class="col exp"><h3 class="micro">Experiencia</h3>
-        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>Oct 2026</time><div><b>Jersson Dev</b><span class="small">Diseño de producto y dirección creativa · Remoto, Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><p class="xdesc">Proyecto freelance y remoto para Jersson Morales, ingeniero de software full-stack. Lideré su página web profesional de principio a fin: dirección creativa, diseño de producto, UX y UI, hasta la versión publicada. La implementación en código se hizo con Claude a partir de mis diseños.</p><ul class="ach"><li>Convertí su perfil en un concepto visual propio: un átomo en el que la navegación forma parte de la animación.</li><li>Definí la arquitectura de información y la jerarquía de contenido para reclutadores, líderes técnicos y clientes.</li><li>Diseñé la experiencia responsive para escritorio y móvil, con criterios de accesibilidad y heurísticas de usabilidad.</li><li>Validé la propuesta con el cliente y con cuatro usuarios, que completaron las tareas principales sin inconvenientes.</li></ul></div></div></div>
-        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2024 — 2026</time><div><b>JG Signs</b><span class="small">Product designer · UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Audité el sistema anterior y reorganicé su arquitectura de 11 a 13 módulos, con sus flujos y subflujos.</li><li>Rediseñé seis flujos completos (estimados, servicios, proyectos, inventario, vehículos y finanzas) partiendo del rol administrador, con diseño responsive para desktop, tablet y mobile.</li><li>Simplifiqué las fases de un proyecto de siete a cuatro, validando cada flujo con el cliente en prototipos de Figma.</li><li>Construí un design system de más de 100 componentes con Atomic Design, tokens y variables, compartido con desarrollo.</li><li>Definí los estados de cada registro y mensajes del sistema que explican qué pasó y qué hacer.</li><li>Diseñé nuevas funcionalidades: tablero de tareas, chat por proyecto y gestión de fases y documentos.</li></ul></div></div></div>
-        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2023 — 2024</time><div><b>Jausme</b><span class="small">Diseñadora UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Definí la experiencia web y móvil de una aplicación para administrar conjuntos residenciales.</li><li>Definí y prototipé experiencias diferenciadas para residentes, administradores y guardas de seguridad.</li><li>Diseñé los flujos de comunicación, reservas, visitantes y parqueaderos.</li><li>Identifiqué las fricciones principales (comunicación, pagos y visitas) y las resolví en el diseño.</li><li>Diseñé la experiencia multiplataforma (web y móvil) con consistencia entre dispositivos.</li></ul></div></div></div>
-        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2022 — 2023</time><div><b>Leo Burnett</b><span class="small">Diseñadora web · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Prototipé y optimicé interfaces en alta fidelidad con principios de diseño centrado en el usuario.</li><li>Mejoré la arquitectura de la información con flujos y jerarquías claras para la navegación.</li><li>Colaboré con desarrollo para asegurar la correcta implementación en el producto final.</li><li>Diseñé piezas digitales: redes sociales, PDFs, infografías, presentaciones y correos HTML.</li></ul></div></div></div>
-      </div>
-      <div class="col edu" style="--i:1"><h3 class="micro">Formación</h3>
-        <div class="row"><time>2017 — 2024</time><div><b>Publicidad y Mercadeo</b><span class="small">Pregrado · Fundación Universitaria Los Libertadores</span></div></div>
-        <div class="row"><time>2024</time><div><b>Spin-Off y proyectos creativos de base tecnológica</b><span class="small">Seminario de grado</span></div></div>
-        <div class="row"><time>2022</time><div><b>Diseño de interfaces y experiencia de usuario</b><span class="small">Curso · Platzi</span></div></div>
-        <div class="row"><time>2021</time><div><b>Diseño UX/UI</b><span class="small">Curso · Coderhouse</span></div></div>
-      </div>
-    </div>
-    <div class="trio">
-      <div class="str"><h3 class="micro">Fortalezas</h3><ul class="strengths">
-        <li><b>Diseño centrado en el usuario</b><span class="small">Parto de lo que necesita cada rol y reviso cada flujo con quien usa la herramienta antes de llevarlo a alta fidelidad.</span></li>
-        <li><b>Arquitectura de información</b><span class="small">Ordeno flujos complejos en jerarquías claras, sin importar cuántos roles convivan.</span></li>
-        <li><b>Diseño visual y branding</b><span class="small">Interfaces coherentes con la marca, aplicadas desde el design system.</span></li>
-        <li><b>Colaboración</b><span class="small">Trabajo con desarrollo y negocio para que lo diseñado llegue intacto al producto.</span></li></ul></div>
-      <div class="tools" style="--i:1"><h3 class="micro">Herramientas</h3><ul class="plain two small"><li>Figma</li><li>FigJam</li><li>Adobe XD</li><li>Illustrator</li><li>Photoshop</li><li>Hotjar</li><li>Claude AI</li><li>Claude Design AI</li></ul></div>
-      <div class="int" style="--i:2"><h3 class="micro">Intereses</h3><ul class="plain two small"><li>Arte</li><li>Deporte</li><li>Tecnología</li><li>Música</li><li>Lectura</li><li>Ilustración</li></ul></div>
-    </div>
-      </div></section>
-
-      <section class="face f3" aria-label="Cómo trabajo"><div class="fbody">
-        <header class="fhead"><p class="eyebrow micro"><span>03 · Cómo trabajo</span><span>Qué hago, cómo lo hago y qué resuelvo</span></p><h2>Cómo trabajo</h2></header>
+        <header class="fhead sub"><p class="eyebrow micro"><span>Cómo trabajo</span><span>Qué hago, cómo lo hago y qué resuelvo</span></p><h3>Cómo trabajo</h3></header>
       <p class="intro">Primero entiendo el problema, después lo ordeno y al final lo diseño. Esto es lo que hago, el camino que sigo y los problemas que ya resolví en proyectos reales.</p>
     </header>
     <div class="part"><h3>Lo que hago</h3><p>Cuatro formas de trabajar juntos, según en qué punto está tu producto.</p></div>
@@ -428,15 +415,50 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     </div>
       </div></section>
 
+      <section class="face f2" aria-label="Trayectoria"><div class="fbody">
+        <header class="fhead"><p class="eyebrow micro"><span>02 · Trayectoria</span><span>Experiencia y formación</span></p><h2>Trayectoria</h2></header>
+      <p class="intro">Vengo de la publicidad: sé contar una marca. El diseño UX me enseñó a hacerla útil.</p>
+    </header>
+    <div class="path">
+      <div class="col exp"><h3 class="micro">Experiencia</h3>
+        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>Oct 2026</time><div><b>Jersson Dev</b><span class="small">Diseño de producto y dirección creativa · Remoto, Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><p class="xdesc">Proyecto freelance y remoto para Jersson Morales, ingeniero de software full-stack. Lideré su página web profesional de principio a fin: dirección creativa, diseño de producto, UX y UI, hasta la versión publicada. La implementación en código se hizo con Claude a partir de mis diseños.</p><ul class="ach"><li>Convertí su perfil en un concepto visual propio: un átomo en el que la navegación forma parte de la animación.</li><li>Definí la arquitectura de información y la jerarquía de contenido para reclutadores, líderes técnicos y clientes.</li><li>Diseñé la experiencia responsive para escritorio y móvil, con criterios de accesibilidad y heurísticas de usabilidad.</li><li>Validé la propuesta con el cliente y con cuatro usuarios, que completaron las tareas principales sin inconvenientes.</li></ul></div></div></div>
+        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2024 — 2026</time><div><b>JG Signs</b><span class="small">Product designer · UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Audité el sistema anterior y reorganicé su arquitectura de 11 a 13 módulos, con sus flujos y subflujos.</li><li>Rediseñé seis flujos completos (estimados, servicios, proyectos, inventario, vehículos y finanzas) partiendo del rol administrador, con diseño responsive para desktop, tablet y mobile.</li><li>Simplifiqué las fases de un proyecto de siete a cuatro, validando cada flujo con el cliente en prototipos de Figma.</li><li>Construí un design system de más de 100 componentes con Atomic Design, tokens y variables, compartido con desarrollo.</li><li>Definí los estados de cada registro y mensajes del sistema que explican qué pasó y qué hacer.</li><li>Diseñé nuevas funcionalidades: tablero de tareas, chat por proyecto y gestión de fases y documentos.</li></ul></div></div></div>
+        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2023 — 2024</time><div><b>Jausme</b><span class="small">Diseñadora UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Definí la experiencia web y móvil de una aplicación para administrar conjuntos residenciales.</li><li>Definí y prototipé experiencias diferenciadas para residentes, administradores y guardas de seguridad.</li><li>Diseñé los flujos de comunicación, reservas, visitantes y parqueaderos.</li><li>Identifiqué las fricciones principales (comunicación, pagos y visitas) y las resolví en el diseño.</li><li>Diseñé la experiencia multiplataforma (web y móvil) con consistencia entre dispositivos.</li></ul></div></div></div>
+        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2022 — 2023</time><div><b>Leo Burnett</b><span class="small">Diseñadora web · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Prototipé y optimicé interfaces en alta fidelidad con principios de diseño centrado en el usuario.</li><li>Mejoré la arquitectura de la información con flujos y jerarquías claras para la navegación.</li><li>Colaboré con desarrollo para asegurar la correcta implementación en el producto final.</li><li>Diseñé piezas digitales: redes sociales, PDFs, infografías, presentaciones y correos HTML.</li></ul></div></div></div>
+      </div>
+      <div class="col edu" style="--i:1"><h3 class="micro">Formación</h3>
+        <div class="row"><time>2017 — 2024</time><div><b>Publicidad y Mercadeo</b><span class="small">Pregrado · Fundación Universitaria Los Libertadores</span></div></div>
+        <div class="row"><time>2024</time><div><b>Spin-Off y proyectos creativos de base tecnológica</b><span class="small">Seminario de grado</span></div></div>
+        <div class="row"><time>2022</time><div><b>Diseño de interfaces y experiencia de usuario</b><span class="small">Curso · Platzi</span></div></div>
+        <div class="row"><time>2021</time><div><b>Diseño UX/UI</b><span class="small">Curso · Coderhouse</span></div></div>
+      </div>
+    </div>
+    <div class="trio">
+      <div class="str"><h3 class="micro">Fortalezas</h3><ul class="strengths">
+        <li><b>Diseño centrado en el usuario</b><span class="small">Parto de lo que necesita cada rol y reviso cada flujo con quien usa la herramienta antes de llevarlo a alta fidelidad.</span></li>
+        <li><b>Arquitectura de información</b><span class="small">Ordeno flujos complejos en jerarquías claras, sin importar cuántos roles convivan.</span></li>
+        <li><b>Diseño visual y branding</b><span class="small">Interfaces coherentes con la marca, aplicadas desde el design system.</span></li>
+        <li><b>Colaboración</b><span class="small">Trabajo con desarrollo y negocio para que lo diseñado llegue intacto al producto.</span></li></ul></div>
+      <div class="tools" style="--i:1"><h3 class="micro">Herramientas</h3><ul class="plain two small"><li>Figma</li><li>FigJam</li><li>Adobe XD</li><li>Illustrator</li><li>Photoshop</li><li>Hotjar</li><li>Claude AI</li><li>Claude Design AI</li></ul></div>
+      <div class="int" style="--i:2"><h3 class="micro">Intereses</h3><ul class="plain two small"><li>Arte</li><li>Deporte</li><li>Tecnología</li><li>Música</li><li>Lectura</li><li>Ilustración</li></ul></div>
+    </div>
+      </div></section>
+
       <section class="face f4" aria-label="Proyectos"><div class="fbody">
-        <header class="fhead"><p class="eyebrow micro"><span>04 · Proyectos</span><span>Trabajo seleccionado · 2023 — 2026</span></p><h2>Proyectos</h2></header>
+        <header class="fhead"><p class="eyebrow micro"><span>03 · Proyectos</span><span>Trabajo seleccionado · 2023 — 2026</span></p><h2>Proyectos</h2></header>
         <p class="intro">Tres proyectos reales y más por venir. Abre cada uno para ver qué es, qué problema tenía, qué hice y qué cambió.</p>
         <div class="plist"></div>
         <div class="soonrow micro"><span class="soon">Próximamente</span><span class="soon">Próximamente</span></div>
       </div></section>
 
-      <section class="face f5" aria-label="Hablemos"><div class="fbody">
-        <header class="fhead"><p class="eyebrow micro"><span>05 · Contacto</span></p><h2>Hablemos</h2></header>
+  </div>
+</div>
+
+<div class="talk" role="dialog" aria-modal="true" aria-label="Hablemos" aria-hidden="true">
+  <div class="tscrim"></div>
+  <div class="tcard">
+    <button class="tclose micro" type="button" aria-label="Cerrar">✕</button>
+    <header class="fhead"><p class="eyebrow micro"><span class="live">Disponible para roles y proyectos</span></p><h2>Hablemos</h2></header>
       <p class="intro">¿Tienes un producto en mente? Cuéntame qué estás construyendo y lo diseñamos juntos.</p>
     </header>
     <ul class="links">
@@ -445,13 +467,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       <li style="--i:2"><span class="micro">LinkedIn</span><a href="https://www.linkedin.com/in/juliquintana/" target="_blank" rel="noopener">/in/juliquintana ↗</a></li>
       <li style="--i:3"><span class="micro">Hoja de vida</span><a href="../JulianaQuintanaCV.pdf" target="_blank" rel="noopener">Descargar CV ↓</a></li>
     </ul>
-        <footer class="end micro"><span>© 2026 Juliana Quintana · ux.juli · Bogotá</span><button type="button" data-face="0">Volver al inicio ↑</button></footer>
-      </div></section>
-
+    <p class="tfoot micro">© 2026 Juliana Quintana · ux.juli · Bogotá</p>
   </div>
 </div>
 
-<footer class="meta micro"><span class="live">Disponible para roles y proyectos</span><span class="clock"></span></footer>
+<footer class="meta micro"><button class="talkBtn" type="button" aria-haspopup="dialog"><span class="live">Hablemos</span></button><span class="clock"></span></footer>
 
 <div class="viewer" role="dialog" aria-modal="true" aria-label="Caso" aria-hidden="true">
   <div class="vbar micro"><span class="vno"></span><button class="vclose" type="button">Cerrar ✕</button></div>
@@ -760,48 +780,55 @@ plist.innerHTML=PROJ.map((p,i)=>`<button class="pitem" type="button" data-case="
 adopt(document.body); put();
 
 /* ---------- the sphere: each section is printed on its surface; it spins, stops, and opens on click ---------- */
-const FACE_NAMES=['Sobre mí','Trayectoria','Cómo trabajo','Proyectos','Hablemos'], IDS=['sobre','trayectoria','como','proyectos','contacto'], NF=5;
+const FACE_NAMES=['Sobre mí','Trayectoria','Proyectos'], IDS=['sobre','trayectoria','proyectos'], NF=3;
 // per section: background gradient (two colours) and the sphere's two tones. Purple, blue and their complements.
 const PAL=[
   ['#CBB8FF','#A8C2FF','#6A3FE0','#2D6BFF'],
   ['#A8C2FF','#FFD2A6','#2D6BFF','#FF8A3D'],
-  ['#D8C3FF','#EFF4AE','#7A46F0','#B9D42C'],
-  ['#FFCFA2','#CCB4FF','#FF7A2E','#6A3FE0'],
-  ['#ECF3A8','#A8C2FF','#A9C61E','#2D6BFF']].map(r=>r.map(h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255)));
+  ['#E6F0A6','#CCB4FF','#B9D42C','#6A3FE0']].map(r=>r.map(h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255)));
 const rgb=c=>'rgb('+c.map(v=>Math.round(v*255)).join(',')+')';
 const stageEl=document.querySelector('.stage'), hit=document.querySelector('.orbHit'), modal=document.querySelector('.module'), mscroll=modal.querySelector('.mscroll'), mno=modal.querySelector('.mno');
 const faces=[...modal.querySelectorAll('.face')];
 const nav=document.querySelector('.titles'), here=document.querySelector('.here');
 // the title list repeats so it always runs from the top of the screen to the bottom
-const base=[...nav.children], COPIES=5, MID=2;
+const base=[...nav.children], COPIES=10, MID=4;
 { const ordered=[]; for(let c=0;c<COPIES;c++) base.forEach(b=>{ if(c===MID){ ordered.push(b); return; } const x=b.cloneNode(true); x.setAttribute('aria-hidden','true'); x.tabIndex=-1; ordered.push(x); });
   ordered.forEach((b,k)=>{ b.dataset.k=k; nav.appendChild(b); }); }
 const rows=[...nav.children];
 let cur=0, rowH=120, topOff=80, listP=0, listFrom=0, listTo=0;
 const S={yaw:-360,pitch:0,from:null,t0:0,dur:0,dir:1,wob:0,swapped:true,hov:0}, ptr={x:0,y:0,sx:0,sy:0};
 let geo={cx:0,cy:0,r:0}, raf=0, overOrb=false;
+const meas=document.createElement('canvas').getContext('2d');
 function layout(){
   const vw=innerWidth, vh=innerHeight, narrow=vw<=900;
-  const fs=narrow?Math.min(vw*.15,vh/9.5):Math.min(vh/6.6,vw*.105);
-  rowH=Math.round(fs); topOff=narrow?58:Math.round(vh*.085);
-  root.style.setProperty('--tfs',fs.toFixed(1)+'px'); root.style.setProperty('--trow',rowH+'px');
-  if(narrow){ const top=topOff+rowH*1.6, bottom=vh-44, cy=(top+bottom)/2; geo={cx:vw/2,cy,r:Math.min(vw*.62,(bottom-top)*.56)}; }
-  else { const r=Math.min(vh*.46,vw*.31); geo={cx:Math.max(vw*.62,vw-r-56),cy:vh*.535,r}; }
+  // the band runs from under the header to above the bottom buttons and holds whole rows only
+  const bt=narrow?60:68, bb=narrow?64:64, bh=vh-bt-bb;
+  // the longest title must fit the width of the screen
+  meas.font='500 100px Oswald, "Arial Narrow", sans-serif';
+  const wmax=Math.max(...FACE_NAMES.map(n=>meas.measureText(say(n).toUpperCase()).width))/100;
+  const gut=narrow?16:24, numW=narrow?30:40, fsW=(vw-gut*2-numW-8)/wmax;
+  const want=Math.min(fsW,narrow?bh/7:bh/5.2), N=Math.max(3,Math.round(bh/want));
+  rowH=bh/N; const fs=Math.min(fsW,rowH*1.02); topOff=0;
+  root.style.setProperty('--tfs',fs.toFixed(1)+'px'); root.style.setProperty('--trow',rowH.toFixed(2)+'px');
+  root.style.setProperty('--bt',bt+'px'); root.style.setProperty('--bh',bh+'px');
+  if(narrow){ const r=Math.min(vw*.6,bh*.34); geo={cx:vw/2,cy:bt+bh*.56,r}; }
+  else { const r=Math.min(vh*.44,vw*.3); geo={cx:Math.max(vw*.62,vw-r-56),cy:bt+bh*.5,r}; }
   hit.style.cssText=`--ox:${geo.cx}px;--oy:${geo.cy}px;--od:${geo.r*2}px`;
   placeList(listP); glSize();
 }
 function placeList(p){ nav.style.transform=`translate3d(0,${(topOff-(MID*NF+p)*rowH).toFixed(2)}px,0)`; }
-function mark(i){ rows.forEach((b,k)=>{ const on=k%NF===i; b.classList.toggle('on',on); if(on&&!b.hasAttribute('aria-hidden')) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); }); }
+function mark(i,row){ const top=row??MID*NF+i; rows.forEach((b,k)=>{ const on=k===top; b.classList.toggle('on',on); if(on&&!b.hasAttribute('aria-hidden')) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); }); }
 const ease=t=>t<.5?8*t*t*t*t:1-Math.pow(-2*t+2,4)/2;           // slow start, fast middle, long stop
 let palCur=PAL[0].map(c=>c.slice());
 function go(i,opts={}){
   i=((i%NF)+NF)%NF; if(i===cur&&!opts.force) return;
   let dir=opts.wrapDir||opts.dir||(i>cur?1:-1);
   const steps=opts.force?0:(dir>0?((i-cur+NF)%NF):-((cur-i+NF)%NF));
-  cur=i; mark(i); label(); hit.setAttribute('aria-label',say('Abrir')+' '+say(FACE_NAMES[i]));
+  cur=i; label(); hit.setAttribute('aria-label',say('Abrir')+' '+say(FACE_NAMES[i]));
   const dur=reduce?0:(opts.dur||1800);
   S.from={yaw:S.yaw,pal:palCur.map(c=>c.slice())}; S.to={yaw:Math.round(S.yaw/360)*360+dir*360}; S.dir=dir; S.t0=performance.now(); S.dur=dur; S.pal=i; S.swapped=false;
   listFrom=listP; listTo=listP+steps; if(opts.force){ listFrom=listTo=listP=i; }
+  mark(i,MID*NF+Math.round(listTo));
   try{ history.replaceState(null,'',location.pathname+location.search+'#'+IDS[i]); }catch(e){}
   if(reduce){ upload(i); S.swapped=true; }
   kick();
@@ -817,7 +844,7 @@ function tick(now){
     if(!S.swapped&&e>=.5){ upload(S.pal); S.swapped=true; }               // the new section is printed while the front faces away
     const pc=Math.min(1,t*1.4); palCur=S.from.pal.map((c,k)=>c.map((v,j)=>v+(PAL[S.pal][k][j]-v)*ease(pc))); paintBg();
     listP=listFrom+(listTo-listFrom)*ease(Math.min(1,t*1.1)); placeList(listP);
-    if(t>=1){ S.from=null; S.wob=0; S.yaw=S.to.yaw; listP=((listTo%NF)+NF)%NF; placeList(listP); } else more=true; }
+    if(t>=1){ S.from=null; S.wob=0; S.yaw=S.to.yaw; listP=((listTo%NF)+NF)%NF; placeList(listP); mark(cur); } else more=true; }
   ptr.sx+=(ptr.x-ptr.sx)*.06; ptr.sy+=(ptr.y-ptr.sy)*.06; if(Math.abs(ptr.x-ptr.sx)+Math.abs(ptr.y-ptr.sy)>.0008) more=true;
   const hv=overOrb&&!S.from?1:0; S.hov+=(hv-S.hov)*.12; if(Math.abs(hv-S.hov)>.002) more=true;
   draw(now); if(more) raf=requestAnimationFrame(tick);
@@ -825,7 +852,7 @@ function tick(now){
 if(fine&&!reduce) addEventListener('pointermove',e=>{ ptr.x=(e.clientX/innerWidth-.5); ptr.y=(e.clientY/innerHeight-.5);
   overOrb=Math.hypot(e.clientX-geo.cx,e.clientY-geo.cy)<geo.r; kick(); });
 rows.forEach(b=>b.addEventListener('click',()=>{ const i=+b.dataset.face, d=(+b.dataset.k)-(MID*NF+Math.round(listP)); go(i,{wrapDir:d>0?1:d<0?-1:0}); }));
-document.addEventListener('click',e=>{ const t=e.target.closest('[data-face]'); if(t&&!t.closest('.titles')){ e.preventDefault(); if(openIdx>=0) closeCase(); closeModule(); go(+t.dataset.face); } });
+document.addEventListener('click',e=>{ const t=e.target.closest('[data-face]'); if(t&&!t.closest('.titles')){ e.preventDefault(); if(openIdx>=0) closeCase(); closeModule(); closeTalk(); go(+t.dataset.face); } });
 
 /* ---------- what is printed on the sphere: a summary of each section, drawn from the page itself (so it follows the language) ---------- */
 const TW=2048, TH=1366, tc=document.createElement('canvas'); tc.width=TW; tc.height=TH; const cx2=tc.getContext('2d');
@@ -842,11 +869,13 @@ function pill(s,y){ cx2.font=F(500,30,'t'); try{ cx2.letterSpacing='4px'; }catch
 function head(f,y){ const eb=T(Q(f,'.fhead .eyebrow span')); txt(eb.toUpperCase(),1024,y,F(500,30,'t'),ASH,'center',6); txt(T(Q(f,'.fhead h2')).toUpperCase(),1024,y+150,F(500,150,'d')); }
 function paint(i){
   cx2.clearRect(0,0,TW,TH); const f=faces[i], open=say('Abrir')+' ↗';
-  if(i===0){ head(f,300);
-    txt(T(Q(f,'.about h3')).toUpperCase(),1024,545,F(500,50,'d'));
-    wrap(T(Q(f,'.about p')),1024,615,880,50,F(400,35,'t'),INK,'center',5);
-    const st=QA(f,'.stats li'); st.forEach((li,k)=>{ const x=1024+(k-1.5)*235; txt(T(Q(li,'b')),x,960,F(500,88,'d')); wrap(T(Q(li,'span')),x,1000,205,30,F(400,23,'t'),ASH,'center',3); });
-    pill(open,1140); }
+  if(i===0){ head(f,280);
+    txt(T(Q(f,'.about h3')).toUpperCase(),1024,525,F(500,48,'d'));
+    wrap(T(Q(f,'.about p')),1024,592,860,48,F(400,34,'t'),INK,'center',5);
+    const sv=QA(f,'.svc h3').map(T); txt(T(Q(f,'.fhead.sub h3')).toUpperCase(),1024,860,F(500,26,'t'),ASH,'center',6);
+    wrap(sv.join('  ·  '),1024,905,900,40,F(500,30,'t'),INK,'center',2);
+    const st=QA(f,'.stats li'); st.forEach((li,k)=>{ const x=1024+(k-1.5)*230; txt(T(Q(li,'b')),x,1045,F(500,72,'d')); });
+    pill(open,1150); }
   if(i===1){ head(f,280);
     const xs=QA(f,'.exp .xp'); xs.forEach((r,k)=>{ const y=530+k*105; rule(560,1490,y-58,.18);
       txt(T(Q(r,'time')),570,y,F(400,28,'t'),ASH,'left'); txt(T(Q(r,'.sum b')),780,y,F(500,40,'t'),INK,'left'); txt(T(Q(r,'.sum .small')),780,y+36,F(400,25,'t'),ASH,'left'); });
@@ -854,24 +883,12 @@ function paint(i){
     txt(T(Q(ed,'time')),570,y,F(400,28,'t'),ASH,'left'); txt(T(Q(ed,'b')),780,y,F(500,40,'t'),INK,'left'); txt(T(Q(ed,'.small')),780,y+36,F(400,25,'t'),ASH,'left');
     pill(open,1135); }
   if(i===2){ head(f,280);
-    const parts=QA(f,'.part h3'); txt(T(parts[0]).toUpperCase(),1024,540,F(500,30,'t'),ASH,'center',6);
-    QA(f,'.svc h3').forEach((h,k)=>{ const x=1024+(k%2?1:-1)*235, y=610+Math.floor(k/2)*70; txt(T(h),x,y,F(500,36,'t')); });
-    txt(T(parts[1]).toUpperCase(),1024,800,F(500,30,'t'),ASH,'center',6);
-    wrap(QA(f,'.steps h3').map(T).join('  →  '),1024,870,960,58,F(500,42,'d').replace('Oswald','Oswald'),INK,'center',2);
-    pill(open,1120); }
-  if(i===3){ head(f,280);
     PROJ.forEach((p,k)=>{ const x=1024+(k-1)*300, y=560;
       cx2.fillStyle='#17121D'; cx2.beginPath(); cx2.roundRect?cx2.roundRect(x-115,y-50,230,150,14):cx2.rect(x-115,y-50,230,150); cx2.fill();
       const g=cx2.createLinearGradient(x-100,y-36,x+100,y+86); g.addColorStop(0,p.pc); g.addColorStop(1,'#0b0a0d'); cx2.fillStyle=g; cx2.fillRect(x-101,y-36,130,122); cx2.fillStyle='#2a2530'; cx2.fillRect(x+37,y-36,64,58); cx2.fillRect(x+37,y+28,64,58);
       txt(p.name.toUpperCase(),x,y+170,F(500,48,'d'),p.pc); wrap(say(p.sub),x,y+215,260,32,F(400,25,'t'),ASH,'center',2); });
     wrap(T(Q(f,'.intro')),1024,920,820,46,F(400,32,'t'),INK,'center',3);
     pill(open,1120); }
-  if(i===4){ head(f,300);
-    wrap(T(Q(f,'.intro')),1024,560,820,48,F(400,34,'t'),INK,'center',3);
-    const li=QA(f,'.links li');
-    txt(T(Q(li[0],'.addr')),1024,760,F(500,52,'t'));
-    li.slice(1,3).forEach((l,k)=>{ const y=850+k*62; txt(T(Q(l,'span'))+'   '+T(Q(l,'a')),1024,y,F(400,32,'t'),INK); });
-    pill(open,1080); }
 }
 
 /* WebGL: the sphere on a transparent canvas, above the titles; the gradient is the page background */
@@ -943,6 +960,12 @@ function draw(){
   gl.drawArrays(gl.TRIANGLES,0,3);
 }
 
+/* ---------- hablemos: glass card from the button at the bottom left ---------- */
+const talk=document.querySelector('.talk'), talkBtn=document.querySelector('.talkBtn'); let talkOpen=false;
+function openTalk(){ talkOpen=true; talk.classList.add('open'); talk.setAttribute('aria-hidden','false'); setTimeout(()=>talk.querySelector('.tclose').focus({preventScroll:true}),300); }
+function closeTalk(){ if(!talkOpen) return; talkOpen=false; talk.classList.remove('open'); talk.setAttribute('aria-hidden','true'); talkBtn.focus({preventScroll:true}); }
+talkBtn.addEventListener('click',openTalk); talk.querySelector('.tclose').addEventListener('click',closeTalk); talk.querySelector('.tscrim').addEventListener('click',closeTalk);
+
 /* ---------- the module: clicking the sphere opens the whole section ---------- */
 let modOpen=false;
 function openModule(x,y){
@@ -961,7 +984,7 @@ modal.querySelector('.mclose').addEventListener('click',closeModule);
 // wheel turns the sphere to the next or previous section (inside an open module it just scrolls)
 let acc=0, lastW=0, lockUntil=0;
 addEventListener('wheel',e=>{
-  if(openIdx>=0||modOpen) return;
+  if(openIdx>=0||modOpen||talkOpen) return;
   const now=performance.now(), quiet=now-lastW>220; lastW=now; if(quiet) acc=0;
   if(now<lockUntil||S.from){ lockUntil=Math.max(lockUntil,now+180); return; }
   if(Math.abs(e.deltaX)>Math.abs(e.deltaY)) return;
@@ -976,6 +999,7 @@ stageEl.addEventListener('touchend',e=>{ if(sx===null) return; const dx=e.change
   const big=Math.abs(dx)>Math.abs(dy)?dx:dy; if(Math.abs(big)>55){ const d=big<0?1:-1; go(cur+d,{wrapDir:d}); } },{passive:true});
 addEventListener('keydown',e=>{
   if(openIdx>=0){ if(e.key==='Escape') closeCase(); return; }
+  if(talkOpen){ if(e.key==='Escape') closeTalk(); return; }
   if(modOpen){ if(e.key==='Escape') closeModule(); return; }
   if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key==='PageDown'){ e.preventDefault(); go(cur+1,{wrapDir:1}); }
   if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){ e.preventDefault(); go(cur-1,{wrapDir:-1}); }
