@@ -7,5 +7,8 @@ Object.assign(window.REM_EN=window.REM_EN||{},{
   "Elige un título y la esfera gira": "Pick a title and the sphere spins",
   "Siguiente proyecto": "Next project",
   "Más proyectos": "More projects",
-  "Ver caso →": "View case →"
+  "Ver caso →": "View case →",
+  "Abrir": "Open",
+  "Abrir sección": "Open section",
+  "Sección": "Section"
 });
