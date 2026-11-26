@@ -68,7 +68,16 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .orbHit{z-index:1}
 /* the titles run over the sphere, in a band that holds whole rows only */
 .tband{position:absolute;left:0;right:0;top:var(--bt,64px);height:var(--bh,780px);overflow:hidden;z-index:2;pointer-events:none}
-.tband .titles{pointer-events:none;-webkit-mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),rgba(0,0,0,.1) 0,rgba(0,0,0,.1) var(--mr,300px),#000 calc(var(--mr,300px) + 3px));mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),rgba(0,0,0,.1) 0,rgba(0,0,0,.1) var(--mr,300px),#000 calc(var(--mr,300px) + 3px))}
+.tband .titles{pointer-events:none}
+.tband.dark{-webkit-mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),transparent 0,transparent var(--mr,300px),#000 calc(var(--mr,300px) + 1px));mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),transparent 0,transparent var(--mr,300px),#000 calc(var(--mr,300px) + 1px))}
+/* over the sphere the titles turn light, with a stronger outline, so they always read on the dark pigment */
+.tband.light{z-index:3;pointer-events:none}
+.tband.light .titles button{pointer-events:none;-webkit-text-stroke:1.6px rgba(255,255,255,.92)}
+.tband.light .titles button.on{color:#fff;-webkit-text-stroke-color:#fff}
+.tband.light .titles button i,.tband.light .tactive{color:#fff}
+.tband{transition:opacity .5s ease}
+.diving .tband,.diving .here,.diving .top,.diving .meta{opacity:0;pointer-events:none;transition:opacity .4s ease}
+.diving .tband button{pointer-events:none!important}
 /* the current title stays whole on top, even where it crosses the sphere */
 .tactive{position:absolute;left:0;top:0;z-index:3;display:flex;align-items:center;gap:.12em;height:var(--trow);padding-left:var(--gut);font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:var(--tfs);line-height:1;letter-spacing:.005em;white-space:nowrap;color:var(--ink);pointer-events:none;transition:opacity .35s ease}
 .tactive i{font-family:var(--text);font-style:normal;font-size:var(--micro);font-weight:500;letter-spacing:.14em;padding-top:1.4em;width:2.6em;flex:none;align-self:flex-start}
@@ -100,9 +109,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .no-gl .orbHit{background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.5) 45%,rgba(106,63,224,.35))}
 .orbHit:focus-visible{outline-offset:-6px}
 /* the module: the full section, opened from the sphere */
-.module{position:fixed;inset:0;z-index:25;background:linear-gradient(135deg,var(--m0,#CBB8FF),var(--m1,#A8C2FF));visibility:hidden;clip-path:circle(0 at var(--cx,50%) var(--cy,50%));overflow:hidden}
-.module.open{visibility:visible;clip-path:circle(150% at var(--cx,50%) var(--cy,50%))}
-.module.anim{transition:clip-path .9s cubic-bezier(.7,0,.2,1),visibility 0s}
+.module{position:fixed;inset:0;z-index:25;background:transparent;visibility:hidden;opacity:0;overflow:hidden;transition:opacity .5s ease,visibility 0s .5s}
+.module.open{visibility:visible;opacity:1;transition:opacity .7s ease,visibility 0s}
+.module .face.on .fbody{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{transform:translateY(40px);opacity:0}}
+.module .mno{background:rgba(255,255,255,.86);border-radius:999px;padding:8px 16px}
 .mscroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:76px 16px 48px}
 .face{display:none;container-type:inline-size;max-width:880px;margin:0 auto}
 .face.on{display:block}
@@ -785,9 +796,9 @@ plist.innerHTML=PROJ.map((p,i)=>`<button class="pitem" type="button" data-case="
   <span class="pt"><span class="micro" style="color:var(--ash)"><span>Caso</span> 0${i+1} · ${p.year}</span><b class="pn">${p.name}</b><span class="small">${p.sub}</span><span class="micro go">Ver caso →</span></span></button>`).join('');
 adopt(document.body); put();
 
-/* ---------- the sphere: each section is printed on its surface; it spins, stops, and opens on click ---------- */
+/* ---------- the sphere: a drop of liquid pigment that never quite loses its shape ---------- */
 const FACE_NAMES=['Sobre mí','Trayectoria','Proyectos'], IDS=['sobre','trayectoria','proyectos'], NF=3;
-// per section: background gradient (two colours) and the sphere's two tones. Purple, blue and their complements.
+// per section: background gradient (two colours) and the two pigments moving inside the sphere. Purple, blue and their complements.
 const PAL=[
   ['#CBB8FF','#A8C2FF','#6A3FE0','#2D6BFF'],
   ['#A8C2FF','#FFD2A6','#2D6BFF','#FF8A3D'],
@@ -801,144 +812,188 @@ const base=[...nav.children], COPIES=10, MID=4;
 { const ordered=[]; for(let c=0;c<COPIES;c++) base.forEach(b=>{ if(c===MID){ ordered.push(b); return; } const x=b.cloneNode(true); x.setAttribute('aria-hidden','true'); x.tabIndex=-1; ordered.push(x); });
   ordered.forEach((b,k)=>{ b.dataset.k=k; nav.appendChild(b); }); }
 const rows=[...nav.children];
-let cur=0, rowH=120, topOff=80, listP=0, listFrom=0, listTo=0;
-const S={yaw:-360,pitch:0,from:null,t0:0,dur:0,dir:1,wob:0,swapped:true,hov:0}, ptr={x:0,y:0,sx:0,sy:0};
-let geo={cx:0,cy:0,r:0}, raf=0, overOrb=false;
+// a second copy of the titles, light, shown only where they cross the sphere so they always read
+const tband=document.querySelector('.tband'); tband.classList.add('dark');
+const tbandL=tband.cloneNode(true); tbandL.classList.replace('dark','light'); tbandL.setAttribute('aria-hidden','true');
+tbandL.querySelectorAll('button').forEach(b=>{ b.tabIndex=-1; b.removeAttribute('aria-current'); }); tband.after(tbandL);
+const navL=tbandL.querySelector('.titles'), rowsL=[...navL.children], tacts=[tband.querySelector('.tactive'),tbandL.querySelector('.tactive')];
+let cur=0, rowH=120, topOff=0, listP=0, listFrom=0, listTo=0, bandTop=64;
+const S={yaw:0,pitch:0,from:null,t0:0,dur:0,shake:0}, ptr={x:0,y:0,sx:0,sy:0};
+let geo={cx:0,cy:0,r:0}, G={cx:0,cy:0,r:0}, raf=0, overOrb=false;
 const meas=document.createElement('canvas').getContext('2d');
 function layout(){
   const vw=innerWidth, vh=innerHeight, narrow=vw<=900;
   // the band runs from under the header to above the bottom buttons and holds whole rows only
-  const bt=narrow?60:68, bb=narrow?64:64, bh=vh-bt-bb;
+  const bt=narrow?60:68, bb=64, bh=vh-bt-bb; bandTop=bt;
   // the longest title must fit the width of the screen
   meas.font='500 100px Oswald, "Arial Narrow", sans-serif';
   const wmax=Math.max(...FACE_NAMES.map(n=>meas.measureText(say(n).toUpperCase()).width))/100;
   const gut=narrow?16:24, numW=narrow?30:40, fsW=(vw-gut*2-numW-8)/wmax;
   const want=Math.min(fsW,narrow?bh/7:bh/5.2), N=Math.max(3,Math.round(bh/want));
-  rowH=bh/N; const fs=Math.min(fsW,rowH*1.02); topOff=0;
+  rowH=bh/N; const fs=Math.min(fsW,rowH*1.02);
   root.style.setProperty('--tfs',fs.toFixed(1)+'px'); root.style.setProperty('--trow',rowH.toFixed(2)+'px');
   root.style.setProperty('--bt',bt+'px'); root.style.setProperty('--bh',bh+'px');
-  if(narrow){ const r=Math.min(vw*.6,bh*.34); geo={cx:vw/2,cy:bt+bh*.56,r}; }
-  else { const r=Math.min(vh*.44,vw*.3); geo={cx:Math.max(vw*.62,vw-r-56),cy:bt+bh*.5,r}; }
-  hit.style.cssText=`--ox:${geo.cx}px;--oy:${geo.cy}px;--od:${geo.r*2}px`;
+  if(narrow){ const r=Math.min(vw*.42,bh*.3); geo={cx:vw/2,cy:bt+bh*.55,r}; }
+  else { const r=Math.min(vh*.36,vw*.26); geo={cx:Math.max(vw*.62,vw-r-90),cy:bt+bh*.52,r}; }
+  if(!dive.on) G={...geo};
+  hit.style.cssText=`--ox:${geo.cx}px;--oy:${geo.cy}px;--od:${geo.r*2.1}px`;
   placeList(listP); glSize();
 }
-const tband=document.querySelector('.tband'), tact=document.querySelector('.tactive');
-function placeList(p){ const y=topOff-(MID*NF+p)*rowH; nav.style.transform=`translate3d(0,${y.toFixed(2)}px,0)`;
-  // the sphere's circle, in the list's own coordinates: titles fade inside it
-  const bt=parseFloat(getComputedStyle(root).getPropertyValue('--bt'))||0;
-  nav.style.setProperty('--mx',geo.cx.toFixed(1)+'px'); nav.style.setProperty('--my',(geo.cy-bt-y).toFixed(1)+'px'); nav.style.setProperty('--mr',(geo.r*1.01).toFixed(1)+'px'); }
-function showActive(){ tact.querySelector('i').textContent=`0${cur+1}`; tact.querySelector('span').textContent=say(FACE_NAMES[cur]); tact.classList.remove('off'); }
-function mark(i,row){ const top=row??MID*NF+i; rows.forEach((b,k)=>{ const on=k===top; b.classList.toggle('on',on); if(on&&!b.hasAttribute('aria-hidden')) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); }); }
-const ease=t=>t<.5?8*t*t*t*t:1-Math.pow(-2*t+2,4)/2;           // slow start, fast middle, long stop
-let palCur=PAL[0].map(c=>c.slice());
+function circle(){ // where the sphere is, for the two title layers
+  const my=(G.cy-bandTop).toFixed(1), r=(G.r*.94).toFixed(1);
+  tband.style.setProperty('--mx',G.cx.toFixed(1)+'px'); tband.style.setProperty('--my',my+'px'); tband.style.setProperty('--mr',r+'px');
+  tbandL.style.clipPath=`circle(${r}px at ${G.cx.toFixed(1)}px ${my}px)`; }
+function placeList(p){ const tr=`translate3d(0,${(topOff-(MID*NF+p)*rowH).toFixed(2)}px,0)`; nav.style.transform=tr; navL.style.transform=tr; }
+function showActive(){ tacts.forEach(t=>{ t.querySelector('i').textContent=`0${cur+1}`; t.querySelector('span').textContent=say(FACE_NAMES[cur]); t.classList.remove('off'); }); }
+function mark(i,row){ const top=row??MID*NF+i; rows.forEach((b,k)=>{ const on=k===top; b.classList.toggle('on',on); rowsL[k].classList.toggle('on',on); if(on&&!b.hasAttribute('aria-hidden')) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); }); }
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+let palCur=PAL[0].map(c=>c.slice()), palFrom=null, palTo=0, palT0=0;
+// the sphere turns a quarter toward a random side: up, down, left or right
+function spin(dur=1400){
+  if(S.from&&performance.now()-S.t0<S.dur*.6) return;
+  const k=Math.floor(Math.random()*4), d=k<2?(k?1:-1)*90:0, p=k>=2?(k===3?1:-1)*90:0;
+  S.from={yaw:S.yaw,pitch:S.pitch}; S.to={yaw:S.yaw+d,pitch:S.pitch+p}; S.t0=performance.now(); S.dur=reduce?0:dur; kick(); }
+function shake(){ if(reduce) return; S.shake=1; kick(); }
 function go(i,opts={}){
   i=((i%NF)+NF)%NF; if(i===cur&&!opts.force) return;
-  let dir=opts.wrapDir||opts.dir||(i>cur?1:-1);
-  const steps=opts.force?0:(dir>0?((i-cur+NF)%NF):-((cur-i+NF)%NF));
+  const dir=opts.wrapDir||(i>cur?1:-1), steps=opts.force?0:(dir>0?((i-cur+NF)%NF):-((cur-i+NF)%NF));
   cur=i; label(); hit.setAttribute('aria-label',say('Abrir')+' '+say(FACE_NAMES[i]));
-  const dur=reduce?0:(opts.dur||1800);
-  S.from={yaw:S.yaw,pal:palCur.map(c=>c.slice())}; S.to={yaw:Math.round(S.yaw/360)*360+dir*360}; S.dir=dir; S.t0=performance.now(); S.dur=dur; S.pal=i; S.swapped=false;
-  listFrom=listP; listTo=listP+steps; if(opts.force){ listFrom=listTo=listP=i; }
-  mark(i,MID*NF+Math.round(listTo)); if(!opts.force&&!reduce) tact.classList.add('off'); else showActive();
+  listFrom=listP; listTo=listP+steps; listT0=performance.now(); if(opts.force){ listFrom=listTo=listP=i; }
+  mark(i,MID*NF+Math.round(listTo)); if(steps&&!reduce) tacts.forEach(t=>t.classList.add('off')); else showActive();
+  palFrom=palCur.map(c=>c.slice()); palTo=i; palT0=performance.now();
+  if(!opts.force) spin(1500);
   try{ history.replaceState(null,'',location.pathname+location.search+'#'+IDS[i]); }catch(e){}
-  if(reduce){ upload(i); S.swapped=true; }
   kick();
 }
+let listT0=0;
 function label(){ const t=`0${cur+1} · ${say(FACE_NAMES[cur])}`; here.classList.add('swap'); clearTimeout(here._t); here._t=setTimeout(()=>{ here.textContent=t; here.classList.remove('swap'); },250); }
 function kick(){ if(!raf) raf=requestAnimationFrame(tick); }
 function paintBg(){ document.body.style.background=`linear-gradient(135deg,${rgb(palCur[0])},${rgb(palCur[1])})`; }
+let lastDraw=0, T0=performance.now();
 function tick(now){
-  raf=0; let more=false;
+  raf=0;
   if(S.from){ const t=S.dur?Math.min(1,(now-S.t0)/S.dur):1, e=ease(t);
-    S.yaw=S.from.yaw+(S.to.yaw-S.from.yaw)*e;
-    S.wob=Math.sin(Math.PI*e)*20*S.dir;                                   // a little tumble while it spins
-    if(!S.swapped&&e>=.5){ upload(S.pal); S.swapped=true; }               // the new section is printed while the front faces away
-    const pc=Math.min(1,t*1.4); palCur=S.from.pal.map((c,k)=>c.map((v,j)=>v+(PAL[S.pal][k][j]-v)*ease(pc))); paintBg();
-    listP=listFrom+(listTo-listFrom)*ease(Math.min(1,t*1.1)); placeList(listP);
-    if(t>=1){ S.from=null; S.wob=0; S.yaw=S.to.yaw; listP=((listTo%NF)+NF)%NF; placeList(listP); mark(cur); showActive(); } else more=true; }
-  ptr.sx+=(ptr.x-ptr.sx)*.06; ptr.sy+=(ptr.y-ptr.sy)*.06; if(Math.abs(ptr.x-ptr.sx)+Math.abs(ptr.y-ptr.sy)>.0008) more=true;
-  const hv=overOrb&&!S.from?1:0; S.hov+=(hv-S.hov)*.12; if(Math.abs(hv-S.hov)>.002) more=true;
-  draw(now); if(more) raf=requestAnimationFrame(tick);
+    S.yaw=S.from.yaw+(S.to.yaw-S.from.yaw)*e; S.pitch=S.from.pitch+(S.to.pitch-S.from.pitch)*e; if(t>=1) S.from=null; }
+  if(palFrom){ const t=reduce?1:Math.min(1,(now-palT0)/1100); palCur=palFrom.map((c,k)=>c.map((v,j)=>v+(PAL[palTo][k][j]-v)*ease(t))); paintBg(); if(t>=1) palFrom=null; }
+  if(listFrom!==listTo||listP!==listTo){ const t=reduce?1:Math.min(1,(now-listT0)/1100); listP=listFrom+(listTo-listFrom)*ease(t); placeList(listP);
+    if(t>=1){ listP=listTo=listFrom=((listTo%NF)+NF)%NF; placeList(listP); mark(cur); showActive(); } }
+  S.shake*=Math.pow(.92,Math.min(4,(now-(tick.l||now))/16.7)); if(S.shake<.004) S.shake=0; tick.l=now;
+  ptr.sx+=(ptr.x-ptr.sx)*.05; ptr.sy+=(ptr.y-ptr.sy)*.05;
+  diveStep(now);
+  // the liquid keeps moving; while a section is open behind its content it moves slower and draws less often
+  if(!document.hidden&&(!dive.full||now-lastDraw>60)){ draw(now); lastDraw=now; }
+  circle();
+  if(!reduce||S.from||palFrom||dive.on) raf=requestAnimationFrame(tick);
 }
+addEventListener('visibilitychange',()=>{ if(!document.hidden) kick(); });
 if(fine&&!reduce) addEventListener('pointermove',e=>{ ptr.x=(e.clientX/innerWidth-.5); ptr.y=(e.clientY/innerHeight-.5);
-  overOrb=Math.hypot(e.clientX-geo.cx,e.clientY-geo.cy)<geo.r; kick(); });
-rows.forEach(b=>b.addEventListener('click',()=>{ const i=+b.dataset.face, d=(+b.dataset.k)-(MID*NF+Math.round(listP)); go(i,{wrapDir:d>0?1:d<0?-1:0}); }));
-document.addEventListener('click',e=>{ const t=e.target.closest('[data-face]'); if(t&&!t.closest('.titles')){ e.preventDefault(); if(openIdx>=0) closeCase(); closeModule(); closeTalk(); go(+t.dataset.face); } });
+  const o=!dive.on&&Math.hypot(e.clientX-G.cx,e.clientY-G.cy)<G.r; if(o&&!overOrb) shake(); overOrb=o; });
+// hovering a title turns the sphere; clicking one opens it
+rows.forEach(b=>{ b.addEventListener('mouseenter',()=>{ if(fine&&!dive.on) spin(); });
+  b.addEventListener('click',()=>{ const i=+b.dataset.face, d=(+b.dataset.k)-(MID*NF+Math.round(listP)); go(i,{wrapDir:d>0?1:d<0?-1:0}); openSection(); }); });
+hit.addEventListener('pointerdown',()=>shake());
+hit.addEventListener('click',()=>{ shake(); setTimeout(openSection,fine?0:220); });
+document.addEventListener('click',e=>{ const t=e.target.closest('[data-face]'); if(t&&!t.closest('.titles')){ e.preventDefault(); if(openIdx>=0) closeCase(); closeTalk(); if(modOpen){ closeSection(()=>go(+t.dataset.face)); } else go(+t.dataset.face); } });
 
-/* ---------- what is printed on the sphere: a summary of each section, drawn from the page itself (so it follows the language) ---------- */
-const TW=2048, TH=1366, tc=document.createElement('canvas'); tc.width=TW; tc.height=TH; const cx2=tc.getContext('2d');
-const INK='#17121D', ASH='#4A4352';
-const F=(w,px,fam)=>`${w} ${px}px ${fam==='d'?'Oswald':'"DM Sans"'}, sans-serif`;
-function txt(s,x,y,font,col=INK,align='center',ls=0){ cx2.font=font; cx2.fillStyle=col; cx2.textAlign=align; cx2.textBaseline='alphabetic'; try{ cx2.letterSpacing=ls+'px'; }catch(e){} cx2.fillText(s,x,y); try{ cx2.letterSpacing='0px'; }catch(e){} }
-function wrap(s,x,y,maxW,lh,font,col=INK,align='center',maxL=9){ cx2.font=font; const w=s.split(/\s+/); let line='', n=0;
-  for(const word of w){ const t=line?line+' '+word:word; if(cx2.measureText(t).width>maxW&&line){ txt(line,x,y+n*lh,font,col,align); line=word; if(++n>=maxL) return n; } else line=t; }
-  if(line){ txt(line,x,y+n*lh,font,col,align); n++; } return n; }
-const Q=(f,sel)=>f.querySelector(sel), QA=(f,sel)=>[...f.querySelectorAll(sel)], T=el=>el?el.textContent.replace(/\s+/g,' ').trim():'';
-function rule(x1,x2,y,a=.25){ cx2.fillStyle=`rgba(23,18,29,${a})`; cx2.fillRect(x1,y,x2-x1,2); }
-function pill(s,y){ cx2.font=F(500,30,'t'); try{ cx2.letterSpacing='4px'; }catch(e){} const w=cx2.measureText(s).width+80; try{ cx2.letterSpacing='0px'; }catch(e){}
-  cx2.fillStyle=INK; cx2.beginPath(); cx2.roundRect?cx2.roundRect(1024-w/2,y-46,w,72,36):cx2.rect(1024-w/2,y-46,w,72); cx2.fill(); txt(s,1024,y,F(500,30,'t'),'#FBF9F7','center',4); }
-function head(f,y){ const eb=T(Q(f,'.fhead .eyebrow span')); txt(eb.toUpperCase(),1024,y,F(500,30,'t'),ASH,'center',6); txt(T(Q(f,'.fhead h2')).toUpperCase(),1024,y+150,F(500,150,'d')); }
-function paint(i){
-  cx2.clearRect(0,0,TW,TH); const f=faces[i], open=say('Abrir')+' ↗';
-  if(i===0){ head(f,280);
-    txt(T(Q(f,'.about h3')).toUpperCase(),1024,525,F(500,48,'d'));
-    wrap(T(Q(f,'.about p')),1024,592,860,48,F(400,34,'t'),INK,'center',5);
-    const sv=QA(f,'.svc h3').map(T); txt(T(Q(f,'.fhead.sub h3')).toUpperCase(),1024,860,F(500,26,'t'),ASH,'center',6);
-    wrap(sv.join('  ·  '),1024,905,900,40,F(500,30,'t'),INK,'center',2);
-    const st=QA(f,'.stats li'); st.forEach((li,k)=>{ const x=1024+(k-1.5)*230; txt(T(Q(li,'b')),x,1045,F(500,72,'d')); });
-    pill(open,1150); }
-  if(i===1){ head(f,280);
-    const xs=QA(f,'.exp .xp'); xs.forEach((r,k)=>{ const y=530+k*105; rule(560,1490,y-58,.18);
-      txt(T(Q(r,'time')),570,y,F(400,28,'t'),ASH,'left'); txt(T(Q(r,'.sum b')),780,y,F(500,40,'t'),INK,'left'); txt(T(Q(r,'.sum .small')),780,y+36,F(400,25,'t'),ASH,'left'); });
-    const ed=Q(f,'.edu .row'); const y=530+xs.length*105; rule(560,1490,y-58,.18);
-    txt(T(Q(ed,'time')),570,y,F(400,28,'t'),ASH,'left'); txt(T(Q(ed,'b')),780,y,F(500,40,'t'),INK,'left'); txt(T(Q(ed,'.small')),780,y+36,F(400,25,'t'),ASH,'left');
-    pill(open,1135); }
-  if(i===2){ head(f,280);
-    PROJ.forEach((p,k)=>{ const x=1024+(k-1)*300, y=560;
-      cx2.fillStyle='#17121D'; cx2.beginPath(); cx2.roundRect?cx2.roundRect(x-115,y-50,230,150,14):cx2.rect(x-115,y-50,230,150); cx2.fill();
-      const g=cx2.createLinearGradient(x-100,y-36,x+100,y+86); g.addColorStop(0,p.pc); g.addColorStop(1,'#0b0a0d'); cx2.fillStyle=g; cx2.fillRect(x-101,y-36,130,122); cx2.fillStyle='#2a2530'; cx2.fillRect(x+37,y-36,64,58); cx2.fillRect(x+37,y+28,64,58);
-      txt(p.name.toUpperCase(),x,y+170,F(500,48,'d'),p.pc); wrap(say(p.sub),x,y+215,260,32,F(400,25,'t'),ASH,'center',2); });
-    wrap(T(Q(f,'.intro')),1024,920,820,46,F(400,32,'t'),INK,'center',3);
-    pill(open,1120); }
+/* ---------- opening a section: the sphere moves to the centre, a drop falls into it, ripples spread and the liquid fills the screen ---------- */
+const dive={on:false,full:false,t0:0,dir:1,from:null,dropY:99,rip:-1};
+const VW=()=>innerWidth, VH=()=>innerHeight;
+function openSection(){
+  if(dive.on||modOpen) return; dive.on=true; dive.dir=1; dive.t0=performance.now(); dive.from={...G}; dive.rip=-1; dive.dropY=99; modOpen=true;
+  root.classList.add('diving');
+  faces.forEach((f,k)=>{ f.classList.toggle('on',k===cur); f.inert=k!==cur; });
+  mno.textContent=`0${cur+1} / 0${NF} · ${say(FACE_NAMES[cur])}`; mscroll.scrollTop=0;
+  if(reduce){ G={cx:VW()/2,cy:VH()/2,r:Math.hypot(VW(),VH())}; dive.full=true; showModule(); }
+  kick();
 }
+function showModule(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); setTimeout(()=>modal.querySelector('.mclose').focus({preventScroll:true}),400); }
+function closeSection(after){
+  if(!modOpen) return; modOpen=false; modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
+  dive.dir=-1; dive.full=false; dive.t0=performance.now()+(reduce?0:250); dive.from={...G}; dive.after=after; dive.rip=-1; dive.dropY=99;
+  if(reduce){ G={...geo}; dive.on=false; root.classList.remove('diving'); if(after) after(); }
+  kick();
+}
+const clamp01=x=>Math.max(0,Math.min(1,x)), lerp=(a,b,t)=>a+(b-a)*t;
+function diveStep(now){
+  if(!dive.on||reduce) return;
+  const ms=now-dive.t0; if(ms<0) return;
+  const cx=VW()/2, cy=VH()/2, small=Math.min(VW(),VH())*.2, cover=Math.hypot(VW(),VH())*.62;
+  if(dive.dir>0){
+    const a=ease(clamp01(ms/700));                                     // to the centre
+    G.cx=lerp(dive.from.cx,cx,a); G.cy=lerp(dive.from.cy,cy,a); G.r=lerp(dive.from.r,small,a);
+    const fall=clamp01((ms-600)/520);                                   // the drop falls
+    dive.dropY=fall>0&&fall<1?lerp(-(cy/small)-.4,0,fall*fall):99;
+    if(ms>1120){ dive.rip=(ms-1120)/1000;                               // ripples, then the liquid fills the screen
+      const g=ease(clamp01((ms-1300)/1100)); G.r=lerp(small,cover,g);
+      if(ms>2050&&!modal.classList.contains('open')) showModule();
+      if(ms>2500){ dive.full=true; } }
+  } else {
+    const a=ease(clamp01(ms/650)); const back=ease(clamp01((ms-600)/700));
+    G.r=ms<650?lerp(dive.from.r,small,a):lerp(small,geo.r,back);
+    G.cx=lerp(cx,geo.cx,back); G.cy=lerp(cy,geo.cy,back); if(ms<650){ G.cx=cx; G.cy=cy; }
+    dive.rip=-1;
+    if(ms>1300){ dive.on=false; G={...geo}; root.classList.remove('diving'); const f=dive.after; dive.after=null; if(f) f(); }
+  }
+}
+let modOpen=false;
+modal.querySelector('.mclose').addEventListener('click',()=>closeSection());
 
-/* WebGL: the sphere on a transparent canvas, above the titles; the gradient is the page background */
-const cv=document.getElementById('orb'); let gl=null, prog, U={}, tex=null;
+/* ---------- WebGL: the liquid sphere on a transparent canvas; the gradient is the page background ---------- */
+const cv=document.getElementById('orb'); let gl=null, prog, U={};
 try{ gl=cv.getContext('webgl',{antialias:false,alpha:true,premultipliedAlpha:true}); }catch(e){}
 if(gl){
   const vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
   const fs=`precision highp float;
-uniform vec2 uRes;uniform vec3 uC;uniform mat3 uM;uniform vec3 g0,g1,s0,s1;uniform sampler2D uTex;
+uniform vec2 uRes;uniform vec3 uC;uniform mat3 uM;uniform vec3 s0,s1;uniform float uT,uShake,uDropY,uRip,uFull;
+float h(vec3 p){p=fract(p*.3183099+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
+float n3(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);
+  return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),
+             mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z);}
+float fbm(vec3 p){float a=.5,s=0.;for(int i=0;i<4;i++){s+=a*n3(p);p=p*2.03+vec3(1.7,9.2,3.1);a*=.5;}return s;}
+float smin(float a,float b,float k){float e=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,e)-k*e*(1.-e);}
 void main(){
   vec2 f=vec2(gl_FragCoord.x,uRes.y-gl_FragCoord.y);
-  vec2 q=(f-uC.xy)/uC.z; float d=length(q);
-  // soft shadow under the sphere
-  float sh=.22*exp(-pow(length((f-uC.xy-vec2(0.,uC.z*.95))/(uC.z*vec2(.95,.16))),2.)*1.6);
-  vec4 outc=vec4(0.,0.,.0,sh)*vec4(vec3(.09,.07,.11),1.); outc.rgb*=outc.a;
-  if(d<1.){
-    vec3 n=vec3(q.x,-q.y,sqrt(1.-d*d));
-    vec3 p=uM*n;
-    float lon=atan(p.x,p.z), lat=asin(clamp(p.y,-1.,1.));
-    float band=.5+.5*sin(lat*2.6+sin(lon*2.)*1.1+lon);
-    vec3 tint=mix(s0,s1,smoothstep(.1,.9,band));
-    vec3 base=mix(vec3(.975,.968,.975),tint,.34);
-    float gx=abs(fract(lon/0.3926991)-.5), gy=abs(fract(lat/0.3926991+.5)-.5);
-    float grid=max(1.-smoothstep(0.,.03,gx*cos(lat)*1.6),1.-smoothstep(0.,.03,gy));
-    vec3 L=normalize(vec3(-.5,.62,.62));
-    float dif=clamp(dot(n,L),0.,1.);
-    float spec=pow(clamp(dot(reflect(-L,n),vec3(0.,0.,1.)),0.,1.),36.);
-    float fres=pow(1.-n.z,2.2);
-    vec3 col=base*(.62+.45*dif);
-    col=mix(col,vec3(.09,.07,.11),grid*.06);
-    // the section, printed on the front: longitude -90..90, latitude -60..60
-    vec2 uv=vec2(.5+lon/3.14159265,.5-lat/2.0943951);
-    if(abs(lon)<1.5707&&abs(lat)<1.0471){
-      vec4 t=texture2D(uTex,uv);
-      col=mix(col,t.rgb*(.78+.3*dif),t.a*smoothstep(0.,.25,n.z+.1));
-    }
-    col+=spec*.42+fres*mix(tint,vec3(1.),.4)*.45;
-    float a=smoothstep(1.,1.-1.6/uC.z,d);
-    outc=mix(outc,vec4(col,1.),a);
+  vec2 q=(f-uC.xy)/uC.z; float L=length(q); float a=atan(q.y,q.x); float t=uT;
+  vec4 outc=vec4(0.);
+  // soft shadow on the ground
+  float sh=.24*exp(-pow(length((f-uC.xy-vec2(0.,uC.z*1.02))/(uC.z*vec2(.9,.15))),2.)*1.6)*(1.-uFull);
+  outc=vec4(vec3(.06,.04,.1)*sh,sh);
+  if(L>1.6&&uDropY>50.) { gl_FragColor=outc; return; }
+  // the edge breathes irregularly, shivers when touched and carries the ripples after the drop
+  float edge=1.+.05*(fbm(vec3(cos(a)*1.4,sin(a)*1.4,t*.22))-.5)
+    +uShake*.05*sin(a*7.+t*42.)*sin(t*27.+a*3.);
+  if(uRip>=0.) edge+=.035*sin(a*5.+uRip*9.)*exp(-uRip*1.6);
+  float d=L-edge;
+  // a few drops leave the surface now and then and fall back in
+  for(int k=0;k<5;k++){ float fk=float(k);
+    float ph=t*(.28+.07*fk)+fk*2.3; float ang=fk*1.256+.5*sin(t*.13+fk*1.7);
+    float o=pow(max(0.,sin(ph)),8.)*(.16+.05*fk/4.)+uShake*.06;
+    vec2 c=vec2(cos(ang),sin(ang))*(1.+o); float rr=.045+.015*sin(fk*3.1);
+    d=smin(d,length(q-c)-rr*(1.-o*1.6),.08); }
+  // the falling drop
+  if(uDropY<50.){ vec2 dq=q-vec2(0.,uDropY); dq.y*=.62; d=smin(d,length(dq)-.1,.14); }
+  float px=1.6/uC.z;
+  if(d<px){
+    float l2=min(L,.999); float z=sqrt(1.-l2*l2);
+    vec3 n=normalize(vec3(q.x,-q.y,z+.08));
+    float rip=0.;
+    if(uRip>=0.){ float fr=uRip*1.35; rip=sin((L-fr)*30.)*exp(-abs(L-fr)*3.5)*exp(-uRip*.55); n=normalize(n+vec3(normalize(q+1e-5)*rip*.35*vec2(1.,-1.),0.)); }
+    // the pigment, flowing and folding into itself
+    vec3 p=uM*vec3(q.x,-q.y,z)*1.5;
+    float w1=fbm(p+vec3(0.,0.,t*.11)), w2=fbm(p+vec3(5.2,1.3,-t*.09));
+    float v=fbm(p*1.25+2.4*vec3(w1,w2,w1*w2)+vec3(0.,t*.05,0.));
+    vec3 deep=vec3(.045,.03,.085);
+    vec3 col=mix(deep,s0*.6,smoothstep(.38,.72,v));
+    col=mix(col,s1*.95,smoothstep(.5,.78,w2*v*1.7));
+    col=mix(col,deep,smoothstep(.42,.22,v)*.7);
+    col+=s0*.25*pow(smoothstep(.62,.9,v),2.);
+    vec3 Ld=normalize(vec3(-.5,.62,.62));
+    float dif=clamp(dot(n,Ld),0.,1.);
+    float spec=pow(clamp(dot(reflect(-Ld,n),vec3(0.,0.,1.)),0.,1.),60.);
+    float fres=pow(1.-clamp(n.z,0.,1.),2.2);
+    col*=.72+.5*dif; col+=spec*.7*(1.-uFull*.7)+fres*mix(s1,vec3(1.),.3)*.3+rip*.06;
+    float al=smoothstep(px,-px,d);
+    outc=mix(outc,vec4(col,1.),al);
   }
   gl_FragColor=outc;
 }`;
@@ -946,28 +1001,22 @@ void main(){
   try{ prog=gl.createProgram(); gl.attachShader(prog,shd(gl.VERTEX_SHADER,vs)); gl.attachShader(prog,shd(gl.FRAGMENT_SHADER,fs)); gl.linkProgram(prog); gl.useProgram(prog);
     const b=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
     const a=gl.getAttribLocation(prog,'p'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
-    ['uRes','uC','uM','g0','g1','s0','s1','uTex'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
-    tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array(4));
-    gl.uniform1i(U.uTex,0);
+    ['uRes','uC','uM','s0','s1','uT','uShake','uDropY','uRip','uFull'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
   }catch(err){ console.warn(err); gl=null; }
 }
-if(!gl){ root.classList.add('no-gl'); }
-function upload(i){ paint(i); if(gl){ gl.bindTexture(gl.TEXTURE_2D,tex); gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,tc); } else fallback(); }
-function fallback(){}
+if(!gl) root.classList.add('no-gl');
 let DPR=1;
-function glSize(){ if(!gl) return; DPR=Math.min(devicePixelRatio||1,2); cv.width=Math.round(innerWidth*DPR); cv.height=Math.round(innerHeight*DPR); gl.viewport(0,0,cv.width,cv.height); draw(performance.now()); }
+function glSize(){ if(!gl) return; DPR=Math.min(devicePixelRatio||1,innerWidth<900?1.5:1.25); cv.width=Math.round(innerWidth*DPR); cv.height=Math.round(innerHeight*DPR); gl.viewport(0,0,cv.width,cv.height); draw(performance.now()); }
 const rad=Math.PI/180;
-function draw(){
+function draw(now){
   if(!gl) return;
-  const yaw=(S.yaw+ptr.sx*14)*rad, pitch=(S.pitch+S.wob-ptr.sy*10)*rad;
+  const yaw=(S.yaw+ptr.sx*20)*rad, pitch=(S.pitch-ptr.sy*14)*rad;
   const cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
-  const M=[cy, sy*sp, -sy*cp,  0, cp, sp,  sy, -cy*sp, cy*cp];   // view normal -> sphere frame (column-major)
+  const M=[cy, sy*sp, -sy*cp,  0, cp, sp,  sy, -cy*sp, cy*cp];
   gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
-  gl.uniform2f(U.uRes,cv.width,cv.height); gl.uniform3f(U.uC,geo.cx*DPR,geo.cy*DPR,geo.r*DPR*(1+.025*S.hov)); gl.uniformMatrix3fv(U.uM,false,M);
-  gl.uniform3fv(U.g0,palCur[0]); gl.uniform3fv(U.g1,palCur[1]); gl.uniform3fv(U.s0,palCur[2]); gl.uniform3fv(U.s1,palCur[3]);
+  gl.uniform2f(U.uRes,cv.width,cv.height); gl.uniform3f(U.uC,G.cx*DPR,G.cy*DPR,G.r*DPR); gl.uniformMatrix3fv(U.uM,false,M);
+  gl.uniform3fv(U.s0,palCur[2]); gl.uniform3fv(U.s1,palCur[3]);
+  gl.uniform1f(U.uT,((now-T0)/1000)%1000); gl.uniform1f(U.uShake,S.shake); gl.uniform1f(U.uDropY,dive.on?dive.dropY:99); gl.uniform1f(U.uRip,dive.on?dive.rip:-1); gl.uniform1f(U.uFull,dive.on&&dive.dir>0?clamp01(((now-dive.t0)-1300)/900):0);
   gl.drawArrays(gl.TRIANGLES,0,3);
 }
 
@@ -977,27 +1026,12 @@ function openTalk(){ talkOpen=true; talk.classList.add('open'); talk.setAttribut
 function closeTalk(){ if(!talkOpen) return; talkOpen=false; talk.classList.remove('open'); talk.setAttribute('aria-hidden','true'); talkBtn.focus({preventScroll:true}); }
 talkBtn.addEventListener('click',openTalk); talk.querySelector('.tclose').addEventListener('click',closeTalk); talk.querySelector('.tscrim').addEventListener('click',closeTalk);
 
-/* ---------- the module: clicking the sphere opens the whole section ---------- */
-let modOpen=false;
-function openModule(x,y){
-  if(modOpen||S.from) return; modOpen=true;
-  faces.forEach((f,k)=>{ f.classList.toggle('on',k===cur); f.inert=k!==cur; });
-  modal.style.setProperty('--m0',rgb(PAL[cur][0])); modal.style.setProperty('--m1',rgb(PAL[cur][1]));
-  modal.style.setProperty('--cx',(x??geo.cx)+'px'); modal.style.setProperty('--cy',(y??geo.cy)+'px');
-  mno.textContent=`0${cur+1} / 0${NF} · ${say(FACE_NAMES[cur])}`; mscroll.scrollTop=0;
-  modal.classList.add('anim'); requestAnimationFrame(()=>{ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); });
-  setTimeout(()=>modal.querySelector('.mclose').focus({preventScroll:true}),600);
-}
-function closeModule(){ if(!modOpen) return; modOpen=false; modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); setTimeout(()=>hit.focus({preventScroll:true}),reduce?0:600); }
-hit.addEventListener('click',e=>{ openModule(e.clientX||geo.cx,e.clientY||geo.cy); });
-modal.querySelector('.mclose').addEventListener('click',closeModule);
-
 // wheel turns the sphere to the next or previous section (inside an open module it just scrolls)
 let acc=0, lastW=0, lockUntil=0;
 addEventListener('wheel',e=>{
-  if(openIdx>=0||modOpen||talkOpen) return;
+  if(openIdx>=0||modOpen||talkOpen||dive.on) return;
   const now=performance.now(), quiet=now-lastW>220; lastW=now; if(quiet) acc=0;
-  if(now<lockUntil||S.from){ lockUntil=Math.max(lockUntil,now+180); return; }
+  if(now<lockUntil||listP!==listTo){ lockUntil=Math.max(lockUntil,now+180); return; }
   if(Math.abs(e.deltaX)>Math.abs(e.deltaY)) return;
   acc+=e.deltaY*(e.deltaMode===1?16:1);
   if(Math.abs(acc)>50){ const d=Math.sign(acc); acc=0; go(cur+d,{wrapDir:d}); lockUntil=now+700; }
@@ -1011,7 +1045,7 @@ stageEl.addEventListener('touchend',e=>{ if(sx===null) return; const dx=e.change
 addEventListener('keydown',e=>{
   if(openIdx>=0){ if(e.key==='Escape') closeCase(); return; }
   if(talkOpen){ if(e.key==='Escape') closeTalk(); return; }
-  if(modOpen){ if(e.key==='Escape') closeModule(); return; }
+  if(modOpen){ if(e.key==='Escape') closeSection(); return; }
   if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key==='PageDown'){ e.preventDefault(); go(cur+1,{wrapDir:1}); }
   if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){ e.preventDefault(); go(cur-1,{wrapDir:-1}); }
 });
@@ -1082,19 +1116,18 @@ langBtn.addEventListener('click',()=>{
   lang=lang==='en'?'es':'en'; try{ localStorage.setItem('lang',lang); }catch(e){}
   const url=new URL(location.href); url.searchParams.set('lang',lang); history.replaceState(null,'',url);
   root.classList.add('lang-fade','lang-out');
-  setTimeout(()=>{ put(); here.textContent=`0${cur+1} · ${say(FACE_NAMES[cur])}`; layout(); showActive(); if(!S.from) upload(cur);
+  setTimeout(()=>{ put(); here.textContent=`0${cur+1} · ${say(FACE_NAMES[cur])}`; layout(); showActive();
     document.querySelectorAll('.xp').forEach(d=>d.querySelector('.tog').textContent=say(d.classList.contains('open')?'Logros −':'Logros +'));
     if(openIdx>=0) renderCase(openIdx);
     root.classList.remove('lang-out'); setTimeout(()=>root.classList.remove('lang-fade'),300); },reduce?0:280);
 });
 
-/* ---------- start: the sphere spins in and stops on the first section ---------- */
+/* ---------- start ---------- */
 const start=Math.max(0,IDS.indexOf(location.hash.slice(1)));
 faces.forEach(f=>{ f.inert=true; });
 cur=start; listP=start; palCur=PAL[start].map(c=>c.slice()); paintBg(); mark(start); layout();
 root.classList.add('intro-on');
 const fontsIn=document.fonts?Promise.race([Promise.all(['500 100px Oswald','400 30px "DM Sans"','500 30px "DM Sans"'].map(f=>document.fonts.load(f))),new Promise(r=>setTimeout(r,2500))]):Promise.resolve();
-fontsIn.then(()=>{ document.querySelectorAll('.spread').forEach(s=>{s._l=null;spread(s);});
-  S.yaw=-360; go(start,{force:true,dur:reduce?0:2000,dir:1}); setTimeout(()=>root.classList.remove('intro-on'),reduce?0:600); });
+fontsIn.then(()=>{ layout(); go(start,{force:true}); spin(1800); shake(); setTimeout(()=>root.classList.remove('intro-on'),reduce?0:500); });
 })();
 </script>
