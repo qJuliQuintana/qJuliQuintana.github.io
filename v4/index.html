@@ -68,7 +68,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .orbHit{z-index:1}
 /* the titles run over the sphere, in a band that holds whole rows only */
 .tband{position:absolute;left:0;right:0;top:var(--bt,64px);height:var(--bh,780px);overflow:hidden;z-index:2;pointer-events:none}
-.tband .titles{pointer-events:none}.tband .titles button{pointer-events:auto;width:max-content;max-width:100%}
+.tband .titles{pointer-events:none;-webkit-mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),rgba(0,0,0,.1) 0,rgba(0,0,0,.1) var(--mr,300px),#000 calc(var(--mr,300px) + 3px));mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),rgba(0,0,0,.1) 0,rgba(0,0,0,.1) var(--mr,300px),#000 calc(var(--mr,300px) + 3px))}
+/* the current title stays whole on top, even where it crosses the sphere */
+.tactive{position:absolute;left:0;top:0;z-index:3;display:flex;align-items:center;gap:.12em;height:var(--trow);padding-left:var(--gut);font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:var(--tfs);line-height:1;letter-spacing:.005em;white-space:nowrap;color:var(--ink);pointer-events:none;transition:opacity .35s ease}
+.tactive i{font-family:var(--text);font-style:normal;font-size:var(--micro);font-weight:500;letter-spacing:.14em;padding-top:1.4em;width:2.6em;flex:none;align-self:flex-start}
+.tactive.off{opacity:0}
+.tactive i{visibility:hidden}.tband .titles button{pointer-events:auto;width:max-content;max-width:100%}
 .fhead.sub{padding-top:28px;border-top:1px solid var(--ink)}
 .fhead.sub h3{font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:clamp(34px,8cqw,64px);line-height:.95}
 /* hablemos: a glass card over the page */
@@ -231,7 +236,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .meta .clock{text-align:right}
 
 /* intro */
-.intro-on .titles{opacity:0}
+.intro-on .titles,.intro-on .tactive{opacity:0}
 .titles{transition:opacity 1s ease .2s}
 .intro-on .top,.intro-on .meta{opacity:0}
 .top,.meta{transition:opacity 1s ease .3s}
@@ -350,6 +355,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <canvas id="orb" aria-hidden="true"></canvas>
 <main class="stage">
   <div class="tband">
+    <div class="tactive" aria-hidden="true"><i></i><span></span></div>
   <nav class="titles" aria-label="Secciones">
     <button type="button" data-face="0"><i>01</i><span>Sobre mí</span></button>
     <button type="button" data-face="1"><i>02</i><span>Trayectoria</span></button>
@@ -816,7 +822,12 @@ function layout(){
   hit.style.cssText=`--ox:${geo.cx}px;--oy:${geo.cy}px;--od:${geo.r*2}px`;
   placeList(listP); glSize();
 }
-function placeList(p){ nav.style.transform=`translate3d(0,${(topOff-(MID*NF+p)*rowH).toFixed(2)}px,0)`; }
+const tband=document.querySelector('.tband'), tact=document.querySelector('.tactive');
+function placeList(p){ const y=topOff-(MID*NF+p)*rowH; nav.style.transform=`translate3d(0,${y.toFixed(2)}px,0)`;
+  // the sphere's circle, in the list's own coordinates: titles fade inside it
+  const bt=parseFloat(getComputedStyle(root).getPropertyValue('--bt'))||0;
+  nav.style.setProperty('--mx',geo.cx.toFixed(1)+'px'); nav.style.setProperty('--my',(geo.cy-bt-y).toFixed(1)+'px'); nav.style.setProperty('--mr',(geo.r*1.01).toFixed(1)+'px'); }
+function showActive(){ tact.querySelector('i').textContent=`0${cur+1}`; tact.querySelector('span').textContent=say(FACE_NAMES[cur]); tact.classList.remove('off'); }
 function mark(i,row){ const top=row??MID*NF+i; rows.forEach((b,k)=>{ const on=k===top; b.classList.toggle('on',on); if(on&&!b.hasAttribute('aria-hidden')) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); }); }
 const ease=t=>t<.5?8*t*t*t*t:1-Math.pow(-2*t+2,4)/2;           // slow start, fast middle, long stop
 let palCur=PAL[0].map(c=>c.slice());
@@ -828,7 +839,7 @@ function go(i,opts={}){
   const dur=reduce?0:(opts.dur||1800);
   S.from={yaw:S.yaw,pal:palCur.map(c=>c.slice())}; S.to={yaw:Math.round(S.yaw/360)*360+dir*360}; S.dir=dir; S.t0=performance.now(); S.dur=dur; S.pal=i; S.swapped=false;
   listFrom=listP; listTo=listP+steps; if(opts.force){ listFrom=listTo=listP=i; }
-  mark(i,MID*NF+Math.round(listTo));
+  mark(i,MID*NF+Math.round(listTo)); if(!opts.force&&!reduce) tact.classList.add('off'); else showActive();
   try{ history.replaceState(null,'',location.pathname+location.search+'#'+IDS[i]); }catch(e){}
   if(reduce){ upload(i); S.swapped=true; }
   kick();
@@ -844,7 +855,7 @@ function tick(now){
     if(!S.swapped&&e>=.5){ upload(S.pal); S.swapped=true; }               // the new section is printed while the front faces away
     const pc=Math.min(1,t*1.4); palCur=S.from.pal.map((c,k)=>c.map((v,j)=>v+(PAL[S.pal][k][j]-v)*ease(pc))); paintBg();
     listP=listFrom+(listTo-listFrom)*ease(Math.min(1,t*1.1)); placeList(listP);
-    if(t>=1){ S.from=null; S.wob=0; S.yaw=S.to.yaw; listP=((listTo%NF)+NF)%NF; placeList(listP); mark(cur); } else more=true; }
+    if(t>=1){ S.from=null; S.wob=0; S.yaw=S.to.yaw; listP=((listTo%NF)+NF)%NF; placeList(listP); mark(cur); showActive(); } else more=true; }
   ptr.sx+=(ptr.x-ptr.sx)*.06; ptr.sy+=(ptr.y-ptr.sy)*.06; if(Math.abs(ptr.x-ptr.sx)+Math.abs(ptr.y-ptr.sy)>.0008) more=true;
   const hv=overOrb&&!S.from?1:0; S.hov+=(hv-S.hov)*.12; if(Math.abs(hv-S.hov)>.002) more=true;
   draw(now); if(more) raf=requestAnimationFrame(tick);
@@ -1071,7 +1082,7 @@ langBtn.addEventListener('click',()=>{
   lang=lang==='en'?'es':'en'; try{ localStorage.setItem('lang',lang); }catch(e){}
   const url=new URL(location.href); url.searchParams.set('lang',lang); history.replaceState(null,'',url);
   root.classList.add('lang-fade','lang-out');
-  setTimeout(()=>{ put(); here.textContent=`0${cur+1} · ${say(FACE_NAMES[cur])}`; layout(); if(!S.from) upload(cur);
+  setTimeout(()=>{ put(); here.textContent=`0${cur+1} · ${say(FACE_NAMES[cur])}`; layout(); showActive(); if(!S.from) upload(cur);
     document.querySelectorAll('.xp').forEach(d=>d.querySelector('.tog').textContent=say(d.classList.contains('open')?'Logros −':'Logros +'));
     if(openIdx>=0) renderCase(openIdx);
     root.classList.remove('lang-out'); setTimeout(()=>root.classList.remove('lang-fade'),300); },reduce?0:280);
