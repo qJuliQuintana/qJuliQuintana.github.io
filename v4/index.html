@@ -47,11 +47,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 @keyframes look{0%,8%{transform:none}22%,36%{transform:translateX(24px)}50%,64%{transform:translateX(-24px)}76%,100%{transform:none}}
 @keyframes blink{0%,80%{transform:none}86%{transform:scaleY(.06)}92%,100%{transform:none}}
 .logo b+span{margin-left:-.28em}.logo b{font-weight:700}.logo span{font-weight:300;color:#5B2FC9}
-.logo,.tr,.meta>span,.talkBtn,.here:not(:empty){background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:999px;box-shadow:0 6px 20px -10px rgba(23,18,29,.35)}
-.logo{padding:7px 16px 7px 12px}.tr{padding:4px 18px}.meta>span{padding:6px 14px}.talkBtn{padding:10px 18px;pointer-events:auto;font-size:12px;transition:transform .3s,background .3s}.talkBtn:hover{transform:translateY(-2px);background:#fff}.here:not(:empty){padding:8px 16px}
+.glass,.here:not(:empty){background:linear-gradient(135deg,rgba(255,255,255,.42),rgba(255,255,255,.16));-webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6);border:1px solid rgba(255,255,255,.6);border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 10px 28px -14px rgba(40,20,80,.45)}
+.tr .glass{display:inline-flex;align-items:center;min-height:38px;padding:0 16px;color:var(--ink);transition:transform .3s,background .3s}.tr .glass:hover,.talkBtn:hover{transform:translateY(-2px);background:rgba(255,255,255,.55)}.talkBtn{padding:12px 22px;pointer-events:auto;font-size:12px;transition:transform .3s,background .3s}.here:not(:empty){padding:8px 16px}
 .here{color:var(--ink);transition:opacity .3s,transform .3s}
 .here.swap{opacity:0;transform:translateY(-6px)}
-.tr{justify-self:end;display:flex;gap:20px;align-items:center}
+.tr{justify-self:end;display:flex;gap:10px;align-items:center}
 .tr a{color:var(--ash)}.tr a:hover{color:var(--ink)}
 .lang{display:inline-flex;align-items:center;gap:.5em;min-height:32px}
 .lang span{color:var(--ash);transition:color .3s}
@@ -69,7 +69,6 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* the titles run over the sphere, in a band that holds whole rows only */
 .tband{position:absolute;left:0;right:0;top:var(--bt,64px);height:var(--bh,780px);overflow:hidden;z-index:2;pointer-events:none}
 .tband .titles{pointer-events:none}
-.tband.dark{-webkit-mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),transparent 0,transparent var(--mr,300px),#000 calc(var(--mr,300px) + 1px));mask-image:radial-gradient(circle at var(--mx,70%) var(--my,50%),transparent 0,transparent var(--mr,300px),#000 calc(var(--mr,300px) + 1px))}
 /* over the sphere the titles turn light, with a stronger outline, so they always read on the dark pigment */
 .tband.light{z-index:3;pointer-events:none}
 .tband.light .titles button{pointer-events:none;-webkit-text-stroke:1.6px rgba(255,255,255,.92)}
@@ -90,10 +89,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .talk.open{visibility:visible;transition:none}
 .tscrim{position:absolute;inset:0;background:rgba(23,18,29,.12);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity .45s}
 .talk.open .tscrim{opacity:1}
-.tcard{position:relative;width:min(600px,100%);max-height:calc(100svh - 32px);overflow-y:auto;display:grid;gap:22px;padding:clamp(24px,5vw,44px);border-radius:32px;container-type:inline-size;
-  background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.28));-webkit-backdrop-filter:blur(28px) saturate(1.5);backdrop-filter:blur(28px) saturate(1.5);
+.talk{justify-items:end;align-items:end;padding:16px 16px 76px}
+.tcard{position:relative;width:min(560px,100%);max-height:calc(100svh - 92px);overflow-y:auto;display:grid;gap:22px;padding:clamp(24px,5vw,44px);border-radius:32px;container-type:inline-size;
+  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,.6));-webkit-backdrop-filter:blur(28px) saturate(1.5);backdrop-filter:blur(28px) saturate(1.5);
   border:1px solid rgba(255,255,255,.7);box-shadow:0 40px 100px -30px rgba(23,18,29,.45),inset 0 1px 0 rgba(255,255,255,.8);
-  opacity:0;transform:translateY(24px) scale(.96);transform-origin:0 100%;transition:opacity .4s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+  opacity:0;transform:translateY(24px) scale(.96);transform-origin:100% 100%;transition:opacity .4s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
 .talk.open .tcard{opacity:1;transform:none}
 .tcard .links li{border-color:rgba(23,18,29,.14)}
 .tclose{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.7);display:grid;place-items:center;font-size:14px}
@@ -113,11 +113,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .module.open{visibility:visible;opacity:1;transition:opacity .7s ease,visibility 0s}
 .module .face.on .fbody{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
 @keyframes rise{from{transform:translateY(40px);opacity:0}}
-.module .mno{background:rgba(255,255,255,.86);border-radius:999px;padding:8px 16px}
+.module .mno{background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:8px 16px}
 .mscroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:76px 16px 48px}
 .face{display:none;container-type:inline-size;max-width:880px;margin:0 auto}
 .face.on{display:block}
-.fbody{display:grid;align-content:start;gap:clamp(22px,4cqw,34px);padding:clamp(24px,6cqw,56px);border-radius:32px;background:rgba(251,249,247,.86);box-shadow:0 30px 80px -40px rgba(23,18,29,.45)}
+.fbody{display:grid;align-content:start;gap:clamp(22px,4cqw,34px);padding:clamp(24px,6cqw,56px);border-radius:32px;background:rgba(251,249,247,.97);box-shadow:0 30px 80px -40px rgba(23,18,29,.45)}
 .fhead{display:grid;gap:10px}
 .fhead .eyebrow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;color:var(--ash)}
 .fhead .eyebrow span:first-child{white-space:nowrap}
@@ -244,7 +244,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* bottom line */
 .meta{position:fixed;left:0;right:0;bottom:0;z-index:5;align-items:end;display:flex;justify-content:space-between;gap:16px;padding:0 var(--gutR) max(16px,env(safe-area-inset-bottom,0px)) var(--gut);color:var(--ash);pointer-events:none}
-.meta .clock{text-align:right}
+.meta .clock{color:var(--ash)}
 
 /* intro */
 .intro-on .titles,.intro-on .tactive{opacity:0}
@@ -329,7 +329,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .meta{padding-bottom:max(10px,env(safe-area-inset-bottom,0px))}
   .meta .clock{display:none}
   .meta>span{white-space:nowrap}
-  .meta{justify-content:center}
+  .meta{justify-content:flex-end}
     .xp .sum{grid-template-columns:78px minmax(0,1fr)}
   .xp .tog{grid-column:2}
   .row{grid-template-columns:78px minmax(0,1fr)}
@@ -360,7 +360,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <header class="top">
   <button class="logo" type="button" data-face="0" aria-label="ux.juli, inicio"><svg class="mark" viewBox="16 64 352 336" aria-hidden="true"><mask id="mink"><rect x="0" y="0" width="400" height="400" fill="#fff"/><circle cx="312" cy="116" r="62" fill="#000"/><g class="eye"><path d="M150,214 Q200,175 250,214 Q200,253 150,214 Z" fill="#000"/><circle class="pupil" cx="200" cy="214" r="17" fill="#fff"/></g></mask><g fill="currentColor"><path mask="url(#mink)" d="M200,318 C268,318 326,280 326,214 C326,150 272,104 202,104 C140,104 100,146 104,200 C72,210 58,240 66,268 C74,298 100,318 132,318 Z"/><circle cx="322" cy="104" r="17"/><circle cx="72" cy="344" r="16"/><circle cx="42" cy="372" r="9"/></g></svg><b>ux</b><span>.juli</span></button>
   <span class="here micro" aria-live="polite"></span>
-  <div class="tr micro"><button class="lang" type="button"><span lang="es">ES</span><i aria-hidden="true">/</i><span lang="en">EN</span></button><a class="cv" href="../JulianaQuintanaCV.pdf" target="_blank" rel="noopener">Descargar CV ↓</a></div>
+  <div class="tr micro"><button class="lang glass" type="button"><span lang="es">ES</span><i aria-hidden="true">/</i><span lang="en">EN</span></button><a class="cv glass" href="../JulianaQuintanaCV.pdf" target="_blank" rel="noopener">Descargar CV ↓</a></div>
 </header>
 
 <canvas id="orb" aria-hidden="true"></canvas>
@@ -422,10 +422,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div>
       <p class="fixHead micro"><span>El problema</span><span>Cómo lo resuelvo</span><span>Dónde lo hice</span></p>
       <ul class="fix">
-        <li style="--i:0"><span class="p">Usuarios que se pierden o abandonan a la mitad de un proceso.</span><span class="s">Flujos más cortos y claros, revisados paso a paso con quien usa la herramienta.</span><button class="c micro" type="button" data-to="jg">JG Signs →</button></li>
-        <li style="--i:1"><span class="p">Cada pantalla se ve distinta y se aprende desde cero.</span><span class="s">Un design system documentado: las mismas reglas para diseño y desarrollo.</span><button class="c micro" type="button" data-to="jg">JG Signs →</button></li>
-        <li style="--i:2"><span class="p">Todos ven lo mismo, aunque cada rol necesita algo distinto.</span><span class="s">Arquitectura de información y navegación segmentada por tipo de usuario.</span><button class="c micro" type="button" data-to="jg">JG Signs →</button></li>
-        <li style="--i:3"><span class="p">Funciona en el computador, pero no en el celular.</span><span class="s">Componentes pensados para mobile, tablet y desktop desde el inicio.</span><button class="c micro" type="button" data-to="jg">JG Signs →</button></li>
+        <li style="--i:0"><span class="p">Usuarios que se pierden o abandonan a la mitad de un proceso.</span><span class="s">Flujos más cortos y claros, revisados paso a paso con quien usa la herramienta.</span><button class="c micro" type="button" data-to="jg">GJ Signs →</button></li>
+        <li style="--i:1"><span class="p">Cada pantalla se ve distinta y se aprende desde cero.</span><span class="s">Un design system documentado: las mismas reglas para diseño y desarrollo.</span><button class="c micro" type="button" data-to="jg">GJ Signs →</button></li>
+        <li style="--i:2"><span class="p">Todos ven lo mismo, aunque cada rol necesita algo distinto.</span><span class="s">Arquitectura de información y navegación segmentada por tipo de usuario.</span><button class="c micro" type="button" data-to="jg">GJ Signs →</button></li>
+        <li style="--i:3"><span class="p">Funciona en el computador, pero no en el celular.</span><span class="s">Componentes pensados para mobile, tablet y desktop desde el inicio.</span><button class="c micro" type="button" data-to="jg">GJ Signs →</button></li>
         <li style="--i:4"><span class="p">Desarrollo rehace pantallas porque el diseño no era claro.</span><span class="s">Prototipos en alta fidelidad y acompañamiento durante la implementación.</span><span class="c"></span></li>
         <li style="--i:5"><span class="p">Procesos administrativos que nadie quiere hacer.</span><span class="s">Pasos simplificados en una interfaz clara, accesible e intuitiva.</span><button class="c micro" type="button" data-to="jausme">Jausme →</button></li>
       </ul>
@@ -439,7 +439,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="path">
       <div class="col exp"><h3 class="micro">Experiencia</h3>
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>Oct 2026</time><div><b>Jersson Dev</b><span class="small">Diseño de producto y dirección creativa · Remoto, Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><p class="xdesc">Proyecto freelance y remoto para Jersson Morales, ingeniero de software full-stack. Lideré su página web profesional de principio a fin: dirección creativa, diseño de producto, UX y UI, hasta la versión publicada. La implementación en código se hizo con Claude a partir de mis diseños.</p><ul class="ach"><li>Convertí su perfil en un concepto visual propio: un átomo en el que la navegación forma parte de la animación.</li><li>Definí la arquitectura de información y la jerarquía de contenido para reclutadores, líderes técnicos y clientes.</li><li>Diseñé la experiencia responsive para escritorio y móvil, con criterios de accesibilidad y heurísticas de usabilidad.</li><li>Validé la propuesta con el cliente y con cuatro usuarios, que completaron las tareas principales sin inconvenientes.</li></ul></div></div></div>
-        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2024 — 2026</time><div><b>JG Signs</b><span class="small">Product designer · UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Audité el sistema anterior y reorganicé su arquitectura de 11 a 13 módulos, con sus flujos y subflujos.</li><li>Rediseñé seis flujos completos (estimados, servicios, proyectos, inventario, vehículos y finanzas) partiendo del rol administrador, con diseño responsive para desktop, tablet y mobile.</li><li>Simplifiqué las fases de un proyecto de siete a cuatro, validando cada flujo con el cliente en prototipos de Figma.</li><li>Construí un design system de más de 100 componentes con Atomic Design, tokens y variables, compartido con desarrollo.</li><li>Definí los estados de cada registro y mensajes del sistema que explican qué pasó y qué hacer.</li><li>Diseñé nuevas funcionalidades: tablero de tareas, chat por proyecto y gestión de fases y documentos.</li></ul></div></div></div>
+        <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2024 — 2026</time><div><b>GJ Signs</b><span class="small">Product designer · UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Audité el sistema anterior y reorganicé su arquitectura de 11 a 13 módulos, con sus flujos y subflujos.</li><li>Rediseñé seis flujos completos (estimados, servicios, proyectos, inventario, vehículos y finanzas) partiendo del rol administrador, con diseño responsive para desktop, tablet y mobile.</li><li>Simplifiqué las fases de un proyecto de siete a cuatro, validando cada flujo con el cliente en prototipos de Figma.</li><li>Construí un design system de más de 100 componentes con Atomic Design, tokens y variables, compartido con desarrollo.</li><li>Definí los estados de cada registro y mensajes del sistema que explican qué pasó y qué hacer.</li><li>Diseñé nuevas funcionalidades: tablero de tareas, chat por proyecto y gestión de fases y documentos.</li></ul></div></div></div>
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2023 — 2024</time><div><b>Jausme</b><span class="small">Diseñadora UX/UI · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Definí la experiencia web y móvil de una aplicación para administrar conjuntos residenciales.</li><li>Definí y prototipé experiencias diferenciadas para residentes, administradores y guardas de seguridad.</li><li>Diseñé los flujos de comunicación, reservas, visitantes y parqueaderos.</li><li>Identifiqué las fricciones principales (comunicación, pagos y visitas) y las resolví en el diseño.</li><li>Diseñé la experiencia multiplataforma (web y móvil) con consistencia entre dispositivos.</li></ul></div></div></div>
         <div class="row xp"><button class="sum" type="button" aria-expanded="false"><time>2022 — 2023</time><div><b>Leo Burnett</b><span class="small">Diseñadora web · Bogotá</span></div><span class="tog micro" aria-hidden="true">Logros +</span></button><div class="more"><div class="in"><ul class="ach"><li>Prototipé y optimicé interfaces en alta fidelidad con principios de diseño centrado en el usuario.</li><li>Mejoré la arquitectura de la información con flujos y jerarquías claras para la navegación.</li><li>Colaboré con desarrollo para asegurar la correcta implementación en el producto final.</li><li>Diseñé piezas digitales: redes sociales, PDFs, infografías, presentaciones y correos HTML.</li></ul></div></div></div>
       </div>
@@ -488,7 +488,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   </div>
 </div>
 
-<footer class="meta micro"><button class="talkBtn" type="button" aria-haspopup="dialog"><span class="live">Hablemos</span></button><span class="clock"></span></footer>
+<footer class="meta micro"><span class="clock"></span><button class="talkBtn glass" type="button" aria-haspopup="dialog"><span class="live">Hablemos</span></button></footer>
 
 <div class="viewer" role="dialog" aria-modal="true" aria-label="Caso" aria-hidden="true">
   <div class="vbar micro"><span class="vno"></span><button class="vclose" type="button">Cerrar ✕</button></div>
@@ -593,7 +593,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
          <dl><dt>Rol</dt><dd>Product designer · UX/UI</dd><dt>Cliente</dt><dd>Empresa de señalización comercial en Los Ángeles, EE. UU.</dd><dt>Usuarios</dt><dd>Siete roles internos: administradores, managers, técnicos, diseñadores y más</dd><dt>Plataformas</dt><dd>Responsive: desktop, tablet y mobile</dd><dt>Herramientas</dt><dd>Figma, FigJam, Claude AI</dd><dt>Estado</dt><dd>Finalizado en 2026, diseño parcial</dd></dl>
        </div>
        <div class="body">
-         <div class="blk"><span class="micro kicker">Contexto</span><p>JG Signs es una empresa de señalización comercial en Los Ángeles. Atiende a empresas, instituciones educativas y marcas, y gestiona el ciclo completo de cada encargo: cotización, diagnóstico técnico, trámite de permisos, fabricación e instalación. El Capitan es su aplicativo interno: centraliza la operación de estimados, servicios y proyectos.</p></div>
+         <div class="blk"><span class="micro kicker">Contexto</span><p>GJ Signs es una empresa de señalización comercial en Los Ángeles. Atiende a empresas, instituciones educativas y marcas, y gestiona el ciclo completo de cada encargo: cotización, diagnóstico técnico, trámite de permisos, fabricación e instalación. El Capitan es su aplicativo interno: centraliza la operación de estimados, servicios y proyectos.</p></div>
          <div class="blk"><span class="micro kicker">El reto</span><p class="reto">El sistema anterior cubría la operación básica, pero no respondía a los procesos reales de la empresa. No contemplaba todos los roles, no tenía estados ni fases, y buena parte de la coordinación ocurría fuera de la plataforma, en mensajes de texto y herramientas externas. El objetivo era reestructurar el producto para que la información fuera trazable, comprensible y útil para cada rol.</p></div>
          <div class="blk"><span class="micro kicker">Metodología</span><p>Trabajé directamente con el CEO, que aprobaba las decisiones de producto y actuaba como usuario de referencia: operaba el sistema a diario y conocía las tareas de todos los roles. Organizamos el trabajo en ciclos semanales de revisión, en los que presentaba cada pantalla, explicaba su comportamiento e iterábamos sobre los puntos que generaban dudas.</p><p>Las sesiones quedaban grabadas y transcritas. Las analizaba para identificar puntos de dolor, priorizar requerimientos y anticipar cambios de alcance.</p></div>
          <div class="blk"><span class="micro kicker">Diagnóstico del sistema anterior</span><ul class="did">
@@ -776,7 +776,7 @@ const PROJ=[
   {id:'jdev',name:'Jersson Dev',pc:'#4B8DF8',bg:'#DCE5F5',year:'2026',sub:'Página web profesional · freelance',type:'Página web con escena 3D interactiva',role:'Diseño de producto y dirección creativa',client:'Jersson Morales',
    desc:'Página web profesional para un ingeniero de software: una escena interactiva con un átomo propio, en la que la navegación forma parte de la animación.',
    main:'jdev/inicio.jpg',side:['jdev/movil.jpg'],sideCls:'',right:'jdev/sobre-mi.jpg'},
-  {id:'jg',name:'El Capitan',pc:'#2C4257',pc2:'#FFFFFF',bg:'#DAE1E8',year:'2024 — 2026',sub:'Plataforma de gestión de servicios',type:'Aplicativo interno y design system',role:'Product designer · UX/UI',client:'JG Signs',
+  {id:'jg',name:'El Capitan',pc:'#2C4257',pc2:'#FFFFFF',bg:'#DAE1E8',year:'2024 — 2026',sub:'Plataforma de gestión de servicios',type:'Aplicativo interno y design system',role:'Product designer · UX/UI',client:'GJ Signs',
    desc:'Reestructuración del aplicativo interno de una empresa de señalización comercial: de registros sin trazabilidad y coordinación por mensajes a 13 módulos, un modelo de estados y un design system de más de 100 componentes.',
    main:'jg/estimateshome.jpg',side:['jg/project.jpg','jg/modal.jpg'],sideCls:'stack',right:'jg/newproject.jpg'},
   {id:'jausme',name:'Jausme',pc:'#7C45F0',bg:'#E5DDF5',year:'2026',sub:'Producto nuevo · diseño desde cero',type:'App responsive · móvil, tablet y escritorio',role:'Diseñadora UX/UI y de producto',client:'Proyecto personal · Jausme',
@@ -800,9 +800,9 @@ adopt(document.body); put();
 const FACE_NAMES=['Sobre mí','Trayectoria','Proyectos'], IDS=['sobre','trayectoria','proyectos'], NF=3;
 // per section: background gradient (two colours) and the two pigments moving inside the sphere. Purple, blue and their complements.
 const PAL=[
-  ['#CBB8FF','#A8C2FF','#6A3FE0','#2D6BFF'],
-  ['#A8C2FF','#FFD2A6','#2D6BFF','#FF8A3D'],
-  ['#E6F0A6','#CCB4FF','#B9D42C','#6A3FE0']].map(r=>r.map(h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255)));
+  ['#EEE8FB','#BBA6EE','#000000','#000000'],
+  ['#E9E6FA','#AFA6EA','#000000','#000000'],
+  ['#F1E8F8','#C2A5E6','#000000','#000000']].map(r=>r.map(h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255)));
 const rgb=c=>'rgb('+c.map(v=>Math.round(v*255)).join(',')+')';
 const stageEl=document.querySelector('.stage'), hit=document.querySelector('.orbHit'), modal=document.querySelector('.module'), mscroll=modal.querySelector('.mscroll'), mno=modal.querySelector('.mno');
 const faces=[...modal.querySelectorAll('.face')];
@@ -839,10 +839,16 @@ function layout(){
   hit.style.cssText=`--ox:${geo.cx}px;--oy:${geo.cy}px;--od:${geo.r*2.1}px`;
   placeList(listP); glSize();
 }
+// the sphere's outline: a few slow harmonics (the same numbers go to the shader, so the titles switch exactly at its edge)
+const HB=[.018,.012,.008,.005,.003], HV=new Float32Array(10), SHK=[0,0,0];
+function harmonics(t){
+  for(let j=0;j<5;j++){ HV[j*2]=HB[j]*(.55+.45*Math.sin(t*(.21+.07*j)+j)); HV[j*2+1]=t*(.12+.05*j)*(j%2?-1:1)+1.3*Math.sin(t*(.09+.03*j)+j*2); }
+  SHK[0]=.045*S.shake; SHK[1]=t*4.2; SHK[2]=t*2.9; }
+function edgeAt(a){ let e=1; for(let j=0;j<5;j++) e+=HV[j*2]*Math.sin((j+2)*a+HV[j*2+1]); return e+SHK[0]*(.7*Math.sin(3*a+SHK[1])+.3*Math.sin(5*a-SHK[2])); }
 function circle(){ // where the sphere is, for the two title layers
-  const my=(G.cy-bandTop).toFixed(1), r=(G.r*.94).toFixed(1);
-  tband.style.setProperty('--mx',G.cx.toFixed(1)+'px'); tband.style.setProperty('--my',my+'px'); tband.style.setProperty('--mr',r+'px');
-  tbandL.style.clipPath=`circle(${r}px at ${G.cx.toFixed(1)}px ${my}px)`; }
+  const W=innerWidth, H=tband.clientHeight||innerHeight, oy=G.cy-bandTop; let d='';
+  for(let k=0;k<=96;k++){ const a=k/96*Math.PI*2, r=G.r*edgeAt(a)*.99; d+=(k?'L':'M')+(G.cx+r*Math.cos(a)).toFixed(1)+' '+(oy+r*Math.sin(a)).toFixed(1); }
+  d+='Z'; tbandL.style.clipPath=`path('${d}')`; tband.style.clipPath=`path(evenodd,'M-20 -20H${W+20}V${H+20}H-20Z${d}')`; }
 function placeList(p){ const tr=`translate3d(0,${(topOff-(MID*NF+p)*rowH).toFixed(2)}px,0)`; nav.style.transform=tr; navL.style.transform=tr; }
 function showActive(){ tacts.forEach(t=>{ t.querySelector('i').textContent=`0${cur+1}`; t.querySelector('span').textContent=say(FACE_NAMES[cur]); t.classList.remove('off'); }); }
 function mark(i,row){ const top=row??MID*NF+i; rows.forEach((b,k)=>{ const on=k===top; b.classList.toggle('on',on); rowsL[k].classList.toggle('on',on); if(on&&!b.hasAttribute('aria-hidden')) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); }); }
@@ -877,7 +883,8 @@ function tick(now){
   if(palFrom){ const t=reduce?1:Math.min(1,(now-palT0)/1100); palCur=palFrom.map((c,k)=>c.map((v,j)=>v+(PAL[palTo][k][j]-v)*ease(t))); paintBg(); if(t>=1) palFrom=null; }
   if(listFrom!==listTo||listP!==listTo){ const t=reduce?1:Math.min(1,(now-listT0)/1100); listP=listFrom+(listTo-listFrom)*ease(t); placeList(listP);
     if(t>=1){ listP=listTo=listFrom=((listTo%NF)+NF)%NF; placeList(listP); mark(cur); showActive(); } }
-  S.shake*=Math.pow(.92,Math.min(4,(now-(tick.l||now))/16.7)); if(S.shake<.004) S.shake=0; tick.l=now;
+  S.shake*=Math.pow(.978,Math.min(4,(now-(tick.l||now))/16.7)); if(S.shake<.004) S.shake=0; tick.l=now;
+  harmonics((now-T0)/1000);
   ptr.sx+=(ptr.x-ptr.sx)*.05; ptr.sy+=(ptr.y-ptr.sy)*.05;
   diveStep(now);
   // the liquid keeps moving; while a section is open behind its content it moves slower and draws less often
@@ -944,7 +951,7 @@ try{ gl=cv.getContext('webgl',{antialias:false,alpha:true,premultipliedAlpha:tru
 if(gl){
   const vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
   const fs=`precision highp float;
-uniform vec2 uRes;uniform vec3 uC;uniform mat3 uM;uniform vec3 s0,s1;uniform float uT,uShake,uDropY,uRip,uFull;
+uniform vec2 uRes;uniform vec3 uC;uniform mat3 uM;uniform vec3 s0,s1;uniform float uT,uDropY,uRip,uFull;uniform vec2 uH[5];uniform vec3 uShk;
 float h(vec3 p){p=fract(p*.3183099+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
 float n3(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);
   return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),
@@ -960,14 +967,15 @@ void main(){
   outc=vec4(vec3(.06,.04,.1)*sh,sh);
   if(L>1.6&&uDropY>50.) { gl_FragColor=outc; return; }
   // the edge breathes irregularly, shivers when touched and carries the ripples after the drop
-  float edge=1.+.05*(fbm(vec3(cos(a)*1.4,sin(a)*1.4,t*.22))-.5)
-    +uShake*.05*sin(a*7.+t*42.)*sin(t*27.+a*3.);
+  float edge=1.;
+  for(int j=0;j<5;j++) edge+=uH[j].x*sin(float(j+2)*a+uH[j].y);
+  edge+=uShk.x*(.7*sin(3.*a+uShk.y)+.3*sin(5.*a-uShk.z));
   if(uRip>=0.) edge+=.035*sin(a*5.+uRip*9.)*exp(-uRip*1.6);
   float d=L-edge;
   // a few drops leave the surface now and then and fall back in
   for(int k=0;k<5;k++){ float fk=float(k);
     float ph=t*(.28+.07*fk)+fk*2.3; float ang=fk*1.256+.5*sin(t*.13+fk*1.7);
-    float o=pow(max(0.,sin(ph)),8.)*(.16+.05*fk/4.)+uShake*.06;
+    float o=pow(max(0.,sin(ph)),8.)*(.16+.05*fk/4.)+uShk.x*.8;
     vec2 c=vec2(cos(ang),sin(ang))*(1.+o); float rr=.045+.015*sin(fk*3.1);
     d=smin(d,length(q-c)-rr*(1.-o*1.6),.08); }
   // the falling drop
@@ -982,16 +990,13 @@ void main(){
     vec3 p=uM*vec3(q.x,-q.y,z)*1.5;
     float w1=fbm(p+vec3(0.,0.,t*.11)), w2=fbm(p+vec3(5.2,1.3,-t*.09));
     float v=fbm(p*1.25+2.4*vec3(w1,w2,w1*w2)+vec3(0.,t*.05,0.));
-    vec3 deep=vec3(.045,.03,.085);
-    vec3 col=mix(deep,s0*.6,smoothstep(.38,.72,v));
-    col=mix(col,s1*.95,smoothstep(.5,.78,w2*v*1.7));
-    col=mix(col,deep,smoothstep(.42,.22,v)*.7);
-    col+=s0*.25*pow(smoothstep(.62,.9,v),2.);
+    // pure black pigment: the flow only shows as a faint sheen, the volume comes from the light
+    vec3 col=vec3(.006,.006,.008)+vec3(.03)*smoothstep(.45,.8,v)+vec3(.018)*smoothstep(.55,.85,w2*v*1.7);
     vec3 Ld=normalize(vec3(-.5,.62,.62));
     float dif=clamp(dot(n,Ld),0.,1.);
     float spec=pow(clamp(dot(reflect(-Ld,n),vec3(0.,0.,1.)),0.,1.),60.);
     float fres=pow(1.-clamp(n.z,0.,1.),2.2);
-    col*=.72+.5*dif; col+=spec*.7*(1.-uFull*.7)+fres*mix(s1,vec3(1.),.3)*.3+rip*.06;
+    col+=vec3(.05)*dif*dif+spec*.75*(1.-uFull*.7)+fres*vec3(.2,.2,.22)+rip*.07;
     float al=smoothstep(px,-px,d);
     outc=mix(outc,vec4(col,1.),al);
   }
@@ -1001,7 +1006,7 @@ void main(){
   try{ prog=gl.createProgram(); gl.attachShader(prog,shd(gl.VERTEX_SHADER,vs)); gl.attachShader(prog,shd(gl.FRAGMENT_SHADER,fs)); gl.linkProgram(prog); gl.useProgram(prog);
     const b=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
     const a=gl.getAttribLocation(prog,'p'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
-    ['uRes','uC','uM','s0','s1','uT','uShake','uDropY','uRip','uFull'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
+    ['uRes','uC','uM','s0','s1','uT','uH','uShk','uDropY','uRip','uFull'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
   }catch(err){ console.warn(err); gl=null; }
 }
 if(!gl) root.classList.add('no-gl');
@@ -1016,7 +1021,7 @@ function draw(now){
   gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
   gl.uniform2f(U.uRes,cv.width,cv.height); gl.uniform3f(U.uC,G.cx*DPR,G.cy*DPR,G.r*DPR); gl.uniformMatrix3fv(U.uM,false,M);
   gl.uniform3fv(U.s0,palCur[2]); gl.uniform3fv(U.s1,palCur[3]);
-  gl.uniform1f(U.uT,((now-T0)/1000)%1000); gl.uniform1f(U.uShake,S.shake); gl.uniform1f(U.uDropY,dive.on?dive.dropY:99); gl.uniform1f(U.uRip,dive.on?dive.rip:-1); gl.uniform1f(U.uFull,dive.on&&dive.dir>0?clamp01(((now-dive.t0)-1300)/900):0);
+  gl.uniform1f(U.uT,((now-T0)/1000)%1000); gl.uniform2fv(U.uH,HV); gl.uniform3f(U.uShk,SHK[0],SHK[1],SHK[2]); gl.uniform1f(U.uDropY,dive.on?dive.dropY:99); gl.uniform1f(U.uRip,dive.on?dive.rip:-1); gl.uniform1f(U.uFull,dive.on&&dive.dir>0?clamp01(((now-dive.t0)-1300)/900):0);
   gl.drawArrays(gl.TRIANGLES,0,3);
 }
 

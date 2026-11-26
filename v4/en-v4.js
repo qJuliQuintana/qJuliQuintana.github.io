@@ -11,5 +11,6 @@ Object.assign(window.REM_EN=window.REM_EN||{},{
   "Abrir": "Open",
   "03 · Proyectos": "03 · Projects",
   "Abrir sección": "Open section",
-  "Sección": "Section"
+  "Sección": "Section",
+  "GJ Signs es una empresa de señalización comercial en Los Ángeles. Atiende a empresas, instituciones educativas y marcas, y gestiona el ciclo completo de cada encargo: cotización, diagnóstico técnico, trámite de permisos, fabricación e instalación. El Capitan es su aplicativo interno: centraliza la operación de estimados, servicios y proyectos.": "GJ Signs is a commercial signage company in Los Angeles. It serves businesses, schools and brands, and manages the full cycle of every job: quoting, technical survey, permitting, fabrication and installation. El Capitan is its internal app: it centralizes the operation of estimates, services and projects."
 });
